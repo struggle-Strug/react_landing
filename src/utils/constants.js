@@ -1,7 +1,7 @@
 export const BACKEND_URL =
     // '__env__' in window ? window.__env__.BACKEND_URL : 'https://heartbeatdraft5-production.up.railway.app/';
     //'__env__' in window ? window.__env__.BACKEND_URL : 'https://heartbeatdraft6auth-production.up.railway.app/';
-    '__env__' in window ? window.__env__.BACKEND_URL : 'https://heartbeatdraft8backend-production.up.railway.app/';
+    '__env__' in window ? window.__env__.BACKEND_URL : 'https://heartbeat.cuoremo.co.jp/';
 
 export const LOGIN_ENDPOINT = BACKEND_URL + 'api/auth/jwt/create/'
 
