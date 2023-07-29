@@ -1,5 +1,3 @@
-# Production YAML
-
 name: Deploy to Amazon S3
 
 on:
@@ -24,13 +22,25 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_PRODUCTION }} > .env.production.local
+        echo "REACT_APP_BACKEND_URL=https://main-backend.reservele.com/" >> $GITHUB_ENV  # change this to your main backend URL
+
+    - name: Check environment variable after setup
+      run: |
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
 
     - name: Install dependencies and build
       run: |
         npm ci
+        echo "=== BEFORE BUILD ==="
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
+        echo "=== END BEFORE BUILD ==="
+        export NODE_ENV=production
         npm run build
+
+    - name: Check environment variable after build
+      run: |
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
 
     - name: Deploy to S3
       run: |
-        aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME_PRODUCTION }}/ --delete
+        aws s3 sync build/ s3://${{ secrets.heartbeat.cuoremo.co.jp }}/ --delete
