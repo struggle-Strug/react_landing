@@ -22,12 +22,12 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_STAGING }} > .env.staging
+        echo REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_STAGING }} > .env.production.local
 
     - name: Install dependencies and build
       run: |
         npm ci
-        npm run build -- --env .env.staging
+        npm run build
 
     - name: Deploy to S3
       run: |
