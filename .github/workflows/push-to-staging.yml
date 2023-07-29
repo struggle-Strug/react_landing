@@ -1,3 +1,5 @@
+# Staging YAML
+
 name: Deploy to Amazon S3
 
 on:
@@ -31,4 +33,4 @@ jobs:
 
     - name: Deploy to S3
       run: |
-        aws s3 sync dist/ s3://staging-frontend.reservele.com/ --delete
+        aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME_STAGING }}/ --delete
