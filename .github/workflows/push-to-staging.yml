@@ -24,25 +24,24 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo "REACT_APP_BACKEND_URL=https://staging-backend.reservele.com/" > .env.production.local
+        echo "REACT_APP_BACKEND_URL=https://staging-backend.reservele.com/" >> $GITHUB_ENV
 
-    - name: Check environment variable in .env.production.local after setup
+    - name: Check environment variable after setup
       run: |
-        cat .env.production.local
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
 
     - name: Install dependencies and build
       run: |
         npm ci
         echo "=== BEFORE BUILD ==="
-        cat .env.production.local
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
         echo "=== END BEFORE BUILD ==="
-        echo "REACT_APP_BACKEND_URL is $REACT_APP_BACKEND_URL" # This line has been added
         export NODE_ENV=production
         npm run build
 
-    - name: Check environment variable in .env.production.local after build
+    - name: Check environment variable after build
       run: |
-        cat .env.production.local
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
 
     - name: Deploy to S3
       run: |
