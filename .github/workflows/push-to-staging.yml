@@ -1,4 +1,5 @@
 # Staging YAML2#
+
 name: Deploy to Amazon S3
 
 on:
@@ -35,6 +36,7 @@ jobs:
         echo "=== BEFORE BUILD ==="
         cat .env.production.local
         echo "=== END BEFORE BUILD ==="
+        echo "REACT_APP_BACKEND_URL is $REACT_APP_BACKEND_URL" # This line has been added
         export NODE_ENV=production
         npm run build
 
