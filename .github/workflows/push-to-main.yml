@@ -3,7 +3,7 @@ name: Deploy to Amazon S3
 on:
   push:
     branches:
-      - staging
+      - main
 
 jobs:
   deploy:
@@ -22,13 +22,13 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_STAGING }} > .env.staging
+        echo REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_PROD }} > .env.production
 
     - name: Install dependencies and build
       run: |
         npm ci
-        npm run build -- --env .env.staging
+        npm run build -- --env .env.production
 
     - name: Deploy to S3
       run: |
-        aws s3 sync dist/ s3://staging-frontend.reservele.com/ --delete
+        aws s3 sync dist/ s3://production-frontend.reservele.com/ --delete
