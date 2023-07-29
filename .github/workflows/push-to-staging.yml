@@ -36,6 +36,7 @@ jobs:
         echo "=== BEFORE BUILD ==="
         cat .env.production.local
         echo "=== END BEFORE BUILD ==="
+        export NODE_ENV=production
         npm run build
 
     - name: Check environment variable in .env.production.local after build
