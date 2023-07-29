@@ -24,7 +24,7 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_STAGING }}" > .env.production.local
+        echo "REACT_APP_BACKEND_URL=https://staging-backend.reservele.com/" > .env.production.local
 
     - name: Check environment variable in .env.production.local
       run: |
