@@ -1,5 +1,4 @@
 # Staging YAML2#
-
 name: Deploy to Amazon S3
 
 on:
