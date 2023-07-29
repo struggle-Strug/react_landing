@@ -26,6 +26,10 @@ jobs:
       run: |
         echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_STAGING }}" > .env.production.local
 
+    - name: Check environment variable in .env.production.local
+      run: |
+        cat .env.production.local
+
     - name: Install dependencies and build
       run: |
         npm ci
