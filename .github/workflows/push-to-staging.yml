@@ -26,14 +26,21 @@ jobs:
       run: |
         echo "REACT_APP_BACKEND_URL=https://staging-backend.reservele.com/" > .env.production.local
 
-    - name: Check environment variable in .env.production.local
+    - name: Check environment variable in .env.production.local after setup
       run: |
         cat .env.production.local
 
     - name: Install dependencies and build
       run: |
         npm ci
+        echo "=== BEFORE BUILD ==="
+        cat .env.production.local
+        echo "=== END BEFORE BUILD ==="
         npm run build
+
+    - name: Check environment variable in .env.production.local after build
+      run: |
+        cat .env.production.local
 
     - name: Deploy to S3
       run: |
