@@ -1,3 +1,5 @@
+# Production YAML
+
 name: Deploy to Amazon S3
 
 on:
@@ -22,13 +24,13 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_PROD }} > .env.production
+        echo REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_PRODUCTION }} > .env.production.local
 
     - name: Install dependencies and build
       run: |
         npm ci
-        npm run build -- --env .env.production
+        npm run build
 
     - name: Deploy to S3
       run: |
-        aws s3 sync dist/ s3://production-frontend.reservele.com/ --delete
+        aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME_PRODUCTION }}/ --delete
