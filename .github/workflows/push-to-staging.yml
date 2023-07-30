@@ -20,6 +20,9 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
+    - name: Setup environment
+      run: echo "VITE_APP_BACKEND_URL=${{ secrets.VITE_APP_BACKEND_URL }}" >> $GITHUB_ENV
+
     - name: Install dependencies and build
       run: |
         npm ci
