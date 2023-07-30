@@ -35,7 +35,7 @@ jobs:
         echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL_STAGING }}"
         echo "=== END BEFORE BUILD ==="
         export NODE_ENV=production
-        npm run build
+        npm run build:debug
 
     - name: Check environment variable after build
       run: |
