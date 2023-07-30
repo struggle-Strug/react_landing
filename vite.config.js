@@ -3,8 +3,11 @@ import react from '@vitejs/plugin-react'
 import { builtinModules } from 'module'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
+  define: {
+    'process.env': process.env
+  },
   build: {
     rollupOptions: {
       plugins: {
@@ -12,6 +15,7 @@ export default defineConfig({
         generateBundle() {
           if (process.env.DEBUG) {
             console.log('REACT_APP_BACKEND_URL is', process.env.REACT_APP_BACKEND_URL);
+            console.log('VITE_APP_BACKEND_URL is', process.env.VITE_APP_BACKEND_URL);
           }
         },
       },
@@ -23,4 +27,5 @@ export default defineConfig({
       strict: true,
     },
   },
-})
+  mode: mode
+}));

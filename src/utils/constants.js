@@ -1,6 +1,4 @@
-export const BACKEND_URL =
-    //'__env__' in window ? window.__env__.BACKEND_URL : process.env.REACT_APP_BACKEND_URL;
-    '__env__' in window ? window.__env__.BACKEND_URL : "https://staging-backend.reservele.com/";
+export const BACKEND_URL = import.meta.env.VITE_APP_BACKEND_URL;
 
 export const LOGIN_ENDPOINT = BACKEND_URL + 'api/auth/jwt/create/'
 
