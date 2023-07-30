@@ -1,5 +1,3 @@
-# Staging YAML2#
-
 name: Deploy to Amazon S3
 
 on:
@@ -24,24 +22,24 @@ jobs:
 
     - name: Set up environment variables
       run: |
-        echo "REACT_APP_BACKEND_URL=https://staging-backend.reservele.com/" >> $GITHUB_ENV
+        echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_STAGING }}" >> $GITHUB_ENV
 
     - name: Check environment variable after setup
       run: |
-        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL_STAGING }}"
 
     - name: Install dependencies and build
       run: |
         npm ci
         echo "=== BEFORE BUILD ==="
-        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL_STAGING }}"
         echo "=== END BEFORE BUILD ==="
         export NODE_ENV=production
         npm run build
 
     - name: Check environment variable after build
       run: |
-        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL }}"
+        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL_STAGING }}"
 
     - name: Deploy to S3
       run: |
