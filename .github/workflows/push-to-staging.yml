@@ -23,8 +23,7 @@ jobs:
     - name: Install dependencies and build
       run: |
         npm ci
-        export NODE_ENV=staging
-        npm run build:debug
+        npm run build:staging
 
     - name: Deploy to S3
       run: |

@@ -6,9 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build:staging": "cross-env MODE=staging vite build",
-    "build:production": "cross-env MODE=production vite build",
-    "build:debug": "DEBUG=true vite build",
+    "build:staging": "vite build --mode staging",
+    "build:production": "vite build --mode production",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
