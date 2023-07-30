@@ -20,26 +20,13 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Set up environment variables
-      run: |
-        echo "REACT_APP_BACKEND_URL=${{ secrets.REACT_APP_BACKEND_URL_STAGING }}" >> $GITHUB_ENV
-
-    - name: Check environment variable after setup
-      run: |
-        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL_STAGING }}"
-
     - name: Install dependencies and build
       run: |
         npm ci
         echo "=== BEFORE BUILD ==="
-        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL_STAGING }}"
         echo "=== END BEFORE BUILD ==="
         export NODE_ENV=production
         npm run build:debug
-
-    - name: Check environment variable after build
-      run: |
-        echo "REACT_APP_BACKEND_URL is ${{ env.REACT_APP_BACKEND_URL_STAGING }}"
 
     - name: Deploy to S3
       run: |
