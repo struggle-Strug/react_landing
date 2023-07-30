@@ -10,9 +10,9 @@ export default defineConfig({
       plugins: {
         name: 'print-env',
         generateBundle() {
-          if (process.env.DEBUG) {
-            console.log('REACT_APP_BACKEND_URL is', process.env.REACT_APP_BACKEND_URL);
-          }
+          // if (process.env.DEBUG) {
+          //   console.log('REACT_APP_BACKEND_URL is', process.env.REACT_APP_BACKEND_URL);
+          // }
         },
       },
       external: ['fs', 'path', 'os', ...builtinModules],
