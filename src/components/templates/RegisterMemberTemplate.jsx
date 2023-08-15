@@ -90,7 +90,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             },
             body: JSON.stringify(uploadedData),
           })
-          window.location.href = ''
         }
         SendEvaluations()
       }
