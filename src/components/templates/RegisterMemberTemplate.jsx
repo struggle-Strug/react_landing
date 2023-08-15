@@ -414,7 +414,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           title="第三者評価登録・編集フォーム"
           members={
             teamMembers.filter((tM) => { 
-              console.log(tM);
               return tM.id !== member.id;
             })
           }
