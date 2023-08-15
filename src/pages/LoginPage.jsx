@@ -30,11 +30,7 @@ function LoginPage() {
       const user = userFromStorage ? JSON.parse(userFromStorage) : null
       if(token?.company_active && user?.is_active){
         const subdomain = token.subdomain
-        if(token.is_superuser) {
-          navigate(`/${subdomain}/team`);
-        } else {
-          navigate(`/${subdomain}`);
-        }
+        navigate(`/${subdomain}`);
         window.location.reload(false);
       }
       else{
