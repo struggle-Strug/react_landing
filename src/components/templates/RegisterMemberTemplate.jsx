@@ -140,7 +140,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     const method = member ? 'PATCH' : 'POST'
     console.log("method", method)
     try {
-      console.log("success")
       const resp = await requestWithTokenRefresh(url, {
         method: method,
         headers: {
@@ -149,6 +148,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         body: JSON.stringify(formData),
       })
       const data = await resp.json()
+      console.log("success", data)
       if (resp.status === 200 || resp.status === 201) {
         setStatus("success")
         setErrorMessage('')
