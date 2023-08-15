@@ -33,11 +33,11 @@ function LoginPage() {
         if(token.is_superuser) {
           navigate(`/${subdomain}/team`);
           console.log("super user")
-          window.location.reload(false);
+          // window.location.reload(true);
         } else {
           navigate(`/${subdomain}`);
           console.log("user")
-          window.location.reload(false);
+          // window.location.reload(false);
         }
       }
       else{
