@@ -77,7 +77,7 @@ export default function EditEvaluationModal({open, onClose, title, members, load
                                             <div className='border-2 border-indigo-900 rounded py-2 relative text-red-500'>
                                                 <span className='text-black'>{item.name}</span>
                                                 <span
-                                                    className='absolute right-2 bottom-3 h-4 w-4 shrink-0 cursor-pointer'
+                                                    className='absolute right-2 shrink-0 cursor-pointer'
                                                     aria-hidden="true"
                                                     onClick={() => {removeUser(item)}}
                                                 >
