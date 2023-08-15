@@ -69,7 +69,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                   scope="col"
                   className="hidden py-3.5 text-sm lg:text-base min-w-1/6 font-semibold text-gray-900 sm:table-cell"
                 >
-                  名前ひらがな
+                  名前ふりがな
                 </th>
                 <th
                   scope="col"
