@@ -92,6 +92,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           })
         }
         SendEvaluations()
+        window.location.reload(false);
       }
     }
   }, [uploadedData])
