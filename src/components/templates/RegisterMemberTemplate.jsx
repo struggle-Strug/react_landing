@@ -157,6 +157,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       setIsLoading(false)
       setShowComfirmation(true)
     } catch(error){
+      console.log(error)
       setStatus("failed")
       setErrorMessage(error)
       setShowModal(false)
