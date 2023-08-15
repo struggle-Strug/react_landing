@@ -33,7 +33,6 @@ const ResigterMember = () => {
     setCompanyTeams([{ value: 0, label: "全チーム" }, ...teamsFromResponse])
   }, [navigate])
 
-  console.log(members)
   useEffect(() => {
     fetchMembers()
   }, [fetchMembers])
