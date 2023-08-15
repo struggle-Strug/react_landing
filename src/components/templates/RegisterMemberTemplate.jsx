@@ -154,7 +154,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         setErrorMessage('')
       } else {
         setStatus("failed")
-        setErrorMessage(data)
+        setErrorMessage(Object.values(data))
       }
       setShowModal(false)
       setIsLoading(false)
