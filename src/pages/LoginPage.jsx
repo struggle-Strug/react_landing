@@ -32,12 +32,10 @@ function LoginPage() {
         const subdomain = token.subdomain
         if(token.is_superuser) {
           navigate(`/${subdomain}/team`);
-          console.log("super user")
-          // window.location.reload(true);
+          window.location.reload(false);
         } else {
           navigate(`/${subdomain}`);
-          console.log("user")
-          // window.location.reload(false);
+          window.location.reload(false);
         }
       }
       else{
