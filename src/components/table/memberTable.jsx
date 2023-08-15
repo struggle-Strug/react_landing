@@ -56,7 +56,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
       </div>
       <div className="mt-2 flow-root relative h-[400px] overflow-y-auto overflow-x-auto">
         <div className="mx-auto">
-          <table className="w-full text-center">
+          <table className="w-full text-center whitespace-nowrap">
             <thead className="sticky top-0 bg-white shadow z-10">
               <tr>
                 <th scope="col" className="py-3.5 min-w-1/6 text-sm lg:text-base font-semibold text-gray-900">
