@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import {
-    LockClosedIcon
-} from '@heroicons/react/20/solid'
 
 import Loader from '../loader'
 import Button from '../button'

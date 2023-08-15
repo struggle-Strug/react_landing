@@ -187,6 +187,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     setShowResetEvaluation(false)
     refreshData()
     setShowEditEvaluation(true)
+    setUserArray([])
   }
 
   async function handleUpdate(){
