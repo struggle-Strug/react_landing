@@ -116,7 +116,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                   </td>
                   <td className="hidden py-4 lg:text-sm text-gray-500 md:table-cell">
                     {person.team_relation.map((team, idx) => (
-                      <span key={idx}>{team.team_name} </span>
+                      <span key={idx}>{team.team_name}{idx < person.team_relation.length - 1 ? ', ' : ''}</span>
                     ))}
                   </td>
                   <td className="hidden py-4 whitespace-nowrap lg:text-sm text-gray-500 lg:table-cell">
