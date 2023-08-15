@@ -413,7 +413,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           onClose={setShowEditEvaluation}
           title="第三者評価登録・編集フォーム"
           members={
-            teamMembers.filter((tM) => { tM.id !== member.id })
+            teamMembers.filter((tM) => { 
+              console.log(tM);
+              return tM.id !== member.id;
+            })
           }
           loading={isLoading}
           editForm={handleUpdate}
