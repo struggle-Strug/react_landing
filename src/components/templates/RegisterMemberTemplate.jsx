@@ -134,11 +134,9 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
 
   async function handleSubmit() {
-    console.log("submit")
     setIsLoading(true)
     const url = member ? MEMBER_ENDPOINT + 'update/' + member.id + '/' : MEMBER_ENDPOINT + 'create/'
     const method = member ? 'PATCH' : 'POST'
-    console.log("method", method)
     try {
       const resp = await requestWithTokenRefresh(url, {
         method: method,
@@ -148,7 +146,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         body: JSON.stringify(formData),
       })
       const data = await resp.json()
-      console.log("success", data)
       if (resp.status === 200 || resp.status === 201) {
         setStatus("success")
         setErrorMessage('')
@@ -160,7 +157,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       setIsLoading(false)
       setShowComfirmation(true)
     } catch(error){
-      console.log(error, "error")
       setStatus("failed")
       setErrorMessage(error)
       setShowModal(false)
