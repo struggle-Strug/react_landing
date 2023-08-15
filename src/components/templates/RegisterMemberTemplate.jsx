@@ -134,10 +134,13 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
 
   async function handleSubmit() {
+    console.log("submit")
     setIsLoading(true)
     const url = member ? MEMBER_ENDPOINT + 'update/' + member.id + '/' : MEMBER_ENDPOINT + 'create/'
     const method = member ? 'PATCH' : 'POST'
+    console.log("method", method)
     try {
+      console.log("success")
       const resp = await requestWithTokenRefresh(url, {
         method: method,
         headers: {
@@ -157,7 +160,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       setIsLoading(false)
       setShowComfirmation(true)
     } catch(error){
-      console.log(error)
+      console.log(error, "error")
       setStatus("failed")
       setErrorMessage(error)
       setShowModal(false)
