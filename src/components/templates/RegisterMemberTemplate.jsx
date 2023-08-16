@@ -245,6 +245,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   function handleConfirm() {
     refreshData()
     setShowComfirmation(false)
+    window.location.reload(true)
   }
 
   function handleButtonClick() {
