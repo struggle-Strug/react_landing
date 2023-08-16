@@ -102,6 +102,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   useEffect(() => {
     if (!numOfAssessors) { return }
     setShowNumofAssessors(true)
+    console.log("change")
   }, [numOfAssessors])
 
   useEffect(() => {
