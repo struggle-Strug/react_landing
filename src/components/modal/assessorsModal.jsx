@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline'
 
 // eslint-disable-next-line react/prop-types
-export default function AssessorsModal({ open, title, msg, status, onConfirm, errorMessage }) {
+export default function AssessorsModal({ open, title, msg, status, setShowNumofAssessors, onConfirm, errorMessage }) {
   function clickHandler() {
     onConfirm()
   }
@@ -25,7 +25,7 @@ export default function AssessorsModal({ open, title, msg, status, onConfirm, er
   }
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={clickHandler}>
+      <Dialog as="div" className="relative z-10" onClose={setShowNumofAssessors(false)}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

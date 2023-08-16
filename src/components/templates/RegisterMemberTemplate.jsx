@@ -454,6 +454,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           }
           msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。<br />問題なければ作成するをクリックしてください"}
           status={"success"}
+          setShowNumofAssessors={setShowNumofAssessors}
           onConfirm={handleNumConfirm}
         />
       )}
