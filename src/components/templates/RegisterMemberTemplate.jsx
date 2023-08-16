@@ -100,9 +100,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   }, [uploadedData])
 
   useEffect(() => {
-    console.log(numOfAssessors, "fist")
     if (!numOfAssessors) { return }
-    console.log(numOfAssessors, "fist")
     setShowNumofAssessors(true)
   }, [numOfAssessors])
 
@@ -242,8 +240,12 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   }
 
   const handleNumConfirm = async () => {
+    if(!showNumofAssessors) {
+      return false
+    }
     const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
     await requestWithTokenRefresh(url, {}, navigate)
+    setShowNumofAssessors(false)
     window.location.reload(true);
   }
 
