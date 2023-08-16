@@ -102,7 +102,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     const SendAssignNumber = async () => {
       const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
       await requestWithTokenRefresh(url, {}, navigate)
-      window.location.href = ''
+      window.location.reload(true);
+
     }
     SendAssignNumber()
   }, [numOfAssessors])
