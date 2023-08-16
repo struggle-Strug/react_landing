@@ -40,6 +40,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   const [showComfirmation, setShowComfirmation] = useState(false)
   const [showResetEvaluation, setShowResetEvaluation] = useState(false)
   const [showEditEvaluation, setShowEditEvaluation] = useState(false)
+  const [showNumofAssessors, setShowNumofAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
 
   useEffect(() => {
@@ -99,12 +100,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
   useEffect(() => {
     if (!numOfAssessors) { return }
-    const SendAssignNumber = async () => {
-      const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
-      await requestWithTokenRefresh(url, {}, navigate)
-      window.location.reload(true);
-    }
-    SendAssignNumber()
+    
+    setNumOfAssessors(true)
   }, [numOfAssessors])
 
   useEffect(() => {
@@ -240,6 +237,12 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     setShowModal(false)
     setIsLoading(false)
     setShowComfirmation(true)
+  }
+
+  const handleNumConfirm = async () => {
+    const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
+    await requestWithTokenRefresh(url, {}, navigate)
+    window.location.reload(true);
   }
 
   function handleConfirm() {
@@ -438,6 +441,16 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           status={status}
           onConfirm={handleConfirm}
           errorMessage={errorMessage}
+        />
+      )}
+      {showNumofAssessors && (
+        <ConfirmationModal
+          open={showNumofAssessors}
+          title={"第三者評価者の組み合わせを作成"
+          }
+          msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。<br />問題なければ作成するをクリックしてください"}
+          status={"success"}
+          onConfirm={handleNumConfirm}
         />
       )}
     </div>
