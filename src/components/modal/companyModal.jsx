@@ -125,7 +125,7 @@ export default function CompanyModal({ open, title, onClose, company, submitForm
                   <div className="mt-8 flex justify-center">
                     <Button
                       title="送信する"
-                      className="flex justify-center px-6 py-3 bg-btn text-white rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors bg-primary-2 hover:bg-primary-2 px-28"
+                      className="bg-primary-2 hover:bg-primary-2 px-28"
                       disabled={!isValidData}
                       onClick={submitForm}
                     />

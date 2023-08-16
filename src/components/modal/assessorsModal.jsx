@@ -80,7 +80,7 @@ export default function AssessorsModal({ open, title, msg, status, onConfirm, er
                 <div className="mt-5 sm:mt-6 items-center px-24">
                   <button
                     type="button"
-                    className="bg-primary-2 hover:bg-primary-2 px-28"
+                    className="flex justify-center px-6 py-3 bg-btn text-white rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors bg-primary-2 hover:bg-primary-2 px-28"
                     onClick={clickHandler}
                   >
                     作成する
