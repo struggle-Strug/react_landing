@@ -15,6 +15,7 @@ import MemberModal from '../modal/memberModal'
 import ConfirmationModal from '../modal'
 import ResetEvaluationModal from '../modal/resetEvaluationModal'
 import EditEvaluationModal from '../modal/editEvaluationModal'
+import AssessorsModal from '../modal/assessorsModal'
 import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
 import { useNavigate } from 'react-router'
@@ -445,7 +446,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         />
       )}
       {showNumofAssessors && (
-        <ConfirmationModal
+        <AssessorsModal
           open={showNumofAssessors}
           title={"第三者評価者の組み合わせを作成"
           }
