@@ -99,9 +99,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   }, [uploadedData])
 
   useEffect(() => {
+    console.log(numOfAssessors, "fist")
     if (!numOfAssessors) { return }
-    
-    setNumOfAssessors(true)
+    console.log(numOfAssessors, "fist")
+    setShowNumofAssessors(true)
   }, [numOfAssessors])
 
   useEffect(() => {
