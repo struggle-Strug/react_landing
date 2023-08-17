@@ -80,7 +80,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             const data = await resp.json()
             const options = data.map(num => ({ value: num, label: num }))
             setAssignNumOptions(options)
-            console.log(data, "data")
           }
           catch {
             setStatus("failed")
