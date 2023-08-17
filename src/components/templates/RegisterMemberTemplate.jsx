@@ -68,24 +68,23 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     if (selectedMethod.value === 3) {
       if (selectedAssignMethod.value === 1){
         const SendRandom = async () => {
-          const url = ASSIGN_ENDPOINT + 'update/'
-          const resp = await requestWithTokenRefresh(url, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(uploadedData)
-          })
-          const data = await resp.json()
-          if(!data.error) {
+          try {
+            const url = ASSIGN_ENDPOINT + 'update/'
+            const resp = await requestWithTokenRefresh(url, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(uploadedData)
+            })
+            const data = await resp.json()
             const options = data.map(num => ({ value: num, label: num }))
             setAssignNumOptions(options)
             console.log(data, "data")
           }
-          else {
-            console.log(data.error, "error")
+          catch {
             setStatus("failed")
-            setErrorMessage([[data.error]])
+            setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
             setShowModal(false)
             setIsLoading(false)
             setShowComfirmation(true)
@@ -96,15 +95,21 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       else{
         const SendEvaluations = async () => {
           const url = BACKEND_URL + 'api/evaluations/update/'
-          const res = await requestWithTokenRefresh(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(uploadedData),
-          })
-
-          console.log(res)
+          try {
+            await requestWithTokenRefresh(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(uploadedData),
+            })
+          } catch {
+            setStatus("failed")
+            setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
+            setShowModal(false)
+            setIsLoading(false)
+            setShowComfirmation(true)
+          }
         }
         SendEvaluations()
         // window.location.reload(true);
@@ -240,8 +245,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       body: JSON.stringify(uploadedData),
     })
     const data = await resp.json()
-    console.log(data, "data")
-    console.log(resp, "resp")
     if (resp.status === 200 || resp.status === 201) {
       setStatus("success")
       setErrorMessage('')
@@ -258,10 +261,18 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     if(!showNumofAssessors) {
       return false
     }
-    const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
-    await requestWithTokenRefresh(url, {}, navigate)
-    setShowNumofAssessors(false)
-    window.location.reload(true);
+    try {
+      const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
+      await requestWithTokenRefresh(url, {}, navigate)
+      setShowNumofAssessors(false)
+      window.location.reload(true);
+    } catch {
+      setStatus("failed")
+      setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
+      setShowModal(false)
+      setIsLoading(false)
+      setShowComfirmation(true)
+    }
   }
 
   function handleConfirm() {
