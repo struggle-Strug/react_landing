@@ -85,7 +85,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           else {
             console.log(data.error, "error")
             setStatus("failed")
-            setErrorMessage(data.error)
+            setErrorMessage([data.error])
             setShowModal(false)
             setIsLoading(false)
             setShowComfirmation(true)
