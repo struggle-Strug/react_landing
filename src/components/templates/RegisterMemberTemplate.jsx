@@ -68,19 +68,22 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     if (selectedMethod.value === 3) {
       if (selectedAssignMethod.value === 1){
         const SendRandom = async () => {
-          const url = ASSIGN_ENDPOINT + 'update/'
-          const resp = await requestWithTokenRefresh(url, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(uploadedData)
-          })
-          const data = await resp.json()
-          console.log(data, ":data")
-          console.log(resp, ":resp")
-          const options = data.map(num => ({ value: num, label: num }))
-          setAssignNumOptions(options)
+          try{
+            const url = ASSIGN_ENDPOINT + 'update/'
+            const resp = await requestWithTokenRefresh(url, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(uploadedData)
+            })
+            const data = await resp.json()
+            console.log(data, "data")
+            const options = data.map(num => ({ value: num, label: num }))
+            setAssignNumOptions(options)
+          } catch (err) {
+            console.log(err, "err")
+          }
         }
         SendRandom()
       }
