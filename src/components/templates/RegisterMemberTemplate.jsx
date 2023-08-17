@@ -77,6 +77,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             body: JSON.stringify(uploadedData)
           })
           const data = await resp.json()
+          console.log(data, ":data")
+          console.log(resp, ":resp")
           const options = data.map(num => ({ value: num, label: num }))
           setAssignNumOptions(options)
         }
