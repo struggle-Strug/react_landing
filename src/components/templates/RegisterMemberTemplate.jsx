@@ -229,6 +229,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       body: JSON.stringify(uploadedData),
     })
     const data = await resp.json()
+    console.log(data, "data", resp)
     if (resp.status === 200 || resp.status === 201) {
       setStatus("success")
       setErrorMessage('')
@@ -246,11 +247,9 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       return false
     }
     const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
-    const res = await requestWithTokenRefresh(url, {}, navigate)
+    await requestWithTokenRefresh(url, {}, navigate)
     setShowNumofAssessors(false)
-
-    console.log(res)
-    // window.location.reload(true);
+    window.location.reload(true);
   }
 
   function handleConfirm() {
