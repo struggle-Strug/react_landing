@@ -248,7 +248,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
     await requestWithTokenRefresh(url, {}, navigate)
     setShowNumofAssessors(false)
-    window.location.reload(true);
+    // window.location.reload(true);
   }
 
   function handleConfirm() {
