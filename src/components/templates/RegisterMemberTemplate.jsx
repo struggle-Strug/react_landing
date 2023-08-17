@@ -85,16 +85,18 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       else{
         const SendEvaluations = async () => {
           const url = BACKEND_URL + 'api/evaluations/update/'
-          await requestWithTokenRefresh(url, {
+          const res = await requestWithTokenRefresh(url, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(uploadedData),
           })
+
+          console.log(res)
         }
         SendEvaluations()
-        window.location.reload(true);
+        // window.location.reload(true);
       }
     }
   }, [uploadedData])
