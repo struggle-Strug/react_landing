@@ -102,6 +102,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               },
               body: JSON.stringify(uploadedData),
             })
+            window.location.reload(true);
           } catch {
             setStatus("failed")
             setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
@@ -111,7 +112,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           }
         }
         SendEvaluations()
-        window.location.reload(true);
       }
     }
   }, [uploadedData])
