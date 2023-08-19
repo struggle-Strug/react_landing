@@ -84,12 +84,12 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               console.log("success")
             } else {
               console.log("error")
-              setShowConfirmation(true)
+              setShowNumOfAssessors(true)
             }
           }
           catch {
             console.log("catch")
-            setShowConfirmation(true)
+            setShowNumOfAssessors(true)
           }
         }
         SendRandom()
