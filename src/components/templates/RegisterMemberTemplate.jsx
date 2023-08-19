@@ -38,10 +38,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   const [errorMessage, setErrorMessage] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [showComfirmation, setShowComfirmation] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
   const [showResetEvaluation, setShowResetEvaluation] = useState(false)
   const [showEditEvaluation, setShowEditEvaluation] = useState(false)
-  const [showNumofAssessors, setShowNumofAssessors] = useState(false)
+  const [showNumOfAssessors, setShowNumOfAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
 
   useEffect(() => {
@@ -81,27 +81,22 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             if (resp.status >= 200 && resp.status < 300) {
               const options = data.map(num => ({ value: num, label: num }))
               setAssignNumOptions(options)
+              console.log("success")
             } else {
-              setStatus("failed")
-              setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
-              setShowModal(false)
-              setIsLoading(false)
-              setShowComfirmation(true)
+              console.log("error")
+              setShowConfirmation(true)
             }
           }
           catch {
-            setStatus("failed")
-            setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
-            setShowModal(false)
-            setIsLoading(false)
-            setShowComfirmation(true)
+            console.log("catch")
+            setShowConfirmation(true)
           }
         }
         SendRandom()
       }
       else{
         const SendEvaluations = async () => {
-          const url = BACKEND_URL + 'api/evaluations/update/'
+          const url = EVALUATION_ENDPOINT + 'update/'
           try {
             const resp = await requestWithTokenRefresh(url, {
               method: 'POST',
@@ -118,14 +113,14 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
               setShowModal(false)
               setIsLoading(false)
-              setShowComfirmation(true)
+              setShowConfirmation(true)
             }
           } catch {
             setStatus("failed")
             setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
             setShowModal(false)
             setIsLoading(false)
-            setShowComfirmation(true)
+            setShowConfirmation(true)
           }
         }
         SendEvaluations()
@@ -135,7 +130,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
   useEffect(() => {
     if (!numOfAssessors) { return }
-    setShowNumofAssessors(true)
+    setShowNumOfAssessors(true)
   }, [numOfAssessors])
 
   useEffect(() => {
@@ -186,13 +181,13 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       }
       setShowModal(false)
       setIsLoading(false)
-      setShowComfirmation(true)
+      setShowConfirmation(true)
     } catch(error){
       setStatus("failed")
       setErrorMessage(error)
       setShowModal(false)
       setIsLoading(false)
-      setShowComfirmation(true)
+      setShowConfirmation(true)
     }
   }
 
@@ -246,7 +241,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     }
     setIsLoading(false)
     setShowEditEvaluation(false)
-    setShowComfirmation(true)
+    setShowConfirmation(true)
   }
 
   async function handleCSVDataSubmit() {
@@ -270,30 +265,30 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     }
     setShowModal(false)
     setIsLoading(false)
-    setShowComfirmation(true)
+    setShowConfirmation(true)
   }
 
   const handleNumConfirm = async () => {
-    if(!showNumofAssessors) {
+    if(!showNumOfAssessors) {
       return false
     }
     try {
       const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
       await requestWithTokenRefresh(url, {}, navigate)
-      setShowNumofAssessors(false)
+      setShowNumOfAssessors(false)
       window.location.reload(true);
     } catch {
       setStatus("failed")
       setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
       setShowModal(false)
       setIsLoading(false)
-      setShowComfirmation(true)
+      setShowConfirmation(true)
     }
   }
 
   function handleConfirm() {
     refreshData()
-    setShowComfirmation(false)
+    setShowConfirmation(false)
     window.location.reload(true)
   }
 
@@ -473,9 +468,9 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           setUserArray={setUserArray}
         />
       )}
-      {showComfirmation && (
+      {showConfirmation && (
         <ConfirmationModal
-          open={showComfirmation}
+          open={showConfirmation}
           title={status === "success"
             ? "データ登録・更新完了"
             : "登録・更新失敗"
@@ -489,15 +484,15 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           errorMessage={errorMessage}
         />
       )}
-      {showNumofAssessors && (
+      {showNumOfAssessors && (
         <AssessorsModal
-          open={showNumofAssessors}
+          open={showNumOfAssessors}
           title={"第三者評価者の組み合わせを作成"
           }
           msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。\
           問題なければ作成するをクリックしてください"}
           status={"success"}
-          setShowNumofAssessors={setShowNumofAssessors}
+          setShowNumOfAssessors={setShowNumOfAssessors}
           onConfirm={handleNumConfirm}
         />
       )}
