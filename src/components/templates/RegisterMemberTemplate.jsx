@@ -112,8 +112,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             })
             console.log(resp)
             if (resp.status >= 200 && resp.status < 300) {
-              // window.location.reload(true);
-              console.log(resp)
+              window.location.reload(true);
             } else {
               setStatus("failed")
               setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
