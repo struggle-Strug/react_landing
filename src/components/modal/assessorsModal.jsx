@@ -4,7 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline'
 
 // eslint-disable-next-line react/prop-types
-export default function AssessorsModal({ open, title, msg, status, setShowNumofAssessors, onConfirm, errorMessage }) {
+export default function AssessorsModal({ open, title, msg, status, setShowNumOfAssessors, onConfirm }) {
   function clickHandler() {
     onConfirm()
   }
@@ -25,7 +25,7 @@ export default function AssessorsModal({ open, title, msg, status, setShowNumofA
   }
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {setShowNumofAssessors(false)}}>
+      <Dialog as="div" className="relative z-10" onClose={() => {setShowNumOfAssessors(false)}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -61,20 +61,6 @@ export default function AssessorsModal({ open, title, msg, status, setShowNumofA
                         {msg}
                       </p>
                     </div>
-                    {errorMessage &&
-                      errorMessage.map((msg, idx) => {
-                        const key = Object.keys(msg).filter(k => k !== '場所')[0];
-                        return (
-                        <div key={idx} className="flex text-left">
-                          <div className="w-1/6">
-                            {msg["場所"]}
-                          </div>
-                          <div className="text-left">
-                            {msg[key]}
-                          </div>
-                        </div>
-                      )})
-                    }
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6 items-center px-24">
@@ -83,7 +69,7 @@ export default function AssessorsModal({ open, title, msg, status, setShowNumofA
                     className="flex justify-center px-6 py-3 bg-btn text-white rounded-full hover:bg-primary-1 transition-colors m-auto"
                     onClick={clickHandler}
                   >
-                    作成する
+                    閉じる
                   </button>
                 </div>
               </Dialog.Panel>

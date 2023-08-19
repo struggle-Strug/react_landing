@@ -487,11 +487,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       {showNumOfAssessors && (
         <AssessorsModal
           open={showNumOfAssessors}
-          title={"第三者評価者の組み合わせを作成"
-          }
+          title={"第三者評価者の組み合わせを作成"}
           msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。\
           問題なければ作成するをクリックしてください"}
-          status={"success"}
+          status={"failed"}
           setShowNumOfAssessors={setShowNumOfAssessors}
           onConfirm={handleNumConfirm}
         />
