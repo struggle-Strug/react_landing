@@ -78,8 +78,16 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               body: JSON.stringify(uploadedData)
             })
             const data = await resp.json()
-            const options = data.map(num => ({ value: num, label: num }))
-            setAssignNumOptions(options)
+            if (resp.status >= 200 && resp.status < 300) {
+              const options = data.map(num => ({ value: num, label: num }))
+              setAssignNumOptions(options)
+            } else {
+              setStatus("failed")
+              setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
+              setShowModal(false)
+              setIsLoading(false)
+              setShowComfirmation(true)
+            }
           }
           catch {
             setStatus("failed")
