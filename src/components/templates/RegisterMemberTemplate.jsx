@@ -111,7 +111,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           }
         }
         SendEvaluations()
-        // window.location.reload(true);
+        window.location.reload(true);
       }
     }
   }, [uploadedData])
