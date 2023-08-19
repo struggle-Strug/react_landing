@@ -95,14 +95,15 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         const SendEvaluations = async () => {
           const url = BACKEND_URL + 'api/evaluations/update/'
           try {
-            await requestWithTokenRefresh(url, {
+            const response = await requestWithTokenRefresh(url, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify(uploadedData),
             })
-            window.location.reload(true);
+            // window.location.reload(true);
+            console.log(response)
           } catch {
             setStatus("failed")
             setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
