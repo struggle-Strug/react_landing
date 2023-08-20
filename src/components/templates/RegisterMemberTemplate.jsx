@@ -78,17 +78,15 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               body: JSON.stringify(uploadedData)
             })
             const data = await resp.json()
+            console.log(resp, "response")
             if (resp.status >= 200 && resp.status < 300) {
               const options = data.map(num => ({ value: num, label: num }))
               setAssignNumOptions(options)
-              console.log("success")
             } else {
-              console.log("error")
               setShowNumOfAssessors(true)
             }
           }
           catch {
-            console.log("catch")
             setShowConfirmation(true)
           }
         }
@@ -105,22 +103,14 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               },
               body: JSON.stringify(uploadedData),
             })
-            console.log(resp)
+            console.log(resp, "response")
             if (resp.status >= 200 && resp.status < 300) {
               window.location.reload(true);
             } else {
-              setStatus("failed")
-              setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
-              setShowModal(false)
-              setIsLoading(false)
-              setShowConfirmation(true)
+              setShowNumOfAssessors(true)
             }
           } catch {
-            setStatus("failed")
-            setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
-            setShowModal(false)
-            setIsLoading(false)
-            setShowConfirmation(true)
+            setShowNumOfAssessors(true)
           }
         }
         SendEvaluations()
