@@ -93,7 +93,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       }
       else{
         const SendEvaluations = async () => {
-          const url = ASSIGNS_ENDPOINT + 'update/'
+          const url = EVALUATIONS_ENDPOINT + 'update/'
           try {
             const resp = await requestWithTokenRefresh(url, {
               method: 'POST',
