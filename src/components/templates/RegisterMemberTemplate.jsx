@@ -16,7 +16,7 @@ import ConfirmationModal from '../modal'
 import ResetEvaluationModal from '../modal/resetEvaluationModal'
 import EditEvaluationModal from '../modal/editEvaluationModal'
 import AssessorsModal from '../modal/assessorsModal'
-import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT } from '../../utils/constants'
+import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT, ASSIGNS_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
 import { useNavigate } from 'react-router'
 import Loader from '../loader'
@@ -78,7 +78,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               body: JSON.stringify(uploadedData)
             })
             const data = await resp.json()
-            console.log(resp, "response")
             if (resp.status >= 200 && resp.status < 300) {
               const options = data.map(num => ({ value: num, label: num }))
               setAssignNumOptions(options)
@@ -94,7 +93,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       }
       else{
         const SendEvaluations = async () => {
-          const url = EVALUATION_ENDPOINT + 'update/'
+          const url = ASSIGNS_ENDPOINT + 'update/'
           try {
             const resp = await requestWithTokenRefresh(url, {
               method: 'POST',

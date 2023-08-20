@@ -15,6 +15,8 @@ export const FORGOT_ENDPOINT = BACKEND_URL + 'api/password/forgot/'
 
 export const EVALUATION_ENDPOINT = BACKEND_URL + 'api/evaluation/'
 
+export const EVALUATIONS_ENDPOINT = BACKEND_URL + 'api/evaluations/'
+
 export const ANSWER_ENDPOINT = BACKEND_URL + 'api/answer/'
 
 export const SCORE_ENDPOINT = BACKEND_URL + 'api/score/'
@@ -26,5 +28,7 @@ export const MEMBER_ENDPOINT = BACKEND_URL + 'api/user/'
 export const COMPANY_ENDPOINT = BACKEND_URL + 'api/company/'
 
 export const ASSIGN_ENDPOINT = BACKEND_URL + 'api/random/'
+
+export const ASSIGNS_ENDPOINT = BACKEND_URL + 'api/randoms/'
 
 export const SUBSCRIPTION = BACKEND_URL + 'api/subscription/'
