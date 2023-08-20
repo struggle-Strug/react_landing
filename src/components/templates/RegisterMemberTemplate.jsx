@@ -89,7 +89,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           }
           catch {
             console.log("catch")
-            setShowNumOfAssessors(true)
+            setShowConfirmation(true)
           }
         }
         SendRandom()
@@ -492,7 +492,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           問題なければ作成するをクリックしてください"}
           status={"failed"}
           setShowNumOfAssessors={setShowNumOfAssessors}
-          onConfirm={handleNumConfirm}
         />
       )}
     </div>

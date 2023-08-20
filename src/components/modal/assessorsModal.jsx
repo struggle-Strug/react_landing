@@ -4,9 +4,9 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline'
 
 // eslint-disable-next-line react/prop-types
-export default function AssessorsModal({ open, title, msg, status, setShowNumOfAssessors, onConfirm }) {
+export default function AssessorsModal({ open, title, msg, status, setShowNumOfAssessors}) {
   function clickHandler() {
-    onConfirm()
+    setShowNumOfAssessors(false)
   }
   const Icon = () => {
     if (status === "success") {
