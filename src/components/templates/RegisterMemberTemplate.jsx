@@ -102,7 +102,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               },
               body: JSON.stringify(uploadedData),
             })
-            console.log(await resp.json(), "response")
             if (resp.status >= 200 && resp.status < 300) {
               window.location.reload(true);
             } else {
@@ -274,7 +273,6 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
   function handleConfirm() {
     refreshData()
-    setShowConfirmation(false)
     window.location.reload(true)
   }
 
