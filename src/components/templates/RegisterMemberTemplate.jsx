@@ -281,7 +281,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   function handleButtonClick() {
     if (selectedMethod.value === 2) {
       if (selectedType.value === 1) {
-        DownloadCSV(columnHeaders)
+        DownloadCSV(columnHeaders, "member_template_new")
       } else if (selectedType.value === 2) {
         const memberData =
           members.filter((member) => member.is_active === true)
@@ -297,7 +297,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               // ""
             ])
         const csvData = columnHeaders.concat(memberData)
-        DownloadCSV(csvData)
+        DownloadCSV(csvData, "member_template_existing")
       }
     } else if (selectedMethod.value === 3) {
       const given_evaluations = members.filter((member) => member.is_active === true).map(_ => "")
@@ -316,7 +316,11 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             ...given_evaluations
           ])
       const csvData = columnHeaders.concat(memberData)
-      DownloadCSV(csvData)
+      if(selectedAssignMethod.value == 1) {
+        DownloadCSV(csvData, "random_template")
+      } else if (selectedAssignMethod.value == 2) {
+        DownloadCSV(csvData, "manual_template")
+      }
     }
   }
 
