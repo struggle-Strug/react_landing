@@ -16,6 +16,7 @@ import ConfirmationModal from '../modal'
 import ResetEvaluationModal from '../modal/resetEvaluationModal'
 import EditEvaluationModal from '../modal/editEvaluationModal'
 import AssessorsModal from '../modal/assessorsModal'
+import RandomConfirmModal from '../modal/randomConfirmModal'
 import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
 import { useNavigate } from 'react-router'
@@ -42,6 +43,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   const [showResetEvaluation, setShowResetEvaluation] = useState(false)
   const [showEditEvaluation, setShowEditEvaluation] = useState(false)
   const [showNumOfAssessors, setShowNumOfAssessors] = useState(false)
+  const [confirmMakeRandomAssessors, setConfirmMakeRandomAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
 
   useEffect(() => {
@@ -118,7 +120,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
   useEffect(() => {
     if (!numOfAssessors) { return }
-    handleNumConfirm()
+    setConfirmMakeRandomAssessors(true)
   }, [numOfAssessors])
 
   useEffect(() => {
@@ -476,6 +478,16 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           問題なければ作成するをクリックしてください"}
           status={"failed"}
           setShowNumOfAssessors={setShowNumOfAssessors}
+        />
+      )}
+      {confirmMakeRandomAssessors && (
+        <RandomConfirmModal
+          open={confirmMakeRandomAssessors}
+          title={"第三者評価者の組み合わせを作成"}
+          msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。\
+          問題なければ作成するをクリックしてください"}
+          status={"success"}
+          handleConfirm={handleConfirm}
         />
       )}
     </div>
