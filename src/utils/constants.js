@@ -29,6 +29,4 @@ export const COMPANY_ENDPOINT = BACKEND_URL + 'api/company/'
 
 export const ASSIGN_ENDPOINT = BACKEND_URL + 'api/random/'
 
-export const ASSIGNS_ENDPOINT = BACKEND_URL + 'api/randoms/'
-
 export const SUBSCRIPTION = BACKEND_URL + 'api/subscription/'

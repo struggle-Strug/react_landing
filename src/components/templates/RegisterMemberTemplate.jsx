@@ -16,7 +16,7 @@ import ConfirmationModal from '../modal'
 import ResetEvaluationModal from '../modal/resetEvaluationModal'
 import EditEvaluationModal from '../modal/editEvaluationModal'
 import AssessorsModal from '../modal/assessorsModal'
-import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT, ASSIGNS_ENDPOINT } from '../../utils/constants'
+import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
 import { useNavigate } from 'react-router'
 import Loader from '../loader'
@@ -119,7 +119,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
   useEffect(() => {
     if (!numOfAssessors) { return }
-    setShowNumOfAssessors(true)
+    handleNumConfirm()
   }, [numOfAssessors])
 
   useEffect(() => {
@@ -258,19 +258,16 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   }
 
   const handleNumConfirm = async () => {
-    if(!showNumOfAssessors) {
-      return false
-    }
     try {
       const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
-      await requestWithTokenRefresh(url, {}, navigate)
-      setShowNumOfAssessors(false)
-      window.location.reload(true);
+      const resp = await requestWithTokenRefresh(url, {}, navigate)
+      if (resp.status >= 200 && resp.status < 300) {
+        window.location.reload(true);
+      }
+      else {
+        setShowConfirmation(true)
+      }
     } catch {
-      setStatus("failed")
-      setErrorMessage([["サブスクリプションはすでに有効であるためランダム作成はできません"]])
-      setShowModal(false)
-      setIsLoading(false)
       setShowConfirmation(true)
     }
   }
