@@ -58,7 +58,7 @@ export default function Header() {
       if(resp.status === 200){
         setSubscription(true)
         setModalStatus('success')
-        setModalTitle('操作が成功しました。')
+        setModalTitle('メンバー全員がアセスメント実施可能な状態になりました。')
       }
       else{
         setModalStatus('failed')
