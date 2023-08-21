@@ -489,6 +489,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           問題なければ作成するをクリックしてください"}
           status={"success"}
           handleNumConfirm={handleNumConfirm}
+          setConfirmMakeRandomAssessors={setConfirmMakeRandomAssessors}
         />
       )}
     </div>

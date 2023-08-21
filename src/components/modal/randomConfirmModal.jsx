@@ -4,8 +4,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline'
 
 // eslint-disable-next-line react/prop-types
-export default function RandomConfirmModal({ open, title, msg, status, handleNumConfirm}) {
-  const [openModal, setOpenModal] = useState(open)
+export default function RandomConfirmModal({ open, title, msg, status, handleNumConfirm, setConfirmMakeRandomAssessors}) {
   function clickHandler() {
     handleNumConfirm()
   }
@@ -25,8 +24,8 @@ export default function RandomConfirmModal({ open, title, msg, status, handleNum
     }
   }
   return (
-    <Transition.Root show={openModal} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpenModal(false)}>
+    <Transition.Root show={open} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={setConfirmMakeRandomAssessors(false)}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
