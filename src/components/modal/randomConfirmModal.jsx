@@ -4,10 +4,10 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, ExclamationCircleIcon } from '@heroicons/react/24/outline'
 
 // eslint-disable-next-line react/prop-types
-export default function RandomConfirmModal({ open, title, msg, status, handleConfirm}) {
+export default function RandomConfirmModal({ open, title, msg, status, handleNumConfirm}) {
   const [openModal, setOpenModal] = useState(open)
   function clickHandler() {
-    handleConfirm()
+    handleNumConfirm()
   }
   const Icon = () => {
     if (status === "success") {
