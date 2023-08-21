@@ -119,6 +119,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   }, [uploadedData])
 
   useEffect(() => {
+    console.log(numOfAssessors)
     if (!numOfAssessors) { return }
     setConfirmMakeRandomAssessors(true)
   }, [numOfAssessors])
