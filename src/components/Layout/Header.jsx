@@ -44,7 +44,9 @@ export default function Header() {
 
   const fetchAgreeStatus = async() => {
     const url = `${MEMBER_ENDPOINT}${user.id}/terms_condition_flag/`
-    const resp = await requestWithTokenRefresh(url, {}, navigate)
+    const resp = await requestWithTokenRefresh(url, {
+      method: "POST"
+    }, navigate)
     const data = await resp.json()
     setOpenAgreeModal(!data.terms_condition_flag)
   }
