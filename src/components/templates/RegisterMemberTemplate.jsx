@@ -139,10 +139,9 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       secondRow = [...explanationRow, ...teamExplanations]
       // }
     } else if (selectedMethod.value === 3) {
-      const member_name = members.filter((member) => member.is_active === true).map((member) => member.name)
-      headers = [...RegisterationHeaders, "random", ...member_name]
+      headers = [...RegisterationHeaders, "てすと1", "てすと２", "てすと１", "てすと３", "Cuoremo管理者(開発用)", "管理者(開発用)", "別府大樹", "べっぷだいき", "りざぶるさぽーと", "名前なし", "名前なし"]
 
-      const teamExplanations = member_name.map(_ => "所属する場合は1を記入してください")
+      const teamExplanations = Array(10).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
       secondRow = [...explanationAssessmentRow, ...teamExplanations]
     }
     setColumnHeaders([headers, secondRow])
