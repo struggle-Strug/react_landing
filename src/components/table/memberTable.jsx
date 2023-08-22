@@ -5,7 +5,7 @@ import { useAtom } from 'jotai'
 export default function MemberTable({ members, team, setShowModal, setShowResetEvaluation, setShowEditEvaluation, setMemberToEdit }) {
   const [, setFormData] = useAtom(formAtom)
 
-  const subscription = localStorage.getItem("subscription")
+  const subscription = Boolean(localStorage.getItem("subscription"))
 
   function handleCreateButtonClick() {
     setMemberToEdit()
