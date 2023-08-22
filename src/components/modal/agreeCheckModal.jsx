@@ -128,14 +128,14 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                     </div>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-6 items-center px-24">
-                <label>
-                  <input type="checkbox"
-                    defaultChecked={clickableButton}
-                    onChange={() => setClickableButton(!clickableButton)}
-                  />
-                  同意する
-                </label>
+                <div className="mt-5 sm:mt-6 items-center px-24 text-center">
+                  <label>
+                    <input type="checkbox"
+                      defaultChecked={clickableButton}
+                      onChange={() => setClickableButton(!clickableButton)}
+                    />
+                    同意する
+                  </label>
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
