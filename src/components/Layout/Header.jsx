@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import Logo from '../../../public/logo.png';
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { SUBSCRIPTION } from '../../utils/constants';
+import { SUBSCRIPTION, BACKEND_URL } from '../../utils/constants';
 
 import SidebarResponsive from './SidebarResponsive';
 import Modal from '../modal';
+import AgreeCheckModal from '../modal/agreeCheckModal';
 import SubscriptionModal from '../modal/subscriptionModal';
 import Loader from '../loader';
 
@@ -20,6 +21,7 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false)
   const [showsubscriptionModal, setShowSubScriptionModal] = useState(false)
   const [isWaiting, setIsWaiting] = useState(false)
+  const [openAgreeModal, setOpenAgreeModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalStatus, setModalStatus] = useState('')
   const fetchSubscription = useCallback(async () => {
@@ -40,9 +42,24 @@ export default function Header() {
     localStorage.setItem("subscription", data?.subscription_active)
   }, [navigate])
 
+  const fetchAgreeStatus = async() => {
+    const url = `${BACKEND_URL}user/${user.id}/terms_condition_flag/`
+    const resp = await requestWithTokenRefresh(url, {}, navigate)
+    const data = await resp.json()
+    setOpenAgreeModal(!data.terms_condition_flag)
+  }
+  useEffect(() => {
+    fetchAgreeStatus()
+  }, [])
+
   useEffect(() => {
     fetchSubscription()
+    
   }, [fetchSubscription])
+
+  const confirmHandler = () => {
+    console.log("confirm")
+  }
 
   function handleSubmit(){
     let url = SUBSCRIPTION + 'update/'
@@ -137,6 +154,11 @@ export default function Header() {
         status={modalStatus}
         title={modalTitle}
         onConfirm={() => {setShowModal(false)}}
+      />
+      <AgreeCheckModal
+        open={openAgreeModal}
+        setOpenAgreeModal={setOpenAgreeModal}
+        confirmHandler={confirmHandler}
       />
       {isWaiting &&
         <Loader />
