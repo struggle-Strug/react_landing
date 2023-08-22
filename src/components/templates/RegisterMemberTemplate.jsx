@@ -488,8 +488,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         <RandomConfirmModal
           open={confirmMakeRandomAssessors}
           title={"第三者評価者の組み合わせを作成"}
-          msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。\
-          問題なければ作成するをクリックしてください"}
+          msg={ "アセスメントはすでに有効であるためランダム作成はできません。"}
           status={"success"}
           handleNumConfirm={handleNumConfirm}
           setConfirmMakeRandomAssessors={setConfirmMakeRandomAssessors}
