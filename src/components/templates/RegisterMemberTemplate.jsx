@@ -140,12 +140,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       // }
     } else if (selectedMethod.value === 3) {
       if(selectedAssignMethod.value == 1) {
-        console.log("random")
         headers = [...RegisterationHeaders, "random"]
 
         secondRow = [...explanationAssessmentRow, "アサインしあうメンバーに共通する数字を入力"]
       } else if (selectedAssignMethod.value == 2) {
-        console.log("manual")
         headers = [...RegisterationHeaders, "てすと1", "てすと２", "てすと１", "てすと３", "Cuoremo管理者(開発用)", "管理者(開発用)", "別府大樹", "べっぷだいき", "りざぶるさぽーと", "名前なし", "名前なし"]
   
         const teamExplanations = Array(10).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
@@ -288,7 +286,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   function handleButtonClick() {
     if (selectedMethod.value === 2) {
       if (selectedType.value === 1) {
-        DownloadCSV(columnHeaders, "tobe-member_template_new")
+        DownloadCSV(columnHeaders, "member_template_new")
       } else if (selectedType.value === 2) {
         const memberData =
           members.filter((member) => member.is_active === true)
@@ -304,7 +302,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               // ""
             ])
         const csvData = columnHeaders.concat(memberData)
-        DownloadCSV(csvData, "tobe-member_template_existing")
+        DownloadCSV(csvData, "member_template_existing")
       }
     } else if (selectedMethod.value === 3) {
       const given_evaluations = members.filter((member) => member.is_active === true).map(_ => "")
@@ -324,9 +322,9 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           ])
       const csvData = columnHeaders.concat(memberData)
       if(selectedAssignMethod.value == 1) {
-        DownloadCSV(csvData, "tob-random_template")
+        DownloadCSV(csvData, "random_template")
       } else if (selectedAssignMethod.value == 2) {
-        DownloadCSV(csvData, "tob-manual_template")
+        DownloadCSV(csvData, "manual_template")
       }
     }
   }
