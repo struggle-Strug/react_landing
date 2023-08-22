@@ -10,7 +10,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
   }
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={clickHandler}>
+      <Dialog as="div" className="relative z-30" onClose={clickHandler}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -23,7 +23,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
         </Transition.Child>
 
-        <div className="fixed inset-0 z-10 overflow-y-auto">
+        <div className="fixed inset-0 z-30 overflow-y-auto">
           <div className="flex min-h-full justify-center p-4 text-center items-center sm:p-0 ">
             <Transition.Child
               as={Fragment}
@@ -40,7 +40,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                     <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
                       利用規約
                     </Dialog.Title>
-                    <div className="mt-2 overflow-y-auto">
+                    <div className="mt-2 overflow-y-auto h-[50vh]">
                       <p className="text-sm text-gray-500">
                       この利用規約（以下，「本規約」といいます。）は，＿＿＿＿＿（以下，「当社」といいます。）がこのウェブサイト上で提供するサービス（以下，「本サービス」といいます。）の利用条件を定めるものです。登録ユーザーの皆さま（以下，「ユーザー」といいます。）には，本規約に従って，本サービスをご利用いただきます。
 
