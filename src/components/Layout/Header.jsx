@@ -57,8 +57,16 @@ export default function Header() {
     
   }, [fetchSubscription])
 
-  const confirmHandler = () => {
-    console.log("confirm")
+  const confirmHandler = async () => {
+    const url = `${MEMBER_ENDPOINT}${user.id}/terms_condition_flag/`
+    const resp = await requestWithTokenRefresh(url, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"terms_condition_flag":false}),}, navigate)
+    const data = await resp.json()
+    setOpenAgreeModal(!data.terms_condition_flag)
   }
 
   function handleSubmit(){
