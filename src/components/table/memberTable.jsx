@@ -6,6 +6,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
   const [, setFormData] = useAtom(formAtom)
 
   const subscription = Boolean(localStorage.getItem("subscription"))
+  console.log(subscription)
 
   function handleCreateButtonClick() {
     setMemberToEdit()
