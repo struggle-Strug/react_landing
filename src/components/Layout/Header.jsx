@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import Logo from '../../../public/logo.png';
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { SUBSCRIPTION, BACKEND_URL } from '../../utils/constants';
+import { SUBSCRIPTION, MEMBER_ENDPOINT } from '../../utils/constants';
 
 import SidebarResponsive from './SidebarResponsive';
 import Modal from '../modal';
@@ -43,7 +43,7 @@ export default function Header() {
   }, [navigate])
 
   const fetchAgreeStatus = async() => {
-    const url = `${BACKEND_URL}user/${user.id}/terms_condition_flag/`
+    const url = `${MEMBER_ENDPOINT}${user.id}/terms_condition_flag/`
     const resp = await requestWithTokenRefresh(url, {}, navigate)
     const data = await resp.json()
     setOpenAgreeModal(!data.terms_condition_flag)
