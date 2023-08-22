@@ -6,7 +6,6 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
   const [, setFormData] = useAtom(formAtom)
 
   const subscription = Boolean(localStorage.getItem("subscription"))
-  console.log(subscription)
 
   function handleCreateButtonClick() {
     setMemberToEdit()
@@ -150,7 +149,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                       <button
                         className='text-indigo-600 hover:text-indigo-900'
                         onClick={() => handleEditEvaluation(person)}
-                        disabled={false}
+                        disabled={subscription}
                       >
                         編集
                       </button>
