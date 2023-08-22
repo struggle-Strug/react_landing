@@ -153,7 +153,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       }
     }
     setColumnHeaders([headers, secondRow])
-  }, [teams, selectedMethod])
+  }, [teams, selectedMethod, selectedAssignMethod])
 
 
   async function handleSubmit() {
