@@ -140,10 +140,12 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       // }
     } else if (selectedMethod.value === 3) {
       if(selectedAssignMethod.value == 1) {
+        console.log("random")
         headers = [...RegisterationHeaders, "random"]
 
         secondRow = [...explanationAssessmentRow, "アサインしあうメンバーに共通する数字を入力"]
       } else if (selectedAssignMethod.value == 2) {
+        console.log("manual")
         headers = [...RegisterationHeaders, "てすと1", "てすと２", "てすと１", "てすと３", "Cuoremo管理者(開発用)", "管理者(開発用)", "別府大樹", "べっぷだいき", "りざぶるさぽーと", "名前なし", "名前なし"]
   
         const teamExplanations = Array(10).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
