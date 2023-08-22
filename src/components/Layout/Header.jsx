@@ -64,7 +64,7 @@ export default function Header() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({"terms_condition_flag":false}),}, navigate)
+      body: JSON.stringify({"terms_condition_flag":true}),}, navigate)
     const data = await resp.json()
     setOpenAgreeModal(!data.terms_condition_flag)
   }
