@@ -139,10 +139,16 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       secondRow = [...explanationRow, ...teamExplanations]
       // }
     } else if (selectedMethod.value === 3) {
-      headers = [...RegisterationHeaders, "てすと1", "てすと２", "てすと１", "てすと３", "Cuoremo管理者(開発用)", "管理者(開発用)", "別府大樹", "べっぷだいき", "りざぶるさぽーと", "名前なし", "名前なし"]
+      if(selectedAssignMethod.value == 1) {
+        headers = [...RegisterationHeaders, "random"]
 
-      const teamExplanations = Array(10).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
-      secondRow = [...explanationAssessmentRow, ...teamExplanations]
+        secondRow = [...explanationAssessmentRow, "アサインしあうメンバーに共通する数字を入力"]
+      } else if (selectedAssignMethod.value == 2) {
+        headers = [...RegisterationHeaders, "てすと1", "てすと２", "てすと１", "てすと３", "Cuoremo管理者(開発用)", "管理者(開発用)", "別府大樹", "べっぷだいき", "りざぶるさぽーと", "名前なし", "名前なし"]
+  
+        const teamExplanations = Array(10).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
+        secondRow = [...explanationAssessmentRow, ...teamExplanations]
+      }
     }
     setColumnHeaders([headers, secondRow])
   }, [teams, selectedMethod])
@@ -318,7 +324,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       if(selectedAssignMethod.value == 1) {
         DownloadCSV(csvData, "random_template")
       } else if (selectedAssignMethod.value == 2) {
-        DownloadCSV(csvData, "manual_template")
+        DownloadCSV(csvData, "tob-manual_template")
       }
     }
   }
