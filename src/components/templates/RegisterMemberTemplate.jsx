@@ -322,7 +322,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           ])
       const csvData = columnHeaders.concat(memberData)
       if(selectedAssignMethod.value == 1) {
-        DownloadCSV(csvData, "random_template")
+        DownloadCSV(csvData, "tob-random_template")
       } else if (selectedAssignMethod.value == 2) {
         DownloadCSV(csvData, "tob-manual_template")
       }
