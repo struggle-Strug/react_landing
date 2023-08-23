@@ -40,6 +40,7 @@ export default function Header() {
     const data = await resp.json()
     setSubscription(data?.subscription_active)
     localStorage.setItem("subscription", !data?.subscription_active)
+    console.log("data", data, data?.subscription_active)
   }, [navigate])
 
   const fetchAgreeStatus = async() => {
