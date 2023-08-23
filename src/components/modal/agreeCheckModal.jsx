@@ -1,18 +1,12 @@
 /* eslint-disable react/prop-types */
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { useNavigate } from 'react-router'
 
 // eslint-disable-next-line react/prop-types
 export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandler }) {
-  const navigate = useNavigate()
   const [clickableButton, setClickableButton] = useState(false)
-  const tokenFromStorage = localStorage.getItem("token")
-  const token = tokenFromStorage ? JSON.parse(tokenFromStorage) : null
-  const subdomain = token.subdomain
   function clickHandler() {
     setOpenAgreeModal(false)
-    navigate(`/${subdomain}`)
   }
   return (
     <Transition.Root show={open} as={Fragment}>
