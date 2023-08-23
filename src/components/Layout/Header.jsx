@@ -69,6 +69,10 @@ export default function Header() {
       body: JSON.stringify({"terms_condition_flag":true}),}, navigate)
     const data = await resp.json()
     setOpenAgreeModal(!data.terms_condition_flag)
+    const tokenFromStorage = localStorage.getItem("token")
+    const token = tokenFromStorage ? JSON.parse(tokenFromStorage) : null
+    const subdomain = token.subdomain
+    navigate(`/${subdomain}`)
   }
 
   function handleSubmit(){
