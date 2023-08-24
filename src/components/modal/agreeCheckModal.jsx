@@ -6,7 +6,7 @@ import { Dialog, Transition } from '@headlessui/react'
 export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandler }) {
   const [clickableButton, setClickableButton] = useState(false)
   function clickHandler() {
-    setOpenAgreeModal(false)
+    setOpenAgreeModal(true)
   }
   return (
     <Transition.Root show={open} as={Fragment}>
