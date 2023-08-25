@@ -4,6 +4,10 @@ import { useAtom } from 'jotai'
 
 export default function MemberTable({ members, team, setShowModal, setShowResetEvaluation, setShowEditEvaluation, setMemberToEdit }) {
   const [, setFormData] = useAtom(formAtom)
+
+  const subscription = JSON.parse(localStorage.getItem("subscription"))
+  console.log(subscription)
+
   function handleCreateButtonClick() {
     setMemberToEdit()
     setFormData()
@@ -48,7 +52,6 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-300"
               onClick={handleCreateButtonClick}
-              disabled={team.value===0}
             >
               新規登録
             </button>
@@ -57,7 +60,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
       </div>
       <div className="mt-2 flow-root relative h-[400px] overflow-y-auto overflow-x-auto">
         <div className="mx-auto">
-          <table className="w-full text-center">
+          <table className="w-full text-center whitespace-nowrap">
             <thead className="sticky top-0 bg-white shadow z-10">
               <tr>
                 <th scope="col" className="py-3.5 min-w-1/6 text-sm lg:text-base font-semibold text-gray-900">
@@ -69,7 +72,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                   scope="col"
                   className="hidden py-3.5 text-sm lg:text-base min-w-1/6 font-semibold text-gray-900 sm:table-cell"
                 >
-                  名前ひらがな
+                  名前ふりがな
                 </th>
                 <th
                   scope="col"
@@ -116,7 +119,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                   </td>
                   <td className="hidden py-4 lg:text-sm text-gray-500 md:table-cell">
                     {person.team_relation.map((team, idx) => (
-                      <span key={idx}>{team.team_name} </span>
+                      <span key={idx}>{team.team_name}{idx < person.team_relation.length - 1 ? ', ' : ''}</span>
                     ))}
                   </td>
                   <td className="hidden py-4 whitespace-nowrap lg:text-sm text-gray-500 lg:table-cell">
@@ -147,6 +150,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                       <button
                         className='text-indigo-600 hover:text-indigo-900'
                         onClick={() => handleEditEvaluation(person)}
+                        disabled={subscription}
                       >
                         編集
                       </button>

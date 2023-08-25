@@ -4,10 +4,11 @@ import { useNavigate } from "react-router-dom";
 
 import Logo from '../../../public/logo.png';
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { SUBSCRIPTION } from '../../utils/constants';
+import { SUBSCRIPTION, MEMBER_ENDPOINT } from '../../utils/constants';
 
 import SidebarResponsive from './SidebarResponsive';
 import Modal from '../modal';
+import AgreeCheckModal from '../modal/agreeCheckModal';
 import SubscriptionModal from '../modal/subscriptionModal';
 import Loader from '../loader';
 
@@ -20,6 +21,7 @@ export default function Header() {
   const [showModal, setShowModal] = useState(false)
   const [showsubscriptionModal, setShowSubScriptionModal] = useState(false)
   const [isWaiting, setIsWaiting] = useState(false)
+  const [openAgreeModal, setOpenAgreeModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalStatus, setModalStatus] = useState('')
   const fetchSubscription = useCallback(async () => {
@@ -37,11 +39,41 @@ export default function Header() {
     const resp = await requestWithTokenRefresh(url, {}, navigate)
     const data = await resp.json()
     setSubscription(data?.subscription_active)
+    localStorage.setItem("subscription", data?.subscription_active)
   }, [navigate])
+
+  const fetchAgreeStatus = async() => {
+    const url = `${MEMBER_ENDPOINT}${user.id}/terms_condition_flag/`
+    const resp = await requestWithTokenRefresh(url, {
+      method: "POST"
+    }, navigate)
+    const data = await resp.json()
+    setOpenAgreeModal(!data.terms_condition_flag)
+  }
+  useEffect(() => {
+    fetchAgreeStatus()
+  }, [])
 
   useEffect(() => {
     fetchSubscription()
+    
   }, [fetchSubscription])
+
+  const confirmHandler = async () => {
+    const url = `${MEMBER_ENDPOINT}${user.id}/terms_condition_flag/`
+    const resp = await requestWithTokenRefresh(url, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({"terms_condition_flag":true}),}, navigate)
+    const data = await resp.json()
+    setOpenAgreeModal(!data.terms_condition_flag)
+    const tokenFromStorage = localStorage.getItem("token")
+    const token = tokenFromStorage ? JSON.parse(tokenFromStorage) : null
+    const subdomain = token.subdomain
+    navigate(`/${subdomain}`)
+  }
 
   function handleSubmit(){
     let url = SUBSCRIPTION + 'update/'
@@ -58,7 +90,7 @@ export default function Header() {
       if(resp.status === 200){
         setSubscription(true)
         setModalStatus('success')
-        setModalTitle('操作が成功しました。')
+        setModalTitle('メンバー全員がアセスメント実施可能な状態になりました。')
       }
       else{
         setModalStatus('failed')
@@ -136,6 +168,11 @@ export default function Header() {
         status={modalStatus}
         title={modalTitle}
         onConfirm={() => {setShowModal(false)}}
+      />
+      <AgreeCheckModal
+        open={openAgreeModal}
+        setOpenAgreeModal={setOpenAgreeModal}
+        confirmHandler={confirmHandler}
       />
       {isWaiting &&
         <Loader />

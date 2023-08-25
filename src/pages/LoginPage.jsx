@@ -30,8 +30,13 @@ function LoginPage() {
       const user = userFromStorage ? JSON.parse(userFromStorage) : null
       if(token?.company_active && user?.is_active){
         const subdomain = token.subdomain
-        navigate(`/${subdomain}`);
-        window.location.reload(false);
+        if(token.is_superuser) {
+          navigate(`/${subdomain}/team`);
+          window.location.reload(false);
+        } else {
+          navigate(`/${subdomain}`);
+          window.location.reload(false);
+        }
       }
       else{
         setErrorMessage('アカウントが無効になりました。');

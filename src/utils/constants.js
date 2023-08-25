@@ -1,6 +1,7 @@
 export const BACKEND_URL =
     //'__env__' in window ? window.__env__.BACKEND_URL : process.env.REACT_APP_BACKEND_URL;
-    '__env__' in window ? window.__env__.BACKEND_URL : "https://production-backend.reservele.com/";
+    //'__env__' in window ? window.__env__.BACKEND_URL : "https://staging-backend.reservele.com/";
+    '__env__' in window ? window.__env__.BACKEND_URL : "https://staging-backend.heart-beat.me/";
 
 export const LOGIN_ENDPOINT = BACKEND_URL + 'api/auth/jwt/create/'
 
@@ -13,6 +14,8 @@ export const RESET_ENDPOINT = BACKEND_URL + 'api/password/reset/?'
 export const FORGOT_ENDPOINT = BACKEND_URL + 'api/password/forgot/'
 
 export const EVALUATION_ENDPOINT = BACKEND_URL + 'api/evaluation/'
+
+export const EVALUATIONS_ENDPOINT = BACKEND_URL + 'api/evaluations/'
 
 export const ANSWER_ENDPOINT = BACKEND_URL + 'api/answer/'
 

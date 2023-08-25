@@ -151,7 +151,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                       </div>
                       <div className='mt-2'>
                         <div className='text-left font-semibold'>
-                          名前（ひらがな）
+                          名前（ふりがな）
                           <span className="ml-2 text-xs text-red-600">
                             必須
                           </span>

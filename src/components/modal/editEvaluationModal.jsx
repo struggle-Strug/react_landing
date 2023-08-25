@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import {
-    LockClosedIcon
-} from '@heroicons/react/20/solid'
 
 import Loader from '../loader'
 import Button from '../button'
@@ -76,11 +73,15 @@ export default function EditEvaluationModal({open, onClose, title, members, load
                                         <div className='mt-2 px-16' key={index}>
                                             <div className='border-2 border-indigo-900 rounded py-2 relative text-red-500'>
                                                 <span className='text-black'>{item.name}</span>
-                                                <LockClosedIcon
-                                                    className='absolute right-2 bottom-3 h-4 w-4 shrink-0 cursor-pointer'
+                                                <span
+                                                    className='absolute right-2 shrink-0 cursor-pointer'
                                                     aria-hidden="true"
                                                     onClick={() => {removeUser(item)}}
-                                                />
+                                                >
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </span>
                                             </div>
                                         </div>
                                     ))}

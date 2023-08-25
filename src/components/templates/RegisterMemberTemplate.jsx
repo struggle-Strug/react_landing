@@ -15,7 +15,9 @@ import MemberModal from '../modal/memberModal'
 import ConfirmationModal from '../modal'
 import ResetEvaluationModal from '../modal/resetEvaluationModal'
 import EditEvaluationModal from '../modal/editEvaluationModal'
-import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT } from '../../utils/constants'
+import AssessorsModal from '../modal/assessorsModal'
+import RandomConfirmModal from '../modal/randomConfirmModal'
+import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
 import { useNavigate } from 'react-router'
 import Loader from '../loader'
@@ -37,9 +39,11 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   const [errorMessage, setErrorMessage] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [showModal, setShowModal] = useState(false)
-  const [showComfirmation, setShowComfirmation] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
   const [showResetEvaluation, setShowResetEvaluation] = useState(false)
   const [showEditEvaluation, setShowEditEvaluation] = useState(false)
+  const [showNumOfAssessors, setShowNumOfAssessors] = useState(false)
+  const [confirmMakeRandomAssessors, setConfirmMakeRandomAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
 
   useEffect(() => {
@@ -66,31 +70,48 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     if (selectedMethod.value === 3) {
       if (selectedAssignMethod.value === 1){
         const SendRandom = async () => {
-          const url = ASSIGN_ENDPOINT + 'update/'
-          const resp = await requestWithTokenRefresh(url, {
-            method: 'PATCH',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(uploadedData)
-          })
-          const data = await resp.json()
-          const options = data.map(num => ({ value: num, label: num }))
-          setAssignNumOptions(options)
+          try {
+            const url = ASSIGN_ENDPOINT + 'update/'
+            const resp = await requestWithTokenRefresh(url, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(uploadedData)
+            })
+            const data = await resp.json()
+            if (resp.status >= 200 && resp.status < 300) {
+              const options = data.map(num => ({ value: num, label: num }))
+              setAssignNumOptions(options)
+            } else {
+              setShowNumOfAssessors(true)
+            }
+          }
+          catch {
+            setShowConfirmation(true)
+          }
         }
         SendRandom()
       }
       else{
         const SendEvaluations = async () => {
-          const url = BACKEND_URL + 'api/evaluations/update/'
-          await requestWithTokenRefresh(url, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(uploadedData),
-          })
-          window.location.href = ''
+          const url = EVALUATIONS_ENDPOINT + 'update/'
+          try {
+            const resp = await requestWithTokenRefresh(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(uploadedData),
+            })
+            if (resp.status >= 200 && resp.status < 300) {
+              window.location.reload(true);
+            } else {
+              setShowNumOfAssessors(true)
+            }
+          } catch {
+            setShowNumOfAssessors(true)
+          }
         }
         SendEvaluations()
       }
@@ -99,12 +120,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
   useEffect(() => {
     if (!numOfAssessors) { return }
-    const SendAssignNumber = async () => {
-      const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
-      await requestWithTokenRefresh(url, {}, navigate)
-      window.location.href = ''
-    }
-    SendAssignNumber()
+    setConfirmMakeRandomAssessors(true)
   }, [numOfAssessors])
 
   useEffect(() => {
@@ -123,14 +139,19 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
       secondRow = [...explanationRow, ...teamExplanations]
       // }
     } else if (selectedMethod.value === 3) {
-      const member_name = members.filter((member) => member.is_active === true).map((member) => member.name)
-      headers = [...RegisterationHeaders, "random", ...member_name]
+      if(selectedAssignMethod.value == 1) {
+        headers = [...RegisterationHeaders, "random"]
 
-      const teamExplanations = member_name.map(_ => "所属する場合は1を記入してください")
-      secondRow = [...explanationAssessmentRow, ...teamExplanations]
+        secondRow = [...explanationAssessmentRow, "アサインしあうメンバーに共通する数字を入力"]
+      } else if (selectedAssignMethod.value == 2) {
+        headers = [...RegisterationHeaders, "てすと1", "てすと２", "てすと１", "てすと３", "Cuoremo管理者(開発用)", "管理者(開発用)", "別府大樹", "べっぷだいき", "りざぶるさぽーと", "名前なし", "名前なし"]
+  
+        const teamExplanations = Array(10).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
+        secondRow = [...explanationAssessmentRow, ...teamExplanations]
+      }
     }
     setColumnHeaders([headers, secondRow])
-  }, [teams, selectedMethod])
+  }, [teams, selectedMethod, selectedAssignMethod])
 
 
   async function handleSubmit() {
@@ -151,17 +172,17 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         setErrorMessage('')
       } else {
         setStatus("failed")
-        setErrorMessage(data)
+        setErrorMessage(Object.values(data))
       }
       setShowModal(false)
       setIsLoading(false)
-      setShowComfirmation(true)
+      setShowConfirmation(true)
     } catch(error){
       setStatus("failed")
       setErrorMessage(error)
       setShowModal(false)
       setIsLoading(false)
-      setShowComfirmation(true)
+      setShowConfirmation(true)
     }
   }
 
@@ -187,6 +208,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     setShowResetEvaluation(false)
     refreshData()
     setShowEditEvaluation(true)
+    setUserArray([])
   }
 
   async function handleUpdate(){
@@ -214,7 +236,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     }
     setIsLoading(false)
     setShowEditEvaluation(false)
-    setShowComfirmation(true)
+    setShowConfirmation(true)
   }
 
   async function handleCSVDataSubmit() {
@@ -238,18 +260,33 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
     }
     setShowModal(false)
     setIsLoading(false)
-    setShowComfirmation(true)
+    setShowConfirmation(true)
+  }
+
+  const handleNumConfirm = async () => {
+    try {
+      const url = ASSIGN_ENDPOINT + `fix/?random_id=${numOfAssessors.value}`
+      const resp = await requestWithTokenRefresh(url, {}, navigate)
+      if (resp.status >= 200 && resp.status < 300) {
+        window.location.reload(true);
+      }
+      else {
+        setShowConfirmation(true)
+      }
+    } catch {
+      setShowConfirmation(true)
+    }
   }
 
   function handleConfirm() {
     refreshData()
-    setShowComfirmation(false)
+    window.location.reload(true)
   }
 
   function handleButtonClick() {
     if (selectedMethod.value === 2) {
       if (selectedType.value === 1) {
-        DownloadCSV(columnHeaders)
+        DownloadCSV(columnHeaders, "member_template_new")
       } else if (selectedType.value === 2) {
         const memberData =
           members.filter((member) => member.is_active === true)
@@ -265,7 +302,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               // ""
             ])
         const csvData = columnHeaders.concat(memberData)
-        DownloadCSV(csvData)
+        DownloadCSV(csvData, "member_template_existing")
       }
     } else if (selectedMethod.value === 3) {
       const given_evaluations = members.filter((member) => member.is_active === true).map(_ => "")
@@ -284,7 +321,11 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             ...given_evaluations
           ])
       const csvData = columnHeaders.concat(memberData)
-      DownloadCSV(csvData)
+      if(selectedAssignMethod.value == 1) {
+        DownloadCSV(csvData, "random_template")
+      } else if (selectedAssignMethod.value == 2) {
+        DownloadCSV(csvData, "manual_template")
+      }
     }
   }
 
@@ -411,16 +452,20 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           open={showEditEvaluation}
           onClose={setShowEditEvaluation}
           title="第三者評価登録・編集フォーム"
-          members={teamMembers}
+          members={
+            teamMembers.filter((tM) => { 
+              return tM.id !== member.id;
+            })
+          }
           loading={isLoading}
           editForm={handleUpdate}
           userArray={userArray}
           setUserArray={setUserArray}
         />
       )}
-      {showComfirmation && (
+      {showConfirmation && (
         <ConfirmationModal
-          open={showComfirmation}
+          open={showConfirmation}
           title={status === "success"
             ? "データ登録・更新完了"
             : "登録・更新失敗"
@@ -432,6 +477,26 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           status={status}
           onConfirm={handleConfirm}
           errorMessage={errorMessage}
+        />
+      )}
+      {showNumOfAssessors && (
+        <AssessorsModal
+          open={showNumOfAssessors}
+          title={"第三者評価者の組み合わせを作成"}
+          msg={ "アセスメントはすでに有効であるためランダム作成はできません。"}
+          status={"failed"}
+          setShowNumOfAssessors={setShowNumOfAssessors}
+        />
+      )}
+      {confirmMakeRandomAssessors && (
+        <RandomConfirmModal
+          open={confirmMakeRandomAssessors}
+          title={"第三者評価者の組み合わせを作成"}
+          msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。\
+          問題なければ作成するをクリックしてください"}
+          status={"success"}
+          handleNumConfirm={handleNumConfirm}
+          setConfirmMakeRandomAssessors={setConfirmMakeRandomAssessors}
         />
       )}
     </div>
