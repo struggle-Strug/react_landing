@@ -23,9 +23,6 @@ jobs:
     - name: Install dependencies
       run: npm ci
 
-    - name: List files
-      run: ls -R
-
     - name: Configure constants.js for staging
       run: cp src/utils/constants-staging.js src/utils/constants.js  # src/utils/はconstants.jsが置いてあるディレクトリに合わせてください
 
