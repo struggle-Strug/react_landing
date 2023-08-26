@@ -24,7 +24,7 @@ jobs:
       run: npm ci
 
     - name: Configure constants.js for staging
-      run: cp constants-staging.js src/constants.js  # src/はconstants.jsが置いてあるディレクトリに合わせてください
+      run: cp constants-staging.js src/utils/constants.js  # src/はconstants.jsが置いてあるディレクトリに合わせてください
 
     - name: Build the project
       run: |
