@@ -34,4 +34,5 @@ jobs:
         echo "=== END BEFORE BUILD ==="
 
     - name: Deploy to S3
-      run: aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME_PRODUCTION_TEMP }}/ --delete
+      #run: aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME_PRODUCTION_TEMP }}/ --delete
+      run: aws s3 sync dist/ s3://${{ secrets.REACT_APP_BACKEND_URL_PROD }}/ --delete
