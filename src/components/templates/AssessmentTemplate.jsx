@@ -36,7 +36,11 @@ export default function AssessmentTemplate({ answers, assessment, updateAnswer, 
       <div>
         <div className='w-full'>
           <div className='mt-6'>
-            <div className='text-center text-2xl mb-2'>{assessment.received_evaluations_name} さんのアセスメント</div>
+            <div className='text-center text-2xl mb-2'>
+              {/* {assessment.received_evaluations_name} さんのアセスメント */}
+              {"精度の高いフィードバックにするためにも、率直に正直にお答えください。"}<br />
+              {"（もし対象者について回答する場合も、対象者に回答が開示されることはありませんのでご安心ください。）"}
+            </div>
             <ul>
               {userAnswers && userAnswers.map(
                 answer => (
