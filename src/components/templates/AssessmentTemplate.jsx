@@ -48,7 +48,7 @@ export default function AssessmentTemplate({ answers, assessment, updateAnswer, 
                     key={answer.id}
                     className='p-6'
                   >
-                    {answer.quiz_relation.quiz && <p className='py-2'>{answer.quiz_relation.quiz}</p>}
+                    {answer.quiz_relation.quiz && <p className='py-2'>{answer.quiz_relation.quiz.replace("対象者", answer.evaluation_relation.received_evaluations_name)}</p>}
                     <MarkedSlider answer={answer} setAnswer={updateAnswerArray} />
                   </li>
                 )
