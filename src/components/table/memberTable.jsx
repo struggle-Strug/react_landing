@@ -96,7 +96,9 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                   <span className=""></span>
                 </th>
                 <th scope='col' className='py-3.5 min-w-1/6 text-sm lg:text-base font-semibold text-gray-900'>
-                  第三者評価
+                  {/* 第三者評価 */}
+                  第三者評価<br />
+                  この人のアセスメントをする）
                 </th>
                 <th scope="col" className="relative py-3.5 min-w-1/12">
                   <span className=""></span>
