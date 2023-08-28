@@ -1,6 +1,4 @@
-#Staging
-
-name: Deploy to Amazon S3
+name: Deploy to Amazon S3 (Main)
 
 on:
   push:
@@ -22,14 +20,18 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Install dependencies and build
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Configure constants.js for main
+      run: cp src/utils/constants-main.js src/utils/constants.js  # src/utils/はconstants.jsが置いてあるディレクトリに合わせてください
+
+    - name: Build the project
       run: |
-        npm ci
         echo "=== BEFORE BUILD ==="
-        echo "=== END BEFORE BUILD ==="
         export NODE_ENV=production
         npm run build:debug
+        echo "=== END BEFORE BUILD ==="
 
     - name: Deploy to S3
-      run: |
-        aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME_PRODUCTION_TEMP }}/ --delete
+      run: aws s3 sync dist/ s3://${{ secrets.AWS_S3_BUCKET_NAME_PRODUCTION }}/ --delete #production (www.heart-beat.me)
