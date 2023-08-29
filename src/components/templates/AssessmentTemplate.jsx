@@ -41,7 +41,7 @@ export default function AssessmentTemplate({ answers, assessment, updateAnswer, 
               {"精度の高いフィードバックにするためにも、率直に正直にお答えください。"}<br />
               {"（もし対象者について回答する場合も、対象者に回答が開示されることはありませんのでご安心ください。）"}
             </div>
-            <ul>
+            <ul className='w-max	m-auto'>
               {userAnswers && userAnswers.map(
                 answer => (
                   <li
