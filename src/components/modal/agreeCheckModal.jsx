@@ -44,10 +44,10 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <p className="text-sm text-gray-500">
                         本利用規約（以下「<b>本規約</b>」といいます。）は、株式会社CUOREMO（以下「<b>当社</b>」といいます。）が「<b>Heart Beat FINDER</b>」の名称で提供するサービス及びその関連サービス（以下「<b>本サービス</b>」といいます。）の提供条件及びユーザー様と当社との間の権利義務関係を定めるものです。本サービスの利用に際しては、本規約の全文をお読みいただいたうえで、本規約に同意いただく必要があります。
                       </p>
-                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-3">
+                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第1条（適用）
                       </h2>
-                      <ol className="list-[upper-roman]">
+                      <ol className="list-[upper-roman] mt-2">
                         <li>
                           本規約は、本サービスの提供条件及び本サービスの利用に関する当社とユーザー様との間の権利義務関係を定めることを目的とし、ユーザー様と当社との間の本サービスの利用に関わる一切の関係に適用されます。
                         </li>
