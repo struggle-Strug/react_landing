@@ -47,7 +47,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-3">
                         第1条（適用）
                       </h2>
-                      <ul className="list-[upper-roman]">
+                      <ol className="list-[upper-roman]">
                         <li>
                           本規約は、本サービスの提供条件及び本サービスの利用に関する当社とユーザー様との間の権利義務関係を定めることを目的とし、ユーザー様と当社との間の本サービスの利用に関わる一切の関係に適用されます。
                         </li>
@@ -57,7 +57,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         <li>本規約の内容と、前項のルールその他の本規約外における本サービスの説明等とが異なる場合は、本規約の規定が優先して適用されるものとします。</li>
                         <li>本規約のうち当社が本サービスの利用を許諾した時点ではユーザー様に適用されない規定がある場合、当該規定は、事情変更によって将来適用可能となった時点から適用されるものとします。</li>
                           
-                      </ul>
+                      </ol>
                     </div>
                   </div>
                 </div>
