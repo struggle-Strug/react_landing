@@ -288,13 +288,13 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                     <input type="checkbox"
                       defaultChecked={clickableButton}
                       onChange={() => setClickableButton(!clickableButton)}
-                      className='mr-2 focus:outline-none'
+                      className='mr-2 focus:outline-none outline-none'
                     />
                     本規約の内容を理解し、同意します。
                   </label>
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-none mt-3"
+                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-3"
                     onClick={() => confirmHandler()}
                     disabled={!clickableButton}
                   >
