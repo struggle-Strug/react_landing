@@ -86,6 +86,12 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                           利用希望者が、本規約に遵守することを同意した時点において、サービス利用契約が契約者との間に成立し、契約者は本サービスを本規約に従い利用することができるようになります。
                         </li>
                       </ol>
+                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
+                        第4条（登録事項の変更）
+                      </h2>
+                      <ol className="mt-3 list-outside list-decimal ml-5">
+                        <p>ユーザー様は、登録事項に変更があった場合、当社の定める方法により当該変更事項を遅滞なく当社に通知するものとします。</p>
+                      </ol>
                     </div>
                   </div>
                 </div>
