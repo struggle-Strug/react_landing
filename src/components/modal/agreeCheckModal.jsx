@@ -47,8 +47,8 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第1条（適用）
                       </h2>
-                      <ol className="list-[upper-roman] mt-2">
-                        <li>
+                      <ol className="list-[upper-roman] mt-3">
+                        <li className="before:content-[counters(list-item, '') '. ']">
                           本規約は、本サービスの提供条件及び本サービスの利用に関する当社とユーザー様との間の権利義務関係を定めることを目的とし、ユーザー様と当社との間の本サービスの利用に関わる一切の関係に適用されます。
                         </li>
                         <li>
