@@ -271,7 +271,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       </h2>
                       <p>本規約のいずれかの条項またはその一部が、消費者契約法その他の法令等により無効または執行不能と判断された場合であっても、本規約の残りの規定及び一部が無効または執行不能と判断された規定の残りの部分は、継続して完全に効力を有するものとします。</p>
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
-                        第19条（分離可能性）
+                        第20条（準拠法及び管轄裁判所）
                       </h2>
                       <ol className="list-outside list-decimal ml-6">
                         <li>本規約及びサービス利用契約の準拠法は日本法とします。</li>
