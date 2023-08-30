@@ -44,10 +44,10 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <p className="text-sm text-gray-500">
                         本利用規約（以下「<b>本規約</b>」といいます。）は、株式会社CUOREMO（以下「<b>当社</b>」といいます。）が「<b>Heart Beat FINDER</b>」の名称で提供するサービス及びその関連サービス（以下「<b>本サービス</b>」といいます。）の提供条件及びユーザー様と当社との間の権利義務関係を定めるものです。本サービスの利用に際しては、本規約の全文をお読みいただいたうえで、本規約に同意いただく必要があります。
                       </p>
-                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
+                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第1条（適用）
                       </h2>
-                      <ol className="mt-3 list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-5">
                         <li>
                           本規約は、本サービスの提供条件及び本サービスの利用に関する当社とユーザー様との間の権利義務関係を定めることを目的とし、ユーザー様と当社との間の本サービスの利用に関わる一切の関係に適用されます。
                         </li>
@@ -57,11 +57,11 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         <li>本規約の内容と、前項のルールその他の本規約外における本サービスの説明等とが異なる場合は、本規約の規定が優先して適用されるものとします。</li>
                         <li>本規約のうち当社が本サービスの利用を許諾した時点ではユーザー様に適用されない規定がある場合、当該規定は、事情変更によって将来適用可能となった時点から適用されるものとします。</li>
                       </ol>
-                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
+                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第2条（定義）
                       </h2>
                       <p>本規約において使用する以下の用語は、各々以下に定める意味を有するものとします。</p>
-                      <ol className="mt-3 list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-5">
                         <li>
                         「<b>サービス利用契約</b>」とは、本規約を契約条件として当社とユーザー様の間で締結される、本サービスの利用契約を意味します。
                         </li>
@@ -75,10 +75,10 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         <li>「<b>登録データ</b>」とは、ユーザー様について当社が保有するあらゆるデータを意味します。</li>
                         <li>「<b>ユーザー様</b>」とは、第3条第2項に基づいてサービス利用契約を締結した個人を意味します。</li>
                       </ol>
-                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
+                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第3条（契約の締結等）
                       </h2>
-                      <ol className="mt-3 list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-5">
                         <li>
                           本サービスの利用希望者（以下「<b>利用希望者</b>」といいます。）は、利用希望者の事業者において本サービスの利用者として登録され、かつ当社ウェブサイト上にて本規約を遵守することに同意した個人をいいます。
                         </li>
@@ -86,7 +86,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                           利用希望者が、本規約に遵守することを同意した時点において、サービス利用契約が契約者との間に成立し、契約者は本サービスを本規約に従い利用することができるようになります。
                         </li>
                       </ol>
-                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
+                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第4条（登録事項の変更）
                       </h2>
                       <p>ユーザー様は、登録事項に変更があった場合、当社の定める方法により当該変更事項を遅滞なく当社に通知するものとします。</p>
