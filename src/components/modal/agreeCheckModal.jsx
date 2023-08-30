@@ -37,7 +37,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-md sm:p-6">
                 <div>
                   <div className="mt-3 sm:mt-5">
-                    <Dialog.Title as="h1" className="text-base font-semibold leading-6 text-gray-900 text-bold text-center">
+                    <Dialog.Title as="h1" className="text-base font-semibold leading-4 text-gray-900 text-bold text-center">
                       「Heart Beat FINDER」利用規約
                     </Dialog.Title>
                     <div className="mt-5 overflow-y-auto h-[70vh]">
@@ -47,7 +47,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第1条（適用）
                       </h2>
-                      <ol className="mt-3 list-outside list-decimal ml-1">
+                      <ol className="mt-3 list-outside list-decimal ml-5">
                         <li>
                           本規約は、本サービスの提供条件及び本サービスの利用に関する当社とユーザー様との間の権利義務関係を定めることを目的とし、ユーザー様と当社との間の本サービスの利用に関わる一切の関係に適用されます。
                         </li>
@@ -60,7 +60,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第2条（定義）
                       </h2>
-                      <ol className="mt-3 list-outside list-decimal ml-1">
+                      <ol className="mt-3 list-outside list-decimal ml-5">
                         <p>本規約において使用する以下の用語は、各々以下に定める意味を有するものとします。</p>
                         <li>
                         「<b>サービス利用契約</b>」とは、本規約を契約条件として当社とユーザー様の間で締結される、本サービスの利用契約を意味します。
@@ -78,13 +78,14 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                     </div>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-6 items-center px-24 text-center">
+                <div className="mt-5 sm:mt-6 items-center px-24 text-center sm:px-0">
+                  <p>本規約に同意することで、「Heart Beat FINDER」サービスの利用契約が成立し、本規約に従いサービスの利用が可能となります。</p>
                   <label>
                     <input type="checkbox"
                       defaultChecked={clickableButton}
                       onChange={() => setClickableButton(!clickableButton)}
                     />
-                    同意する
+                    本規約の内容を理解し、同意します。
                   </label>
                   <button
                     type="button"
