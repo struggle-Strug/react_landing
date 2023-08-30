@@ -40,7 +40,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                     <Dialog.Title as="h1" className="text-xl font-semibold leading-1 text-gray-900 text-bold text-center">
                       「Heart Beat FINDER」利用規約
                     </Dialog.Title>
-                    <div className="mt-5 overflow-y-auto h-[70vh]">
+                    <div className="mt-5 overflow-y-auto h-[70vh] text-sm text-gray-500">
                       <p className="text-sm text-gray-500">
                         本利用規約（以下「<b>本規約</b>」といいます。）は、株式会社CUOREMO（以下「<b>当社</b>」といいます。）が「<b>Heart Beat FINDER</b>」の名称で提供するサービス及びその関連サービス（以下「<b>本サービス</b>」といいます。）の提供条件及びユーザー様と当社との間の権利義務関係を定めるものです。本サービスの利用に際しては、本規約の全文をお読みいただいたうえで、本規約に同意いただく必要があります。
                       </p>
