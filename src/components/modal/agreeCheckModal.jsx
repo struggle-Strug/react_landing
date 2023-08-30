@@ -47,7 +47,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第1条（適用）
                       </h2>
-                      <ol className="list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-6">
                         <li>
                           本規約は、本サービスの提供条件及び本サービスの利用に関する当社とユーザー様との間の権利義務関係を定めることを目的とし、ユーザー様と当社との間の本サービスの利用に関わる一切の関係に適用されます。
                         </li>
@@ -61,7 +61,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         第2条（定義）
                       </h2>
                       <p>本規約において使用する以下の用語は、各々以下に定める意味を有するものとします。</p>
-                      <ol className="list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-6">
                         <li>
                         「<b>サービス利用契約</b>」とは、本規約を契約条件として当社とユーザー様の間で締結される、本サービスの利用契約を意味します。
                         </li>
@@ -78,7 +78,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第3条（契約の締結等）
                       </h2>
-                      <ol className="list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-6">
                         <li>
                           本サービスの利用希望者（以下「<b>利用希望者</b>」といいます。）は、利用希望者の事業者において本サービスの利用者として登録され、かつ当社ウェブサイト上にて本規約を遵守することに同意した個人をいいます。
                         </li>
@@ -93,7 +93,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第5条（パスワード及びユーザーIDの管理）
                       </h2>
-                      <ol className="list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-6">
                         <li>
                           ユーザー様は、自己の責任において、本サービスに関するパスワード及びユーザーIDを適切に管理及び保管するものとし、これを第三者に利用させ、または貸与、譲渡、名義変更、売買等をしてはならないものとします。
                         </li>
@@ -105,7 +105,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         第6条（禁止事項）
                       </h2>
                       <p>ユーザー様は、本サービスの利用にあたり、以下の各号のいずれかに該当する行為または該当すると当社が判断する行為をしてはなりません。</p>
-                      <ol className="list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-6">
                         <li>
                           法令に違反する行為または犯罪行為に関連する行為
                         </li>
@@ -137,7 +137,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第7条（本サービスの停止等）
                       </h2>
-                      <ol className="list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-6">
                         <li>
                           当社は、以下のいずれかに該当する場合には、ユーザー様に事前に通知することなく、本サービスの全部または一部の提供を停止または中断することができるものとします。
                           <p>(ア)本サービスに係るコンピューター・システムの点検または保守作業を緊急に行う場合</p>
@@ -153,7 +153,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5 mb-3">
                         第8条（権利帰属）
                       </h2>
-                      <ol className="list-outside list-decimal ml-5">
+                      <ol className="list-outside list-decimal ml-6">
                         <li>
                           当社ウェブサイト及び本サービスに関する知的財産権は全て当社または当社にライセンスを許諾している者に帰属しており、本規約に基づく本サービスの利用許諾は、当社ウェブサイトまたは本サービスに関する当社または当社にライセンスを許諾している者の知的財産権の使用許諾を意味するものではありません。ユーザー様は、いかなる理由によっても当社又は当社にライセンスを許諾している者の知的財産権を侵害するおそれのある行為（逆アセンブル、逆コンパイル、リバースエンジニアリングを含みますが、これらに限定されません。）をしないものとします。
                         </li>
@@ -165,8 +165,8 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                   </div>
                 </div>
                 <div className="mt-5 sm:mt-6 items-center px-0 text-center text-sm sm:px-12">
-                  <p>本規約に同意することで、「Heart Beat FINDER」サービスの利用契約が成立し、本規約に従いサービスの利用が可能となります。</p>
-                  <label className='py-3'>
+                  <p className='mb-3'>本規約に同意することで、「Heart Beat FINDER」サービスの利用契約が成立し、本規約に従いサービスの利用が可能となります。</p>
+                  <label>
                     <input type="checkbox"
                       defaultChecked={clickableButton}
                       onChange={() => setClickableButton(!clickableButton)}
@@ -176,7 +176,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                   </label>
                   <button
                     type="button"
-                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mt-3"
                     onClick={() => confirmHandler()}
                     disabled={!clickableButton}
                   >
