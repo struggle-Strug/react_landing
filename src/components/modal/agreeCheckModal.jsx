@@ -60,8 +60,8 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第2条（定義）
                       </h2>
+                      <p>本規約において使用する以下の用語は、各々以下に定める意味を有するものとします。</p>
                       <ol className="mt-3 list-outside list-decimal ml-5">
-                        <p>本規約において使用する以下の用語は、各々以下に定める意味を有するものとします。</p>
                         <li>
                         「<b>サービス利用契約</b>」とは、本規約を契約条件として当社とユーザー様の間で締結される、本サービスの利用契約を意味します。
                         </li>
@@ -89,13 +89,11 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第4条（登録事項の変更）
                       </h2>
-                      <ol className="mt-3 list-outside list-decimal ml-5">
-                        <p>ユーザー様は、登録事項に変更があった場合、当社の定める方法により当該変更事項を遅滞なく当社に通知するものとします。</p>
-                      </ol>
+                      <p>ユーザー様は、登録事項に変更があった場合、当社の定める方法により当該変更事項を遅滞なく当社に通知するものとします。</p>
                     </div>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-6 items-center px-24 text-center sm:px-0">
+                <div className="mt-5 sm:mt-6 items-center px-24 text-center text-sm sm:p-0">
                   <p>本規約に同意することで、「Heart Beat FINDER」サービスの利用契約が成立し、本規約に従いサービスの利用が可能となります。</p>
                   <label>
                     <input type="checkbox"
