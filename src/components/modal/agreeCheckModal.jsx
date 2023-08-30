@@ -47,7 +47,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第1条（適用）
                       </h2>
-                      <ol className="mt-3 list-inside list-decimal">
+                      <ol className="mt-3 list-outside list-decimal ml-1">
                         <li>
                           本規約は、本サービスの提供条件及び本サービスの利用に関する当社とユーザー様との間の権利義務関係を定めることを目的とし、ユーザー様と当社との間の本サービスの利用に関わる一切の関係に適用されます。
                         </li>
@@ -60,7 +60,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                       <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
                         第2条（定義）
                       </h2>
-                      <ol className="mt-3 list-inside list-decimal">
+                      <ol className="mt-3 list-outside list-decimal ml-1">
                         <p>本規約において使用する以下の用語は、各々以下に定める意味を有するものとします。</p>
                         <li>
                         「<b>サービス利用契約</b>」とは、本規約を契約条件として当社とユーザー様の間で締結される、本サービスの利用契約を意味します。
