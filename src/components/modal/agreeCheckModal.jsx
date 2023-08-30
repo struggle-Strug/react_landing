@@ -93,7 +93,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                     </div>
                   </div>
                 </div>
-                <div className="mt-5 sm:mt-6 items-center px-24 text-center text-sm sm:p-0">
+                <div className="mt-5 sm:mt-6 items-center px-0 text-center text-sm sm:p-24">
                   <p className='my-3'>本規約に同意することで、「Heart Beat FINDER」サービスの利用契約が成立し、本規約に従いサービスの利用が可能となります。</p>
                   <label>
                     <input type="checkbox"
