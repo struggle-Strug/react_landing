@@ -288,7 +288,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                     <input type="checkbox"
                       defaultChecked={clickableButton}
                       onChange={() => setClickableButton(!clickableButton)}
-                      className='mr-2 focus:outline-none outline-none'
+                      className='mr-2'
                     />
                     本規約の内容を理解し、同意します。
                   </label>
