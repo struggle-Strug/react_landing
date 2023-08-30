@@ -75,6 +75,17 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         <li>「<b>登録データ</b>」とは、ユーザー様について当社が保有するあらゆるデータを意味します。</li>
                         <li>「<b>ユーザー様</b>」とは、第3条第2項に基づいてサービス利用契約を締結した個人を意味します。</li>
                       </ol>
+                      <h2 className="text-base font-semibold leading-6 text-gray-900 text-bold mt-5">
+                        第3条（契約の締結等）
+                      </h2>
+                      <ol className="mt-3 list-outside list-decimal ml-5">
+                        <li>
+                          本サービスの利用希望者（以下「<b>利用希望者</b>」といいます。）は、利用希望者の事業者において本サービスの利用者として登録され、かつ当社ウェブサイト上にて本規約を遵守することに同意した個人をいいます。
+                        </li>
+                        <li>
+                          利用希望者が、本規約に遵守することを同意した時点において、サービス利用契約が契約者との間に成立し、契約者は本サービスを本規約に従い利用することができるようになります。
+                        </li>
+                      </ol>
                     </div>
                   </div>
                 </div>
