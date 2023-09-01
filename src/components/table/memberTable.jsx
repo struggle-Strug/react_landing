@@ -19,7 +19,7 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
     setShowModal(true)
   }
 
-  function generateGivenEvaluation(person){
+  function generateGivenEvaluation(person) {
     let givenEvaluation = ''
     let givenEvaluations = person.given_evaluations.name
     givenEvaluations.map((name, index) => {
@@ -29,13 +29,13 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
     return givenEvaluation
   }
 
-  function handleEditEvaluation(person){
+  function handleEditEvaluation(person) {
     let givenEvaluations = person.given_evaluations.name
     setMemberToEdit(person)
-    if(givenEvaluations.length > 0){
+    if (givenEvaluations.length > 0) {
       setShowResetEvaluation(true)
     }
-    else{
+    else {
       setShowEditEvaluation(true)
     }
   }
@@ -96,7 +96,9 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                   <span className=""></span>
                 </th>
                 <th scope='col' className='py-3.5 min-w-1/6 text-sm lg:text-base font-semibold text-gray-900'>
-                  第三者評価
+                  {/* 第三者評価 */}
+                  {'第三者評価'}<br />
+                  {'（この人のアセスメントをする）'}
                 </th>
                 <th scope="col" className="relative py-3.5 min-w-1/12">
                   <span className=""></span>
@@ -147,13 +149,13 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                     {generateGivenEvaluation(person)}
                   </td>
                   <td className="relative py-3.5 min-w-1/12">
-                      <button
-                        className='text-indigo-600 hover:text-indigo-900'
-                        onClick={() => handleEditEvaluation(person)}
-                        disabled={subscription}
-                      >
-                        編集
-                      </button>
+                    <button
+                      className='text-indigo-600 hover:text-indigo-900'
+                      onClick={() => handleEditEvaluation(person)}
+                      disabled={subscription}
+                    >
+                      編集
+                    </button>
                   </td>
                 </tr>
               ))}
