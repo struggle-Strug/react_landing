@@ -144,7 +144,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
 
         secondRow = [...explanationAssessmentRow, "アサインしあうメンバーに共通する数字を入力"]
       } else if (selectedAssignMethod.value == 2) {
-        headers = [...RegisterationHeaders, "てすと1", "てすと２", "てすと１", "てすと３", "Cuoremo管理者(開発用)", "管理者(開発用)", "別府大樹", "べっぷだいき", "りざぶるさぽーと", "名前なし", "名前なし"]
+        const headerData = members.filter((member) => member.is_active === true).map(m => m.name)
+        headers = [...RegisterationHeaders, ...headerData]
   
         const teamExplanations = Array(10).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
         secondRow = [...explanationAssessmentRow, ...teamExplanations]
