@@ -147,7 +147,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         const headerData = members.filter((member) => member.is_active === true).map(m => m.name)
         headers = [...RegisterationHeaders, ...headerData]
   
-        const teamExplanations = Array(headerData.length).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
+        const teamExplanations = Array(headerData.length-1).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
         secondRow = [...explanationAssessmentRow, ...teamExplanations]
       }
     }
