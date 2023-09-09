@@ -36,7 +36,7 @@ export default function AssessmentTemplate({ answers, assessment, updateAnswer, 
       <div>
         <div className='w-full'>
           <div className='mt-6'>
-            <div className='text-center text-lg	sm:text-2xl mb-2'>
+            <div className='text-center text-lg	sm:text-2xl mb-2 mx-3'>
               {/* {assessment.received_evaluations_name} さんのアセスメント */}
               {"精度の高いフィードバックにするためにも、率直に正直にお答えください。"}<br />
               {"（もし対象者について回答する場合も、対象者に回答が開示されることはありませんのでご安心ください。）"}
@@ -46,7 +46,7 @@ export default function AssessmentTemplate({ answers, assessment, updateAnswer, 
                 answer => (
                   <li
                     key={answer.id}
-                    className='p-6'
+                    className='p-6 pl-12 '
                   >
                     {answer.quiz_relation.quiz && <p className='py-2'>{answer.quiz_relation.quiz.replace("対象者", answer.evaluation_relation.received_evaluations_name)}</p>}
                     <MarkedSlider answer={answer} setAnswer={updateAnswerArray} />
