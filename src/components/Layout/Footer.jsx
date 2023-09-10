@@ -8,7 +8,7 @@ export default function Footer() {
         <NavLink to={"https://cuoremo.co.jp/privacy/"} target='__blank'>プライバシーポリシー</NavLink>
       </p>
       <p>株式会社CUOREMO</p>
-      <p className='text-xs mb-5 invisible'>
+      <p className='text-xs mb-5 hidden sm:invisible'>
         <NavLink to={"/terms"} className={"mr-5"}>利用規約</NavLink>
         <NavLink to={"https://cuoremo.co.jp/privacy/"} target='__blank'>プライバシーポリシー</NavLink>
       </p>
