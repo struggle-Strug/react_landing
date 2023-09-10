@@ -14,8 +14,8 @@ const SideNavigationLayout = ({ children }) => {
   // //   setUser('')
   // // }
   return (
-    <div className="w-full pb-[100px]">
-      <Header/>
+    <div className="w-full pb-[140px] sm:pb-[100px]">
+      <Header />
       <Sidebar />
       <main className="sm:pl-60 w-full">{children}</main>
       <Footer />
