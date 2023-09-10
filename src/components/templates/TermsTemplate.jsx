@@ -2,7 +2,8 @@ export default function TermsTemplate() {
   return (
     <>
       <div className='w-full'>
-        <div className="mt-5 text-gray-700">
+        <h2 className="text-center">「Heart Beat FINDER」利用規約</h2>
+        <div className="mx-5 my-10 text-gray-700">
           <p className="text-sm text-gray-500">
             本利用規約（以下「<b>本規約</b>」といいます。）は、株式会社CUOREMO（以下「<b>当社</b>」といいます。）が「<b>Heart Beat FINDER</b>」の名称で提供するサービス及びその関連サービス（以下「<b>本サービス</b>」といいます。）の提供条件及びユーザー様と当社との間の権利義務関係を定めるものです。本サービスの利用に際しては、本規約の全文をお読みいただいたうえで、本規約に同意いただく必要があります。
           </p>
