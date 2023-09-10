@@ -1,7 +1,7 @@
 export default function TermsTemplate() {
   return (
     <>
-      <div className='w-full bg-slate-100'>
+      <div className='w-full bg-slate-100 px-6'>
         <div className="bg-white px-2 py-6 mt-6 rounded-lg border">
           <h2 className="text-center">「Heart Beat FINDER」利用規約</h2>
           <div className="mx-5 my-10 text-gray-700">
