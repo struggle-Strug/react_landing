@@ -54,7 +54,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
       member_category: category,
       is_active: isActive.value,
       team_relation: newTeams,
-      assessment_1st_exclude: Boolean(assessmentExclude)
+      assessment_1st_exclude: assessmentExclude
     }
     setFormData(formData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
