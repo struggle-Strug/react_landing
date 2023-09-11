@@ -58,7 +58,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
     }
     setFormData(formData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hiraganaName, name, email, category, isActive, selectedTeams])
+  }, [hiraganaName, name, email, category, isActive, selectedTeams, assessmentExclude])
 
 
   useEffect(() => {
