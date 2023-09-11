@@ -236,7 +236,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         第14条（個人情報の保護及び取扱いの責任）
                       </h2>
                       <ol className="list-outside list-decimal ml-6">
-                        <li>当社は、ユーザー様から委託された個人情報の取扱いについては、当社が別途定める<a href='https://cuoremo.co.jp/privacy/' className="hover:underline font-semibold" target='__blank'>プライバシーポリシー</a>（以下「<b>プライバシーポリシー</b>」といいます。）の定めによるものとし、ユーザー様はこの<a href='https://cuoremo.co.jp/privacy/' className="hover:underline font-semibold" target='__blank'>プライバシーポリシー</a>に従って当社がユーザー様の利用者情報を取扱うことについて同意するものとします。</li>
+                        <li>当社は、ユーザー様から委託された個人情報の取扱いについては、当社が別途定める<a href='https://cuoremo.co.jp/privacy/' className="underline font-semibold" target='__blank'>プライバシーポリシー</a>（以下「<b>プライバシーポリシー</b>」といいます。）の定めによるものとし、ユーザー様はこの<a href='https://cuoremo.co.jp/privacy/' className="underline font-semibold" target='__blank'>プライバシーポリシー</a>に従って当社がユーザー様の利用者情報を取扱うことについて同意するものとします。</li>
                         <li>当社は、ユーザー様から委託された個人情報について、委託の趣旨の範囲を超えて利用、加工、複写及び複製を行わないものとします。</li>
                         <li>当社は、ユーザー様から委託された個人情報について、漏えい、滅失又は毀損等の事故が発生した場合、その事実を速やかにユーザー様に報告し、原因の調査を行い、事故の拡大防止に必要な措置を講ずるものとします。</li>
                       </ol>
@@ -244,7 +244,7 @@ export default function AgreeCheckModal({ open, setOpenAgreeModal, confirmHandle
                         第15条（データの利用）
                       </h2>
                       <ol className="list-outside list-decimal ml-6">
-                        <li>当社は、前条の定めに関わらず、登録情報その他のユーザー様に関する情報（但し、個人情報に該当するものを除きます。）を、本サービスを含む当社が提供し又は提供しようとしているサービスの品質向上、これらのサービスに関するユーザー様へのご案内、その他当社が<a href='https://cuoremo.co.jp/privacy/' className="hover:underline font-semibold" target='__blank'>プライバシーポリシー</a>に定める目的で利用することができるものとします。</li>
+                        <li>当社は、前条の定めに関わらず、登録情報その他のユーザー様に関する情報（但し、個人情報に該当するものを除きます。）を、本サービスを含む当社が提供し又は提供しようとしているサービスの品質向上、これらのサービスに関するユーザー様へのご案内、その他当社が<a href='https://cuoremo.co.jp/privacy/' className="underline font-semibold" target='__blank'>プライバシーポリシー</a>に定める目的で利用することができるものとします。</li>
                         <li>当社は、ユーザー様が当社に提供した情報、データ等を、個人を識別・特定できないように加工したもの（以下「<b>統計資料</b>」といいます。）を作成し、本サービスおよび当社のその他のサービスのために統計資料を利用及び公開することができるものとします。</li>
                         <li>当社は、ユーザー様から本サービスの利用情報を取得し、ユーザー様に対して本サービスに関するフィードバックの提供を求める場合があります。ユーザー様は、これらの利用情報又はフィードバックの内容につき、本サービス契約期間中及び本サービス契約終了後において当社が利用することに同意するものとします。ただし、これらの利用情報又はフィードバックの内容の利用の目的は、本サービスの運営、改善、プロモーション及び新サービスの開発に限定されます。</li>
                       </ol>
