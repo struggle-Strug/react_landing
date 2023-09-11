@@ -240,7 +240,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                             type="checkbox"
                             value={assessmentExclude}
                             checked={assessmentExclude}
-                            onChange={(e) => { setAssessmentExclude(e.target.value); console.log(assessmentExclude) }}
+                            onChange={(e) => { setAssessmentExclude(e.target.checked); console.log(assessmentExclude) }}
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
                           <label
