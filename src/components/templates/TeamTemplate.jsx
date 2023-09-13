@@ -31,7 +31,6 @@ export default function TeamTemplate({ data }) {
     const data = await resp.json()
     if (resp.ok) {
       setUserAnswers(data)
-      console.log(data, "data")
     }
   }
 
@@ -153,7 +152,7 @@ export default function TeamTemplate({ data }) {
               <div className='mt-8 mx-6'>
                 <div className='flex flex-col sm:flex-row'>
                   <div className='mb-2'>{selectedMember.received_evaluations_snapshot} のアセスメント結果</div>
-                  <button className='bg-gray-100' onClick={handleGetAnswer}>回答を表示する</button>
+                  <button className='bg-slate-500' onClick={handleGetAnswer}>回答を表示する</button>
                 </div>
                 <div className=' bg-white w-full h-64 flex items-center justify-start overflow-x-scroll'>
                   <div>
@@ -188,10 +187,9 @@ export default function TeamTemplate({ data }) {
                         </th>
                       </thead>
                       <tbody>
-                        {userAnswers.map((idx, answer) => {
+                        {userAnswers.map((answer, idx) => {
                           return (
                             <tr key={idx}>
-                              {console.log(answer, answer.quiz, "loop")}
                               <td>{idx + 1}</td>
                               <td>{answer.quiz}</td>
                               <td>{answer.answer}</td>
