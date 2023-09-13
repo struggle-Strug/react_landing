@@ -177,7 +177,6 @@ export default function TeamTemplate({ data }) {
                     </div>
                   ))}
                 </div>
-                {console.log(userAnswers, "loop out")}
                 <div>
                   {userAnswers !==undefined && (
                     <table>
@@ -189,9 +188,9 @@ export default function TeamTemplate({ data }) {
                         </th>
                       </thead>
                       <tbody>
-                        {console.log(userAnswers, "loop")}
                         {userAnswers.map((idx, answer) => {
                           <tr key={idx}>
+                            {console.log(answer, "loop")}
                             <td>{idx + 1}</td>
                             <td>{answer.quiz}</td>
                             <td>{answer.answer}</td>
