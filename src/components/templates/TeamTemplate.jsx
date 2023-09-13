@@ -5,7 +5,7 @@ import SimpleRadarChart from '../radarChart/simpleChart'
 import ComplexChart from '../radarChart/complexChart'
 import Loader from '../loader'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { SCORE_ENDPOINT } from '../../utils/constants'
+import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from '../../utils/constants'
 import { useNavigate } from 'react-router'
 
 
@@ -22,6 +22,17 @@ export default function TeamTemplate({ data }) {
   const [selectedMemberOption, setSelectedMemberOption] = useState()
   const [teamData, setTeamData] = useState()
   const [selectedMember, setSelectedMember] = useState()
+  const [userAnswers, setUserAnswers] = useState()
+
+  const handleGetAnswer = async () => {
+    if (!memberOptions || !selectedMemberOption) { return }
+    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`
+    const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `?${query}`, {}, navigate)
+    const data = await resp.json()
+    if (resp.ok) {
+      setUserAnswers(data)
+    }
+  }
 
   useEffect(() => {
     if (!data) { return }
@@ -55,16 +66,16 @@ export default function TeamTemplate({ data }) {
       const data = await resp.json()
       if (resp.ok) {
         setTeamData(data)
-        const memberOptions = Object.entries(data.members).map(([idx, member]) => ({value: member.received_evaluations_id_snapshot, label: member.received_evaluations_snapshot}))
+        const memberOptions = Object.entries(data.members).map(([idx, member]) => ({ value: member.received_evaluations_id_snapshot, label: member.received_evaluations_snapshot }))
         setMemberOptions(memberOptions)
       }
     }
     getMembers()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTeam])
 
   useEffect(() => {
-    if(!selectedMemberOption){
+    if (!selectedMemberOption) {
       return
     }
     const members = Object.entries(teamData.members).map(([idx, member]) => member)
@@ -130,14 +141,17 @@ export default function TeamTemplate({ data }) {
                     <div className='bg-white w-1/2 h-44'>
                       <div className='mt-2 text-center text-sm'>ギャップ値</div>
                       <div className="mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
-                  </div>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
             {selectedTeam && selectedMember && (
               <div className='mt-8 mx-6'>
-                <div className='mb-2'>{selectedMember.received_evaluations_snapshot} のアセスメント結果</div>
+                <div className='flex flex-col sm:flex-row'>
+                  <div className='mb-2'>{selectedMember.received_evaluations_snapshot} のアセスメント結果</div>
+                  <button className='bg-gray-100' onClick={handleGetAnswer}>回答を表示する</button>
+                </div>
                 <div className=' bg-white w-full h-64 flex items-center justify-start overflow-x-scroll'>
                   <div>
                     <div className='h-44 w-72 flex flex-col items-center'>
@@ -159,6 +173,26 @@ export default function TeamTemplate({ data }) {
                       </div>
                     </div>
                   ))}
+                </div>
+                <div>
+                  <table>
+                    <thead>
+                      <th>
+                        <td></td>
+                        <td>設問</td>
+                        <td>回答</td>
+                      </th>
+                    </thead>
+                    <tbody>
+                      {userAnswers && userAnswers.map((idx, answer)=> {
+                        <tr key={idx}>
+                          <td>{idx + 1}</td>
+                          <td>{answer.quiz}</td>
+                          <td>{answer.answer}</td>
+                        </tr>
+                      })}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             )}
