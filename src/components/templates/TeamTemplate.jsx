@@ -195,26 +195,27 @@ export default function TeamTemplate({ data }) {
                         <tbody>
                           {categories && (
                             categories.map((category, idx) => {
-                              <tr key={idx}>
+                              <tr className='bg-slate-100' key={idx}>
                                 <td>{category}</td>
                               </tr>
+                              {
+                                userAnswers.filter((answers) => answers.quiz_category_name === category).map((answer, idx) => {
+                                  return (
+                                    <tr key={idx}>
+                                      <td>{idx + 1}</td>
+                                      <td>{answer.quiz}</td>
+                                      <td>
+                                        {answer.answer === 1 && "全く思わない"}
+                                        {answer.answer === 2 && "思わない"}
+                                        {answer.answer === 3 && "思う"}
+                                        {answer.answer === 4 && "強く思う"}
+                                      </td>
+                                    </tr>
+                                  )
+                                })
+                              }
                             })
                           )}
-                          {userAnswers.map((answer, idx) => {
-
-                            return (
-                              <tr key={idx}>
-                                <td>{idx + 1}</td>
-                                <td>{answer.quiz}</td>
-                                <td>
-                                  {answer.answer === 1 && "全く思わない"}
-                                  {answer.answer === 2 && "思わない"}
-                                  {answer.answer === 3 && "思う"}
-                                  {answer.answer === 4 && "強く思う"}
-                                </td>
-                              </tr>
-                            )
-                          })}
                         </tbody>
                       </table>
                     </div>
