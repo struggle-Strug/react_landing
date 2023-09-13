@@ -31,7 +31,7 @@ export default function TeamTemplate({ data }) {
     const data = await resp.json()
     if (resp.ok) {
       setUserAnswers(data)
-      console.log(data)
+      console.log(data, "data")
     }
   }
 
