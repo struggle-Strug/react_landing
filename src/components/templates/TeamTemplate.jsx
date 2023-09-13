@@ -177,25 +177,29 @@ export default function TeamTemplate({ data }) {
                     </div>
                   ))}
                 </div>
+                {console.log(userAnswers, "loop out")}
                 <div>
-                  <table>
-                    <thead>
-                      <th>
-                        <td></td>
-                        <td>設問</td>
-                        <td>回答</td>
-                      </th>
-                    </thead>
-                    <tbody>
-                      {userAnswers.map((idx, answer) => {
-                        <tr key={idx}>
-                          <td>{idx + 1}</td>
-                          <td>{answer.quiz}</td>
-                          <td>{answer.answer}</td>
-                        </tr>
-                      })}
-                    </tbody>
-                  </table>
+                  {userAnswers !==undefined && (
+                    <table>
+                      <thead>
+                        <th>
+                          <td></td>
+                          <td>設問</td>
+                          <td>回答</td>
+                        </th>
+                      </thead>
+                      <tbody>
+                        {console.log(userAnswers, "loop")}
+                        {userAnswers.map((idx, answer) => {
+                          <tr key={idx}>
+                            <td>{idx + 1}</td>
+                            <td>{answer.quiz}</td>
+                            <td>{answer.answer}</td>
+                          </tr>
+                        })}
+                      </tbody>
+                    </table>
+                  )}
                 </div>
               </div>
             )}
