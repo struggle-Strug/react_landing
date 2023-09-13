@@ -26,6 +26,7 @@ export default function TeamTemplate({ data }) {
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) { return }
+    console.log(USERANSWER_ENDPOINT)
     const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`
     const resp = await requestWithTokenRefresh(USERANSWER_ENDPOINT + `?${query}`, {}, navigate)
     const data = await resp.json()
