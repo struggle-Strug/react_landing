@@ -178,13 +178,15 @@ export default function TeamTemplate({ data }) {
                 </div>
                 <div>
                   {userAnswers !== undefined && (
+                  <div className="mt-2 flow-root overflow-y-auto bg-white py-10 px-5">
+
                     <table>
                       <thead>
-                        <th>
-                          <td></td>
-                          <td>設問</td>
-                          <td>回答</td>
-                        </th>
+                        <tr>
+                          <th></th>
+                          <th>設問</th>
+                          <th>回答</th>
+                        </tr>
                       </thead>
                       <tbody>
                         {userAnswers.map((answer, idx) => {
@@ -192,12 +194,18 @@ export default function TeamTemplate({ data }) {
                             <tr key={idx}>
                               <td>{idx + 1}</td>
                               <td>{answer.quiz}</td>
-                              <td>{answer.answer}</td>
+                              <td>
+                                {answer.answer === 1 && "全く思わない"}
+                                {answer.answer === 2 && "思わない"}
+                                {answer.answer === 3 && "思う"}
+                                {answer.answer === 4 && "強く思う"}
+                              </td>
                             </tr>
                           )
                         })}
                       </tbody>
                     </table>
+                    </div>
                   )}
                 </div>
               </div>
