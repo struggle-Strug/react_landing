@@ -195,11 +195,17 @@ export default function TeamTemplate({ data }) {
                           </tr>
                         </thead>
                         <tbody>
-                          {categories && (
+                          {categories &&
                             categories.map((category, idx) => {
-                              {
-                                userAnswers.filter((answers) => answers.quiz_category_name === category).map((answer, idx) => {
-                                  return (
+                              const categoryAnswers = userAnswers.filter(
+                                (answers) => answers.quiz_category_name === category
+                              );
+                              return (
+                                <>
+                                  <tr className='bg-slate-100' key={idx}>
+                                    <td colSpan={3}>{category}</td>
+                                  </tr>
+                                  {categoryAnswers.map((answer, idx) => (
                                     <tr key={idx}>
                                       <td>{idx + 1}</td>
                                       <td>{answer.quiz}</td>
@@ -210,16 +216,10 @@ export default function TeamTemplate({ data }) {
                                         {answer.answer === 4 && "強く思う"}
                                       </td>
                                     </tr>
-                                  )
-                                })
-                              }
-                              return (
-                                <tr className='bg-slate-100' key={idx}>
-                                  <td colSpan={3}>{category}</td>
-                                </tr>
-                              )
-                            })
-                          )}
+                                  ))}
+                                </>
+                              );
+                            })}
                         </tbody>
                       </table>
                     </div>
