@@ -197,9 +197,6 @@ export default function TeamTemplate({ data }) {
                         <tbody>
                           {categories && (
                             categories.map((category, idx) => {
-                              <tr className='bg-slate-100' key={idx}>
-                                <td>{category}</td>
-                              </tr>
                               {
                                 userAnswers.filter((answers) => answers.quiz_category_name === category).map((answer, idx) => {
                                   return (
@@ -216,6 +213,11 @@ export default function TeamTemplate({ data }) {
                                   )
                                 })
                               }
+                              return (
+                                <tr className='bg-slate-100' key={idx}>
+                                  <td>{category}</td>
+                                </tr>
+                              )
                             })
                           )}
                         </tbody>
