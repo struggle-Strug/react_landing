@@ -41,6 +41,8 @@ export default function TeamTemplate({ data }) {
     }
   }, [userAnswers])
 
+  console.log(categories)
+
   useEffect(() => {
     if (!data) { return }
     const options = data.company.map(c => ({ value: c.id, label: c.company_name }))
