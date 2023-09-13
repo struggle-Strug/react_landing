@@ -152,7 +152,7 @@ export default function TeamTemplate({ data }) {
               <div className='mt-8 mx-6'>
                 <div className='flex flex-col sm:flex-row'>
                   <div className='mb-2'>{selectedMember.received_evaluations_snapshot} のアセスメント結果</div>
-                  <button className='bg-slate-500' onClick={handleGetAnswer}>回答を表示する</button>
+                  <button className='bg-slate-500 text-white ml-5 p-3' onClick={handleGetAnswer}>回答を表示する</button>
                 </div>
                 <div className=' bg-white w-full h-64 flex items-center justify-start overflow-x-scroll'>
                   <div>
@@ -183,7 +183,7 @@ export default function TeamTemplate({ data }) {
                     <table>
                       <thead>
                         <tr>
-                          <th></th>
+                          <th className='px-2'></th>
                           <th>設問</th>
                           <th>回答</th>
                         </tr>
