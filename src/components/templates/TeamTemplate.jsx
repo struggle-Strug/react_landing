@@ -27,7 +27,7 @@ export default function TeamTemplate({ data }) {
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) { return }
     const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`
-    const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `?${query}`, {}, navigate)
+    const resp = await requestWithTokenRefresh(USERANSWER_ENDPOINT + `?${query}`, {}, navigate)
     const data = await resp.json()
     if (resp.ok) {
       setUserAnswers(data)
@@ -175,24 +175,26 @@ export default function TeamTemplate({ data }) {
                   ))}
                 </div>
                 <div>
-                  <table>
-                    <thead>
-                      <th>
-                        <td></td>
-                        <td>設問</td>
-                        <td>回答</td>
-                      </th>
-                    </thead>
-                    <tbody>
-                      {userAnswers && userAnswers.map((idx, answer)=> {
-                        <tr key={idx}>
-                          <td>{idx + 1}</td>
-                          <td>{answer.quiz}</td>
-                          <td>{answer.answer}</td>
-                        </tr>
-                      })}
-                    </tbody>
-                  </table>
+                  {userAnswers && (
+                    <table>
+                      <thead>
+                        <th>
+                          <td></td>
+                          <td>設問</td>
+                          <td>回答</td>
+                        </th>
+                      </thead>
+                      <tbody>
+                        {userAnswers.map((idx, answer) => {
+                          <tr key={idx}>
+                            <td>{idx + 1}</td>
+                            <td>{answer.quiz}</td>
+                            <td>{answer.answer}</td>
+                          </tr>
+                        })}
+                      </tbody>
+                    </table>
+                  )}
                 </div>
               </div>
             )}
