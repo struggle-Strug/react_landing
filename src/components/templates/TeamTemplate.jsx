@@ -202,7 +202,7 @@ export default function TeamTemplate({ data }) {
                               );
                               return (
                                 <>
-                                  <tr className='bg-slate-100' key={idx}>
+                                  <tr className='bg-slate-100 p-1 mt-5' key={idx}>
                                     <td colSpan={3}>{category}</td>
                                   </tr>
                                   {categoryAnswers.map((answer, idx) => (
