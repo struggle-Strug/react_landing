@@ -5,7 +5,7 @@ import SimpleRadarChart from '../radarChart/simpleChart'
 import ComplexChart from '../radarChart/complexChart'
 import Loader from '../loader'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { SCORE_ENDPOINT } from '../../utils/constants'
+import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from '../../utils/constants'
 import { useNavigate } from 'react-router'
 
 
@@ -22,6 +22,26 @@ export default function TeamTemplate({ data }) {
   const [selectedMemberOption, setSelectedMemberOption] = useState()
   const [teamData, setTeamData] = useState()
   const [selectedMember, setSelectedMember] = useState()
+  const [userAnswers, setUserAnswers] = useState()
+  const [categories, setCategories] = useState()
+
+  const handleGetAnswer = async () => {
+    if (!memberOptions || !selectedMemberOption) { return }
+    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`
+    const resp = await requestWithTokenRefresh(USERANSWER_ENDPOINT + `?${query}`, {}, navigate)
+    const data = await resp.json()
+    if (resp.ok) {
+      setUserAnswers(data)
+    }
+  }
+
+  useEffect(() => {
+    if (userAnswers) {
+      setCategories([...new Set(userAnswers.map((answer) => answer.quiz_category_name))])
+    }
+  }, [userAnswers])
+
+  console.log(categories)
 
   useEffect(() => {
     if (!data) { return }
@@ -55,16 +75,16 @@ export default function TeamTemplate({ data }) {
       const data = await resp.json()
       if (resp.ok) {
         setTeamData(data)
-        const memberOptions = Object.entries(data.members).map(([idx, member]) => ({value: member.received_evaluations_id_snapshot, label: member.received_evaluations_snapshot}))
+        const memberOptions = Object.entries(data.members).map(([idx, member]) => ({ value: member.received_evaluations_id_snapshot, label: member.received_evaluations_snapshot }))
         setMemberOptions(memberOptions)
       }
     }
     getMembers()
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTeam])
 
   useEffect(() => {
-    if(!selectedMemberOption){
+    if (!selectedMemberOption) {
       return
     }
     const members = Object.entries(teamData.members).map(([idx, member]) => member)
@@ -130,14 +150,17 @@ export default function TeamTemplate({ data }) {
                     <div className='bg-white w-1/2 h-44'>
                       <div className='mt-2 text-center text-sm'>ギャップ値</div>
                       <div className="mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
-                  </div>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
             {selectedTeam && selectedMember && (
               <div className='mt-8 mx-6'>
-                <div className='mb-2'>{selectedMember.received_evaluations_snapshot} のアセスメント結果</div>
+                <div className='flex flex-col sm:flex-row'>
+                  <div className='mb-2'>{selectedMember.received_evaluations_snapshot} のアセスメント結果</div>
+                  <button className='bg-slate-500 text-white ml-5 px-3 mb-2' onClick={handleGetAnswer}>回答を表示する</button>
+                </div>
                 <div className=' bg-white w-full h-64 flex items-center justify-start overflow-x-scroll'>
                   <div>
                     <div className='h-44 w-72 flex flex-col items-center'>
@@ -159,6 +182,51 @@ export default function TeamTemplate({ data }) {
                       </div>
                     </div>
                   ))}
+                </div>
+                <div>
+                  {userAnswers !== undefined && (
+                    <div className="mt-10 flow-root overflow-y-auto bg-white py-10 px-5">
+                      <table className='w-full'>
+                        <thead>
+                          <tr className='text-left'>
+                            <th className='w-[5%]'></th>
+                            <th>設問</th>
+                            <th>回答</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td colSpan={3}>全く思わない、思わない、思う、強く思うの4段階から回答</td>
+                          </tr>
+                          {categories &&
+                            categories.map((category, idx) => {
+                              const categoryAnswers = userAnswers.filter(
+                                (answers) => answers.quiz_category_name === category
+                              );
+                              return (
+                                <>
+                                  <tr className='bg-slate-100 p-1 mt-5' key={idx}>
+                                    <td colSpan={3}>{category}</td>
+                                  </tr>
+                                  {categoryAnswers.map((answer, idx) => (
+                                    <tr key={idx}>
+                                      <td>{idx + 1}</td>
+                                      <td>{answer.quiz}</td>
+                                      <td>
+                                        {answer.answer === 1 && "全く思わない"}
+                                        {answer.answer === 2 && "思わない"}
+                                        {answer.answer === 3 && "思う"}
+                                        {answer.answer === 4 && "強く思う"}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                </>
+                              );
+                            })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

@@ -103,6 +103,12 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                 <th scope="col" className="relative py-3.5 min-w-1/12">
                   <span className=""></span>
                 </th>
+                <th scope="col" className="relative py-3.5 min-w-1/12">
+                  <span className="">{'自己アセスメント'}</span>
+                </th>
+                <th scope="col" className="relative py-3.5 min-w-1/12">
+                  <span className="">{'第三者アセスメント残'}</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -156,6 +162,12 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                     >
                       編集
                     </button>
+                  </td>
+                  <td className="hidden py-4 whitespace-nowrap lg:text-sm text-gray-500 lg:table-cell">
+                    {person.first.status_check}
+                  </td>
+                  <td className="hidden py-4 whitespace-nowrap lg:text-sm text-gray-500 lg:table-cell">
+                    {person.third.status_check}
                   </td>
                 </tr>
               ))}
