@@ -9,12 +9,15 @@ const ResigterMember = () => {
   const navigate = useNavigate()
   const [members, setMembers] = useState()
   const [companyTeams, setCompanyTeams] = useState()
+  const [firstAssessment, setFirstAssessment] = useState()
+  const [thirdAssessment, setThirdAssessment] = useState()
 
   const fetchMembers = useCallback(async () => {
     const resp = await requestWithTokenRefresh(MEMBER_ENDPOINT + 'list/', {}, navigate)
     const data = await resp.json()
     const users = await data.users
     const teams = await data.teams
+    const status = await data.assessment_status
     const teamsFromResponse = teams.map(t => ({ value: t.id, label: t.team_name }))
     let userTeamArray = [];
     users.forEach(user => {
@@ -28,7 +31,7 @@ const ResigterMember = () => {
       });
       userTeamArray.push(teamArray);
     });
-    const memberWithTeamArray = data.users.map((user, index) => ({ ...user, teamArray: userTeamArray[index] }))
+    const memberWithTeamArray = data.users.map((user, index) => ({ ...user, teamArray: userTeamArray[index], first: status.first.find((s) => s.user_id === user.id), third: status.third.find((s) => s.user_id === user.id) }))
     setMembers(memberWithTeamArray)
     setCompanyTeams([{ value: 0, label: "全チーム" }, ...teamsFromResponse])
   }, [navigate])
@@ -44,6 +47,7 @@ const ResigterMember = () => {
           members={members}
           teams={companyTeams}
           refreshData={fetchMembers}
+
         />
       )}
     </div>)
