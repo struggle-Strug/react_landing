@@ -195,6 +195,9 @@ export default function TeamTemplate({ data }) {
                           </tr>
                         </thead>
                         <tbody>
+                          <tr>
+                            <td colSpan={3}>全く思わない、思わない、思う、強く思うの4段階から回答</td>
+                          </tr>
                           {categories &&
                             categories.map((category, idx) => {
                               const categoryAnswers = userAnswers.filter(
