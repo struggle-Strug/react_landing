@@ -5,8 +5,6 @@ import { useAtom } from 'jotai'
 export default function MemberTable({ members, team, setShowModal, setShowResetEvaluation, setShowEditEvaluation, setMemberToEdit }) {
   const [, setFormData] = useAtom(formAtom)
 
-  console.log(members)
-
   const subscription = JSON.parse(localStorage.getItem("subscription"))
   console.log(subscription)
 
