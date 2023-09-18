@@ -31,7 +31,7 @@ const ResigterMember = () => {
       });
       userTeamArray.push(teamArray);
     });
-    const memberWithTeamArray = data.users.map((user, index) => ({ ...user, teamArray: userTeamArray[index], first: status.first.find((s) => s.user_id === user.id), third: status.third.find((s) => s.user_id === user.id) }))
+    const memberWithTeamArray = data.users.map((user, index) => ({ ...user, teamArray: userTeamArray[index], first: status.first && status.first.find((s) => s.user_id === user.id), third: status.third && status.third.find((s) => s.user_id === user.id) }))
     setMembers(memberWithTeamArray)
     setCompanyTeams([{ value: 0, label: "全チーム" }, ...teamsFromResponse])
   }, [navigate])
