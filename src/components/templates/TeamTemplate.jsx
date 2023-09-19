@@ -114,7 +114,22 @@ export default function TeamTemplate({ data }) {
     }
     setTeamListOptions([{ value: 99999, label: '全チーム' }, ...teamList.map((t) => ({ value: t.teamid_given_snapshot, label: t.team_name_given_snapshot }))])
   }, [teamList])
-  console.log(teamList, "team List", teamListOptions)
+
+
+  useEffect(() => {
+    if (!team) {
+      return
+    }
+    const getTeamScore = async () => {
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${team.value}`
+      const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `get_score_team_given/?${query}`, {}, navigate)
+      const data = await resp.json()
+      if (resp.ok) {
+        console.log(data, "score data")
+      }
+    }
+    getTeamScore()
+  }, [team])
 
 
   return (
