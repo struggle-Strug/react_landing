@@ -241,14 +241,14 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                             type="checkbox"
                             value={assessmentExclude}
                             checked={assessmentExclude}
-                            onChange={(e) => { setAssessmentExclude(e.target.checked);}}
+                            onChange={(e) => { setAssessmentExclude(e.target.checked); }}
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
                           />
                           <label
                             htmlFor={"assessment_1st_exclude"}
                             className="ml-3 text-gray-600"
                           >
-                            {"自身のアセスメントを実施しない"}
+                            {"自己アセスメントを実施しない"}
                           </label>
                         </div>
                       </div>
