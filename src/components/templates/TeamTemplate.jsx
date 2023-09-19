@@ -114,7 +114,7 @@ export default function TeamTemplate({ data }) {
     }
     setTeamListOptions({ value: 99999, label: '全チーム' }, ...teamList)
   }, [teamList])
-  console.log(teamList, "team List")
+  console.log(teamList, "team List", teamListOptions)
 
 
   return (
