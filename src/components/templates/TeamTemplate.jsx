@@ -90,7 +90,12 @@ export default function TeamTemplate({ data }) {
     const members = Object.entries(teamData.members).map(([idx, member]) => member)
     const member = members.filter((member) => member.received_evaluations_id_snapshot === selectedMemberOption.value)[0]
     setSelectedMember(member)
+    console.log("selectedMemberOption")
   }, [selectedMemberOption])
+
+  useEffect(() => {
+    console.log("memeber selected change")
+  }, [selectedMember])
 
 
   return (
