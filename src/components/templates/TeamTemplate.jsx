@@ -109,10 +109,10 @@ export default function TeamTemplate({ data }) {
   }, [selectedMember])
 
   useEffect(() => {
-    if(!teamList) {
-      return 
+    if (!teamList) {
+      return
     }
-    setTeamListOptions({ value: 99999, label: '全チーム' }, ...teamList)
+    setTeamListOptions([{ value: 99999, label: '全チーム' }, ...teamList.map((t) => ({ value: t.teamid_given_snapshot, label: t.team_name_given_snapshot }))])
   }, [teamList])
   console.log(teamList, "team List", teamListOptions)
 
