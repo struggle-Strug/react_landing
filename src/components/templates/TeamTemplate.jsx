@@ -41,8 +41,6 @@ export default function TeamTemplate({ data }) {
     }
   }, [userAnswers])
 
-  console.log(categories)
-
   useEffect(() => {
     if (!data) { return }
     const options = data.company.map(c => ({ value: c.id, label: c.company_name }))
@@ -90,11 +88,17 @@ export default function TeamTemplate({ data }) {
     const members = Object.entries(teamData.members).map(([idx, member]) => member)
     const member = members.filter((member) => member.received_evaluations_id_snapshot === selectedMemberOption.value)[0]
     setSelectedMember(member)
-    console.log("selectedMemberOption")
   }, [selectedMemberOption])
 
   useEffect(() => {
-    console.log("memeber selected change")
+    const getTeams = async () => {
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.value}`
+      const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
+      const data = await resp.json()
+      console.log(data)
+    }
+    getTeams()
+    console.log("memeber selected change", selectedMember)
   }, [selectedMember])
 
 
