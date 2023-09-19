@@ -24,6 +24,8 @@ export default function TeamTemplate({ data }) {
   const [selectedMember, setSelectedMember] = useState()
   const [userAnswers, setUserAnswers] = useState()
   const [categories, setCategories] = useState()
+  const [teamList, setTeamList] = useState()
+  const [team, setTeam] = useState()
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) { return }
@@ -91,14 +93,18 @@ export default function TeamTemplate({ data }) {
   }, [selectedMemberOption])
 
   useEffect(() => {
+    if (!selectedMember) {
+      return
+    }
     const getTeams = async () => {
       const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
       const data = await resp.json()
-      console.log(data)
+      if (resp.ok) {
+        setTeamList([{ "team_name_given_snapshot": "全チーム", "teamid_given_snapshot": 9999 }, ...data.team_list])
+      }
     }
     getTeams()
-    console.log("memeber selected change", selectedMember)
   }, [selectedMember])
 
 
@@ -159,6 +165,22 @@ export default function TeamTemplate({ data }) {
                     <div className='bg-white w-1/2 h-44'>
                       <div className='mt-2 text-center text-sm'>ギャップ値</div>
                       <div className="mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+            {teamList && (
+              <div className='mt-8 mx-6'>
+                <div className='mb-2'>チームごとに表示</div>
+                <div className='flex flex-wrap'>
+                  <div className='w-64 mb-2 mr-4'>
+                    <div className='w-64'>
+                      <Dropdown
+                        options={teamList}
+                        selectedOption={team}
+                        setSelectedOption={setTeam}
+                      />
                     </div>
                   </div>
                 </div>
