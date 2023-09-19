@@ -109,6 +109,9 @@ export default function TeamTemplate({ data }) {
   }, [selectedMember])
 
   useEffect(() => {
+    if(!teamList) {
+      return 
+    }
     setTeamListOptions({ value: 99999, label: '全チーム' }, ...teamList)
   }, [teamList])
   console.log(teamList, "team List")
