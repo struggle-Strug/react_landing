@@ -121,7 +121,7 @@ export default function TeamTemplate({ data }) {
       return
     }
     const getTeamScore = async () => {
-      const query = `subscription_id=${selectedSubscription.value}&user_id=${team.value}`
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}&team_id=${team.value}`
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `get_score_team_given/?${query}`, {}, navigate)
       const data = await resp.json()
       if (resp.ok) {
