@@ -26,6 +26,7 @@ export default function TeamTemplate({ data }) {
   const [categories, setCategories] = useState()
   const [teamList, setTeamList] = useState()
   const [team, setTeam] = useState()
+  const [teamListOptions, setTeamListOptions] = useState()
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) { return }
@@ -101,11 +102,17 @@ export default function TeamTemplate({ data }) {
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
       const data = await resp.json()
       if (resp.ok) {
-        setTeamList([{ "team_name_given_snapshot": "全チーム", "teamid_given_snapshot": 9999 }, ...data.team_list])
+        setTeamList(data.team_list)
+        setTeamListOptions({ value: 99999, label: '全チーム' }, ...data.team_list.map((team) => ({ value: team.teamid_given_snapshot, label: team.team_name_given_snapshot })))
       }
     }
     getTeams()
   }, [selectedMember])
+
+  useEffect(() => {
+    console.log(team, "team")
+  }, [team])
+  console.log(teamList, "team List")
 
 
   return (
@@ -177,7 +184,7 @@ export default function TeamTemplate({ data }) {
                   <div className='w-64 mb-2 mr-4'>
                     <div className='w-64'>
                       <Dropdown
-                        options={teamList}
+                        options={teamListOptions}
                         selectedOption={team}
                         setSelectedOption={setTeam}
                       />
