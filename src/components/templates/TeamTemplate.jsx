@@ -86,6 +86,8 @@ export default function TeamTemplate({ data }) {
   }, [selectedTeam])
 
   useEffect(() => {
+    console.log(selectedMemberOption, "selectedMemberOption")
+
     if (!selectedMemberOption) {
       return
     }
@@ -137,9 +139,6 @@ export default function TeamTemplate({ data }) {
     }
     getTeamScore()
   }, [team])
-
-  console.log(scoreData, scoreData)
-
 
   return (
     <div className='w-full bg-slate-100 overflow-auto'>

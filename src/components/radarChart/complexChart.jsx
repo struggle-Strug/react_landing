@@ -35,8 +35,6 @@ function ComplexChart({ showThirdPerson, scores }) {
     }))
   }
 
-  console.log(data, "rardar chart data")
-
   return (
     <ResponsiveContainer width="100%" height="100%">
       <RadarChartBase cx="50%" cy="40%" outerRadius="80%" data={data} fill="#f3f6f4">
