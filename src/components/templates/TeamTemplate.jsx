@@ -85,26 +85,27 @@ export default function TeamTemplate({ data }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTeam])
 
-  const getTeams = async () => {
-    console.log("get Team")
-    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
-    const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
-    const data = await resp.json()
-    if (resp.ok) {
-      setTeamList(data.team_list)
-    }
-  }
   
   useEffect(() => {
     console.log(selectedMemberOption, "selectedMemberOption before")
-
+    
     if (!selectedMemberOption) {
       return
     }
     const members = Object.entries(teamData.members).map(([idx, member]) => member)
     const member = members.filter((member) => member.received_evaluations_id_snapshot === selectedMemberOption.value)[0]
     setSelectedMember(member)
-
+    
+    const getTeams = async () => {
+      console.log("get Team")
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
+      const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
+      const data = await resp.json()
+      console.log("after getting team", data, resp)
+      if (resp.ok) {
+        setTeamList(data.team_list)
+      }
+    }
     getTeams()
     console.log(selectedMemberOption, "selectedMemberOption")
 
