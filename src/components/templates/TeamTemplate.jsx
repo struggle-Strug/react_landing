@@ -84,8 +84,9 @@ export default function TeamTemplate({ data }) {
     getMembers()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTeam])
-  
+
   const getTeams = async () => {
+    console.log("get Team")
     const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
     const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
     const data = await resp.json()
