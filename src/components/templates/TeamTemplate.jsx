@@ -93,6 +93,8 @@ export default function TeamTemplate({ data }) {
     const member = members.filter((member) => member.received_evaluations_id_snapshot === selectedMemberOption.value)[0]
     setSelectedMember(member)
 
+    console.log(selectedMemberOption, "selectedMemberOption")
+
     const getTeams = async () => {
       const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
@@ -100,7 +102,6 @@ export default function TeamTemplate({ data }) {
       if (resp.ok) {
         setTeamList(data.team_list)
       }
-
     }
     getTeams()
   }, [selectedMemberOption])
@@ -137,7 +138,7 @@ export default function TeamTemplate({ data }) {
     getTeamScore()
   }, [team])
 
-  console.log(scoreData, "scoreData")
+  console.log(scoreData, scoreData)
 
 
   return (
