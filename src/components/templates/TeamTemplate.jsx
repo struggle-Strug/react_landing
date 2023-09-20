@@ -27,6 +27,7 @@ export default function TeamTemplate({ data }) {
   const [teamList, setTeamList] = useState()
   const [team, setTeam] = useState()
   const [teamListOptions, setTeamListOptions] = useState()
+  const [scoreData, setScoreData] = useState()
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) { return }
@@ -91,12 +92,7 @@ export default function TeamTemplate({ data }) {
     const members = Object.entries(teamData.members).map(([idx, member]) => member)
     const member = members.filter((member) => member.received_evaluations_id_snapshot === selectedMemberOption.value)[0]
     setSelectedMember(member)
-  }, [selectedMemberOption])
 
-  useEffect(() => {
-    if (!selectedMember) {
-      return
-    }
     const getTeams = async () => {
       const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
@@ -104,20 +100,29 @@ export default function TeamTemplate({ data }) {
       if (resp.ok) {
         setTeamList(data.team_list)
       }
+
     }
     getTeams()
-  }, [selectedMember])
+  }, [selectedMemberOption])
 
   useEffect(() => {
     if (!teamList) {
       return
     }
+    const getDefaultScoreData = async () => {
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}&team_id=${99999}`
+      const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `get_score_team_given/?${query}`, {}, navigate)
+      const data = await resp.json()
+      if (resp.ok) {
+        setScoreData(data)
+      }
+    }
     setTeamListOptions([{ value: 99999, label: '全チーム' }, ...teamList.map((t) => ({ value: t.teamid_given_snapshot, label: t.team_name_given_snapshot }))])
+    getDefaultScoreData()
   }, [teamList])
 
 
   useEffect(() => {
-    console.log(team, "team")
     if (!team) {
       return
     }
@@ -126,7 +131,7 @@ export default function TeamTemplate({ data }) {
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `get_score_team_given/?${query}`, {}, navigate)
       const data = await resp.json()
       if (resp.ok) {
-        console.log(data, "score data")
+        setScoreData(data)
       }
     }
     getTeamScore()
@@ -228,9 +233,8 @@ export default function TeamTemplate({ data }) {
                     </div>
                   </div>
 
-
                   {/* change code hear */}
-                  {selectedMember && Object.entries(selectedMember["3rd"]).map(([key, scores]) => (
+                  {scoreData && Object.entries(scoreData["given_third_score"]).map(([key, scores]) => (
                     <div key={key} >
                       <div className='h-44 w-72 flex flex-col items-center mb-2'>
                         <div className=' text-red-600 text-sm'>第三者からの評価（匿名）</div>
@@ -243,7 +247,6 @@ export default function TeamTemplate({ data }) {
                   ))}
                 </div>
 
-                
                 <div>
                   {userAnswers !== undefined && (
                     <div className="mt-10 flow-root overflow-y-auto bg-white py-10 px-5">
