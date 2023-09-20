@@ -84,7 +84,16 @@ export default function TeamTemplate({ data }) {
     getMembers()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTeam])
-
+  
+  const getTeams = async () => {
+    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
+    const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
+    const data = await resp.json()
+    if (resp.ok) {
+      setTeamList(data.team_list)
+    }
+  }
+  
   useEffect(() => {
     console.log(selectedMemberOption, "selectedMemberOption before")
 
@@ -95,17 +104,9 @@ export default function TeamTemplate({ data }) {
     const member = members.filter((member) => member.received_evaluations_id_snapshot === selectedMemberOption.value)[0]
     setSelectedMember(member)
 
+    getTeams()
     console.log(selectedMemberOption, "selectedMemberOption")
 
-    const getTeams = async () => {
-      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`
-      const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
-      const data = await resp.json()
-      if (resp.ok) {
-        setTeamList(data.team_list)
-      }
-    }
-    getTeams()
   }, [selectedMemberOption])
 
   useEffect(() => {
