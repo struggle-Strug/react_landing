@@ -86,7 +86,7 @@ export default function TeamTemplate({ data }) {
   }, [selectedTeam])
 
   useEffect(() => {
-    console.log(selectedMemberOption, "selectedMemberOption")
+    console.log(selectedMemberOption, "selectedMemberOption before")
 
     if (!selectedMemberOption) {
       return
