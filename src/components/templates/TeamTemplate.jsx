@@ -85,32 +85,24 @@ export default function TeamTemplate({ data }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTeam])
 
-  const getTeams = async () => {
-    console.log("get Team", `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`)
-    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}`;
-    console.log(query, "query")
-    const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
-    console.log(resp, "resp")
-    const data = await resp.json()
-    console.log("after getting team", data, resp)
-    if (resp.ok) {
-      setTeamList(data.team_list)
-    }
-  }
 
   useEffect(() => {
-    console.log(selectedMemberOption, "selectedMemberOption before")
-
     if (!selectedMemberOption) {
       return
     }
     const members = Object.entries(teamData.members).map(([idx, member]) => member)
     const member = members.filter((member) => member.received_evaluations_id_snapshot === selectedMemberOption.value)[0]
     setSelectedMember(member)
-
+    const getTeams = async () => {
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${member.received_evaluations_id_snapshot}`;
+      const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `given/team/list/?${query}`, {}, navigate)
+      const data = await resp.json()
+      if (resp.ok) {
+        setTeamList(data.team_list)
+        setScoreData({ "1st": [...member["1st"]] })
+      }
+    }
     getTeams()
-    console.log(selectedMemberOption, "selectedMemberOption")
-
   }, [selectedMemberOption])
 
   useEffect(() => {
@@ -122,10 +114,11 @@ export default function TeamTemplate({ data }) {
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `get_score_team_given/?${query}`, {}, navigate)
       const data = await resp.json()
       if (resp.ok) {
-        setScoreData(data)
+        setScoreData({ ...scoreData, "3rd": data.given_third_score.map((d) => (d.average_score)), "3rd_average": data.given_average_score })
       }
     }
     setTeamListOptions([{ value: 99999, label: '全チーム' }, ...teamList.map((t) => ({ value: t.teamid_given_snapshot, label: t.team_name_given_snapshot }))])
+    setTeam({ value: 99999, label: '全チーム' })
     getDefaultScoreData()
   }, [teamList])
 
@@ -139,7 +132,7 @@ export default function TeamTemplate({ data }) {
       const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + `get_score_team_given/?${query}`, {}, navigate)
       const data = await resp.json()
       if (resp.ok) {
-        setScoreData(data)
+        setScoreData({ ...scoreData, "3rd": data.given_third_score.map((d) => (d.average_score)), "3rd_average": data.given_average_score })
       }
     }
     getTeamScore()
@@ -229,30 +222,28 @@ export default function TeamTemplate({ data }) {
                   <div className='mb-2'>{selectedMember.received_evaluations_snapshot} のアセスメント結果</div>
                   <button className='bg-slate-500 text-white ml-5 px-3 mb-2' onClick={handleGetAnswer}>回答を表示する</button>
                 </div>
-                <div className=' bg-white w-full h-64 flex items-center justify-start overflow-x-scroll'>
-                  <div>
-                    <div className='h-44 w-72 flex flex-col items-center'>
-                      <div className=' text-red-600 text-sm mb-2'>自己評価 & 第三者からの評価（平均）</div>
-                      <ComplexChart
-                        showThirdPerson={true}
-                        scores={selectedMember}
-                      />
-                    </div>
-                  </div>
-
-                  {scoreData && scoreData.given_third_score.map((data, idx) => (
-                    <div key={idx} >
-                      <div className='h-44 w-72 flex flex-col items-center mb-2'>
-                        <div className=' text-red-600 text-sm'>第三者からの評価（匿名）</div>
-                        <SimpleRadarChart
-                          isFirst={false}
-                          scores={data.average_score}
+                <div className='overflow-x-auto'>
+                  {scoreData && scoreData["1st"] && scoreData["3rd"] && scoreData["3rd_average"] && (
+                    <div className='bg-white w-fit min-w-full h-64 flex items-center justify-start'>
+                      <div className='h-44 w-72 flex flex-col items-center'>
+                        <div className=' text-red-600 text-sm mb-2'>自己評価 & 第三者からの評価（平均）</div>
+                        <ComplexChart
+                          showThirdPerson={true}
+                          scores={scoreData}
                         />
                       </div>
+                      {scoreData["3rd"].map((score, idx) => (
+                        <div className='h-44 w-72 flex flex-col items-center mb-2' key={idx}>
+                          <div className=' text-red-600 text-sm'>第三者からの評価（匿名）</div>
+                          <SimpleRadarChart
+                            isFirst={false}
+                            scores={score}
+                          />
+                        </div>
+                      ))}
                     </div>
-                  ))}
+                  )}
                 </div>
-
                 <div>
                   {userAnswers !== undefined && (
                     <div className="mt-10 flow-root overflow-y-auto bg-white py-10 px-5">
