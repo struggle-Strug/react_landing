@@ -233,14 +233,13 @@ export default function TeamTemplate({ data }) {
                     </div>
                   </div>
 
-                  {/* change code hear */}
-                  {scoreData && Object.entries(scoreData["given_third_score"]).map(([key, scores]) => (
-                    <div key={key} >
+                  {scoreData && scoreData.given_third_score.map((data, idx) => (
+                    <div key={idx} >
                       <div className='h-44 w-72 flex flex-col items-center mb-2'>
                         <div className=' text-red-600 text-sm'>第三者からの評価（匿名）</div>
                         <SimpleRadarChart
                           isFirst={false}
-                          scores={scores}
+                          scores={data.average_score}
                         />
                       </div>
                     </div>
