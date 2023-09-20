@@ -137,6 +137,8 @@ export default function TeamTemplate({ data }) {
     getTeamScore()
   }, [team])
 
+  console.log(scoreData, "scoreData")
+
 
   return (
     <div className='w-full bg-slate-100 overflow-auto'>
