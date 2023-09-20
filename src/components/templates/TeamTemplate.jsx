@@ -117,6 +117,7 @@ export default function TeamTemplate({ data }) {
 
 
   useEffect(() => {
+    console.log(team, "team")
     if (!team) {
       return
     }
@@ -226,6 +227,9 @@ export default function TeamTemplate({ data }) {
                       />
                     </div>
                   </div>
+
+
+                  {/* change code hear */}
                   {selectedMember && Object.entries(selectedMember["3rd"]).map(([key, scores]) => (
                     <div key={key} >
                       <div className='h-44 w-72 flex flex-col items-center mb-2'>
@@ -238,6 +242,8 @@ export default function TeamTemplate({ data }) {
                     </div>
                   ))}
                 </div>
+
+                
                 <div>
                   {userAnswers !== undefined && (
                     <div className="mt-10 flow-root overflow-y-auto bg-white py-10 px-5">
