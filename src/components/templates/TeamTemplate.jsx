@@ -202,7 +202,7 @@ export default function TeamTemplate({ data }) {
             )}
             {teamList && (
               <div className='mt-8 mx-6'>
-                <div className='mb-2'>チームごとに表示</div>
+                <div className='mb-2'>チーム毎のアセスメント結果を表示 </div>
                 <div className='flex flex-wrap'>
                   <div className='w-64 mb-2 mr-4'>
                     <div className='w-64'>
