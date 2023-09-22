@@ -10,9 +10,10 @@ import Team from './pages/TeamPage';
 import LoginPage from './pages/LoginPage';
 import ForgotPaswordPage from './pages/ForgotPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
+import TermsPage from './pages/TermsPage';
 import SideNavigationLayout from './components/Layout';
 import PrivateRoutes from './utils/PrivateRoutes';
-import { UseUserDetails, UserProvider } from "./context/UserContext";
+import { UserProvider } from "./context/UserContext";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
                       <Route path=':id/register/member' element={<RegisterMember />} />
                       <Route path=':id/register/team' element={<RegisterTeam />} />
                       <Route path=':id/register/company' element={<RegisterCompany />} />
+                      <Route path='/terms' element={<TermsPage />} />
                     </Route>
                   </Routes>
                 </SideNavigationLayout>

@@ -133,10 +133,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         teams
           .filter(t => t.label !== "全チーム")
           .map(t => t.label)
-      headers = [...RegisterationHeaders, ...teamNames]
+      headers = [...RegisterationHeaders, "assessment_1st_exclude",...teamNames]
       // eslint-disable-next-line no-unused-vars
       const teamExplanations = teamNames.map(_ => "所属する場合は1を記入してください")
-      secondRow = [...explanationRow, ...teamExplanations]
+      secondRow = [...explanationRow, "True/Falseを入力（例：自己アセスメントを実施しない社員に対してTrueを設定する）", ...teamExplanations]
       // }
     } else if (selectedMethod.value === 3) {
       if(selectedAssignMethod.value == 1) {
@@ -299,6 +299,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               m.name_hiragana,
               m.member_category,
               m.is_active,
+              m.assessment_1st_exclude,
               ...m.teamArray
               // ""
             ])

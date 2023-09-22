@@ -19,6 +19,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
   const [category, setCategory] = useState(null)
   const [isActive, setIsActive] = useState({ value: true, label: "有効" })
   const [isValidData, setIsValidData] = useState(false)
+  const [assessmentExclude, setAssessmentExclude] = useState(false)
   const [selectedTeams, setSelectedTeams] = useState(
     teams
       .filter(t => t.value !== 0)
@@ -52,11 +53,12 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
       email: email,
       member_category: category,
       is_active: isActive.value,
-      team_relation: newTeams
+      team_relation: newTeams,
+      assessment_1st_exclude: assessmentExclude
     }
     setFormData(formData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hiraganaName, name, email, category, isActive, selectedTeams])
+  }, [hiraganaName, name, email, category, isActive, selectedTeams, assessmentExclude])
 
 
   useEffect(() => {
@@ -76,6 +78,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
       )
     }
     setSelectedTeams(defaultTeams)
+    setAssessmentExclude(member.assessment_1st_exclude)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member])
 
@@ -84,14 +87,14 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
       .filter(t => t.checked === true)
       .map(t => t.value)
     if (name && hiraganaName && email && category) {
-      if(parseInt(category) === 99){
+      if (parseInt(category) === 99) {
         setIsValidData(true)
       }
-      else{
-        if(newTeams.length > 0){
+      else {
+        if (newTeams.length > 0) {
           setIsValidData(true)
         }
-        else{
+        else {
           setIsValidData(false)
         }
       }
@@ -229,6 +232,25 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                             ))}
                           </div>
                         )}
+                      </div>
+                      <div className="mt-4">
+                        <div className="flex items-center">
+                          <input
+                            id="assessment_1st_exclude"
+                            name="categories"
+                            type="checkbox"
+                            value={assessmentExclude}
+                            checked={assessmentExclude}
+                            onChange={(e) => { setAssessmentExclude(e.target.checked); }}
+                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                          />
+                          <label
+                            htmlFor={"assessment_1st_exclude"}
+                            className="ml-3 text-gray-600"
+                          >
+                            {"自己アセスメントを実施しない"}
+                          </label>
+                        </div>
                       </div>
                     </div>
                   </div>
