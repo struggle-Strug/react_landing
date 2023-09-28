@@ -29,6 +29,7 @@ export default function SidebarResponsive(props) {
     { name: 'メンバー登録・編集', href: `/${subdomain}/register/member`, current: false },
     { name: 'チーム登録・編集', href: `/${subdomain}/register/team`, current: false },
     { name: 'ログアウト', href: `/login`, current: false },
+    { name: 'マイページ2', href: `/${subdomain}/test`, icon: HomeIcon, current: true },
   ]
   const [menuItems, setMenuItems] = useState(navigation)
   const [menu, setMenu] = useState('マイページ')
@@ -43,7 +44,7 @@ export default function SidebarResponsive(props) {
     } else {
       setMenuItems(navigation)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.is_staff])
 
   function logoutUser() {
@@ -53,7 +54,7 @@ export default function SidebarResponsive(props) {
   return (
     <>
       <div>
-        <div className={shownStatus?"bg-zinc-100 top-16 fixed z-20 flex w-60 h-screen flex-col absolute left-0":"hidden"}>
+        <div className={shownStatus ? "bg-zinc-100 top-16 fixed z-20 flex w-60 h-screen flex-col absolute left-0" : "hidden"}>
           <div className="flex grow flex-col mt-3 overflow-y-auto border-r px-6">
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="-mx-primary-2 space-y-3">
@@ -81,6 +82,32 @@ export default function SidebarResponsive(props) {
                     <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' />
                   </li>
                 )}
+
+                {!user.is_superuser && (
+                  <li key={menuItems[6].name}>
+                    <NavLink
+                      to={menuItems[6].href}
+                      onClick={() => handleMenuItemClick(menuItems[6].name)}
+                      className={classNames(
+                        menuItems[6].name === menu
+                          ? ' text-primary-2 font-bold'
+                          : 'text-gray-700',
+                        'group flex  gap-x-3 py-1 rounded-md text-sm leading-6'
+                      )}
+                    >
+                      <HomeIcon
+                        className={classNames(
+                          menuItems[6].name === menu ? 'text-primary-2' : 'text-gray-400 group-hover:text-gray-500',
+                          'h-6 w-6 shrink-0'
+                        )}
+                        aria-hidden="true"
+                      />
+                      {menuItems[6].name}
+                    </NavLink>
+                    <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' />
+                  </li>
+                )}
+
                 {!user.is_superuser && (
                   <li key={menuItems[1].name}>
                     <NavLink
