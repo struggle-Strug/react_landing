@@ -2,6 +2,7 @@
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Assesment from './pages/AssessmentPage';
 import AssesmentTest from './pages/AssessmentTestPage';
+import AssessmentTestOwn from "./pages/AssessmentTestOwnPage";
 import Home from './pages/HomePage';
 import HomeTest from './pages/HomeTestPage';
 import RegisterMember from './pages/RegisterMemberPage';
@@ -39,6 +40,7 @@ function App() {
                       <Route path=':id/' element={<Home />} />
                       <Route path=':id/test' element={<HomeTest />} />
                       <Route path=':id/assessment' element={<Assesment />} />
+                      <Route path=':id/assessmentTestOwn' element={<AssessmentTestOwn />} />
                       <Route path=':id/assessmentTest' element={<AssesmentTest />} />
                       <Route path=':id/result' element={<Result />} />
                       <Route path=':id/team' element={<Team />} />
