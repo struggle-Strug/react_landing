@@ -183,18 +183,31 @@ export default function TeamTemplate({ data }) {
                       />
                     </div>
                   </div>
-                  <div className='flex w-96'>
-                    <div className='bg-white w-1/2 h-44'>
+                  <div className='flex w-full flex-col sm:flex-row'>
+                    <div className='bg-white w-full sm:w-1/2 h-52'>
                       <div className='mt-2 text-center text-sm'>チーム平均</div>
-                      <SimpleRadarChart
-                        isFirst={true}
-                        scores={teamData.team_scores}
-                      />
-                      <div></div>
+                      <div className='w-ful h-[90%]'>
+                        <SimpleRadarChart
+                          isFirst={true}
+                          scores={teamData.team_scores}
+                        />
+                      </div>
                     </div>
-                    <div className='bg-white w-1/2 h-44'>
-                      <div className='mt-2 text-center text-sm'>ギャップ値</div>
-                      <div className="mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
+                    <div className='flex justify-around sm:w-1/2'>
+                      <div className='bg-white w-8/12 h-36 sm:h-52 flex items-center justify-center'>
+                        <ul>
+                          <li className='text-xs'>A - 心理的安全度</li>
+                          <li className='text-xs'>B - 個人ビジョン明確度</li>
+                          <li className='text-xs'>C - 会社ビジョン共感度</li>
+                          <li className='text-xs'>D - 会社と個人の統合度</li>
+                          <li className='text-xs'>E - 意欲度</li>
+                          <li className='text-xs'>F - 影響力</li>
+                        </ul>
+                      </div>
+                      <div className='bg-white w-4/12 h-full sm:h-52 flex flex-col items-center justify-center sm:justify-start'>
+                        <div className='mt-2 text-center text-sm'>ギャップ値</div>
+                        <div className="sm:mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -225,20 +238,44 @@ export default function TeamTemplate({ data }) {
                 <div className='overflow-x-auto'>
                   {scoreData && scoreData["1st"] && scoreData["3rd"] && scoreData["3rd_average"] && (
                     <div className='bg-white w-fit min-w-full h-64 flex items-center justify-start'>
-                      <div className='h-44 w-72 flex flex-col items-center'>
-                        <div className=' text-red-600 text-sm mb-2'>自己評価 & 第三者からの評価（平均）</div>
-                        <ComplexChart
-                          showThirdPerson={true}
-                          scores={scoreData}
-                        />
+                      <div className='h-44 w-80 flex flex-col items-center'>
+                        <div className=' text-red-600 text-sm'>自己評価 & 第三者からの評価（平均）</div>
+                        <div className='h-full w-full flex justify-center items-center'>
+                          <div className='w-1/2 h-full'>
+                            <ComplexChart
+                              showThirdPerson={true}
+                              scores={scoreData}
+                            />
+                          </div>
+                          <ul className='w-1/2'>
+                            <li className='text-xs'>A - 心理的安全度</li>
+                            <li className='text-xs'>B - 個人ビジョン明確度</li>
+                            <li className='text-xs'>C - 会社ビジョン共感度</li>
+                            <li className='text-xs'>D - 会社と個人の統合度</li>
+                            <li className='text-xs'>E - 意欲度</li>
+                            <li className='text-xs'>F - 影響力</li>
+                          </ul>
+                        </div>
                       </div>
                       {scoreData["3rd"].map((score, idx) => (
-                        <div className='h-44 w-72 flex flex-col items-center mb-2' key={idx}>
+                        <div className='h-44 w-80 flex flex-col items-center mb-2' key={idx}>
                           <div className=' text-red-600 text-sm'>第三者からの評価（匿名）</div>
-                          <SimpleRadarChart
-                            isFirst={false}
-                            scores={score}
-                          />
+                          <div className='h-full w-full flex justify-center items-center'>
+                            <div className='w-1/2 h-full'>
+                              <SimpleRadarChart
+                                isFirst={false}
+                                scores={score}
+                              />
+                            </div>
+                            <ul className='w-1/2'>
+                              <li className='text-xs'>A - 心理的安全度</li>
+                              <li className='text-xs'>B - 個人ビジョン明確度</li>
+                              <li className='text-xs'>C - 会社ビジョン共感度</li>
+                              <li className='text-xs'>D - 会社と個人の統合度</li>
+                              <li className='text-xs'>E - 意欲度</li>
+                              <li className='text-xs'>F - 影響力</li>
+                            </ul>
+                          </div>
                         </div>
                       ))}
                     </div>
