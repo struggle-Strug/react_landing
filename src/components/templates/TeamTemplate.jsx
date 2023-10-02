@@ -183,8 +183,8 @@ export default function TeamTemplate({ data }) {
                       />
                     </div>
                   </div>
-                  <div className='flex w-full flex-col sm:flex-row'>
-                    <div className='bg-white w-full sm:w-1/2 h-52'>
+                  <div className='flex w-full flex-col sm:flex-row bg-white '>
+                    <div className='w-full sm:w-1/2 h-52  ml-auto max-w-md'>
                       <div className='mt-2 text-center text-sm'>チーム平均</div>
                       <div className='w-ful h-[90%]'>
                         <SimpleRadarChart
@@ -193,8 +193,8 @@ export default function TeamTemplate({ data }) {
                         />
                       </div>
                     </div>
-                    <div className='flex justify-around sm:w-1/2'>
-                      <div className='bg-white w-8/12 h-36 sm:h-52 flex items-center justify-center'>
+                    <div className='flex sm:w-1/2 max-w-md mr-auto'>
+                      <div className='h-36 sm:h-52 flex items-center '>
                         <ul>
                           <li className='text-xs'>A - 心理的安全度</li>
                           <li className='text-xs'>B - 個人ビジョン明確度</li>
@@ -204,7 +204,7 @@ export default function TeamTemplate({ data }) {
                           <li className='text-xs'>F - 影響力</li>
                         </ul>
                       </div>
-                      <div className='bg-white w-4/12 h-full sm:h-52 flex flex-col items-center justify-center sm:justify-start'>
+                      <div className='bg-white h-full sm:h-52 flex flex-col items-center justify-center sm:justify-start'>
                         <div className='mt-2 text-center text-sm'>ギャップ値</div>
                         <div className="sm:mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
                       </div>
@@ -247,14 +247,14 @@ export default function TeamTemplate({ data }) {
                               scores={scoreData}
                             />
                           </div>
-                          <ul className='w-1/2'>
+                          {/* <ul className='w-1/2'>
                             <li className='text-xs'>A - 心理的安全度</li>
                             <li className='text-xs'>B - 個人ビジョン明確度</li>
                             <li className='text-xs'>C - 会社ビジョン共感度</li>
                             <li className='text-xs'>D - 会社と個人の統合度</li>
                             <li className='text-xs'>E - 意欲度</li>
                             <li className='text-xs'>F - 影響力</li>
-                          </ul>
+                          </ul> */}
                         </div>
                       </div>
                       {scoreData["3rd"].map((score, idx) => (
@@ -267,14 +267,14 @@ export default function TeamTemplate({ data }) {
                                 scores={score}
                               />
                             </div>
-                            <ul className='w-1/2'>
+                            {/* <ul className='w-1/2'>
                               <li className='text-xs'>A - 心理的安全度</li>
                               <li className='text-xs'>B - 個人ビジョン明確度</li>
                               <li className='text-xs'>C - 会社ビジョン共感度</li>
                               <li className='text-xs'>D - 会社と個人の統合度</li>
                               <li className='text-xs'>E - 意欲度</li>
                               <li className='text-xs'>F - 影響力</li>
-                            </ul>
+                            </ul> */}
                           </div>
                         </div>
                       ))}
