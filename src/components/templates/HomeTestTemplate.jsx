@@ -47,7 +47,7 @@ export default function HomeTestTemplate({ assessments }) {
                       />
                     )
                     : (
-                      <NavLink to={`/${id}/assessment`}>
+                      <NavLink to={`/${id}/assessmentTestOwn`}>
                         <Button
                           title="アセスメントを実施する"
                           className="md:w-96"

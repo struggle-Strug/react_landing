@@ -31,7 +31,7 @@ export default function ConfirmTestModal({ open, title, questionAnswerData, msg,
 
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={clickHandler}>
+      <Dialog as="div" className="relative z-10" onClose={onConfirm}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
