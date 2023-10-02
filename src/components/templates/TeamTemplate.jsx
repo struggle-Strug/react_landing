@@ -289,13 +289,11 @@ export default function TeamTemplate({ data }) {
                           <tr className='text-left'>
                             <th className='w-[5%]'></th>
                             <th>設問</th>
-                            <th>回答</th>
+                            <th className='break-keep'>回答</th>
+                            <th className='break-keep'>会社平均</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td colSpan={3}>全く思わない、思わない、思う、強く思うの4段階から回答</td>
-                          </tr>
                           {categories &&
                             categories.map((category, idx) => {
                               const categoryAnswers = userAnswers.filter(
@@ -304,18 +302,14 @@ export default function TeamTemplate({ data }) {
                               return (
                                 <>
                                   <tr className='bg-slate-100 p-1 mt-5' key={idx}>
-                                    <td colSpan={3}>{category}</td>
+                                    <td colSpan={4}>{category}</td>
                                   </tr>
                                   {categoryAnswers.map((answer, idx) => (
                                     <tr key={idx}>
                                       <td>{idx + 1}</td>
                                       <td>{answer.quiz}</td>
-                                      <td>
-                                        {answer.answer === 1 && "全く思わない"}
-                                        {answer.answer === 2 && "思わない"}
-                                        {answer.answer === 3 && "思う"}
-                                        {answer.answer === 4 && "強く思う"}
-                                      </td>
+                                      <td>{answer.answer}</td>
+                                      <td className='text-center'>{answer.company_answer_avg.toFixed(1)}</td>
                                     </tr>
                                   ))}
                                 </>
