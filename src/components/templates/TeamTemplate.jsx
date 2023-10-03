@@ -173,7 +173,7 @@ export default function TeamTemplate({ data }) {
             {teamData && (
               <div className='mt-8 mx-6'>
                 <div className='mb-2'>メンバーを選択</div>
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap flex-col'>
                   <div className='w-64 mb-2 mr-4'>
                     <div className='w-64'>
                       <Dropdown
@@ -183,17 +183,17 @@ export default function TeamTemplate({ data }) {
                       />
                     </div>
                   </div>
-                  <div className='flex w-full flex-col sm:flex-row bg-white '>
-                    <div className='w-full sm:w-1/2 h-52  ml-auto max-w-md'>
+                  <div className='flex flex-col sm:flex-row bg-white w-full sm:w-fit sm:pr-10 justify-center items-center'>
+                    <div className='h-52 max-w-md'>
                       <div className='mt-2 text-center text-sm'>チーム平均</div>
-                      <div className='w-ful h-[90%]'>
+                      <div className='h-[90%] w-[200px]'>
                         <SimpleRadarChart
                           isFirst={true}
                           scores={teamData.team_scores}
                         />
                       </div>
                     </div>
-                    <div className='flex sm:w-1/2 max-w-md mr-auto'>
+                    <div className='flex max-w-md'>
                       <div className='h-36 sm:h-52 flex items-center '>
                         <ul>
                           <li className='text-xs'>A - 心理的安全度</li>
