@@ -29,7 +29,7 @@ export default function SidebarResponsive(props) {
     { name: 'メンバー登録・編集', href: `/${subdomain}/register/member`, current: false },
     { name: 'チーム登録・編集', href: `/${subdomain}/register/team`, current: false },
     { name: 'ログアウト', href: `/login`, current: false },
-    { name: 'マイページ2', href: `/${subdomain}/test`, icon: HomeIcon, current: true },
+    { name: 'マイページ', href: `/${subdomain}`, icon: HomeIcon, current: true },
   ]
   const [menuItems, setMenuItems] = useState(navigation)
   const [menu, setMenu] = useState('マイページ')
@@ -58,7 +58,7 @@ export default function SidebarResponsive(props) {
           <div className="flex grow flex-col mt-3 overflow-y-auto border-r px-6">
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="-mx-primary-2 space-y-3">
-                {!user.is_superuser && (
+                {/* {!user.is_superuser && (
                   <li key={menuItems[0].name}>
                     <NavLink
                       to={menuItems[0].href}
@@ -81,7 +81,7 @@ export default function SidebarResponsive(props) {
                     </NavLink>
                     <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' />
                   </li>
-                )}
+                )} */}
 
                 {!user.is_superuser && (
                   <li key={menuItems[6].name}>

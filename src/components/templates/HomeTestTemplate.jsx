@@ -47,7 +47,7 @@ export default function HomeTestTemplate({ assessments }) {
                       />
                     )
                     : (
-                      <NavLink to={`/${id}/assessmentTestOwn`}>
+                      <NavLink to={`/${id}/assessmentOwn`}>
                         <Button
                           title="アセスメントを実施する"
                           className="md:w-96"
@@ -69,7 +69,7 @@ export default function HomeTestTemplate({ assessments }) {
                 <div className='mt-2 border-[0.5px] border-gray-400'></div>
               </div>
               <div className='my-10 flex flex-col justify-center items-center gap-y-10'>
-                <NavLink to={`/${id}/assessmentTest`}>
+                <NavLink to={`/${id}/assessment`}>
                   <Button
                     title="第三者アセスメントを実施する"
                     className="md:w-96 rounded-none"

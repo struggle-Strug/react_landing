@@ -62,7 +62,7 @@ const AssessmentTestOwn = () => {
     const token = JSON.parse(tokenFromStorage)
     const subdomain = token.subdomain
     setShowModal(false)
-    navigate(`/${subdomain}/test`)
+    navigate(`/${subdomain}`)
   }
 
   return (
