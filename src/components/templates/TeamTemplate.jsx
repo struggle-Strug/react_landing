@@ -173,7 +173,7 @@ export default function TeamTemplate({ data }) {
             {teamData && (
               <div className='mt-8 mx-6'>
                 <div className='mb-2'>メンバーを選択</div>
-                <div className='flex flex-wrap'>
+                <div className='flex flex-wrap flex-col'>
                   <div className='w-64 mb-2 mr-4'>
                     <div className='w-64'>
                       <Dropdown
@@ -183,18 +183,31 @@ export default function TeamTemplate({ data }) {
                       />
                     </div>
                   </div>
-                  <div className='flex w-96'>
-                    <div className='bg-white w-1/2 h-44'>
+                  <div className='flex flex-col sm:flex-row bg-white w-full sm:w-fit sm:pr-10 justify-center items-center'>
+                    <div className='h-52 max-w-md'>
                       <div className='mt-2 text-center text-sm'>チーム平均</div>
-                      <SimpleRadarChart
-                        isFirst={true}
-                        scores={teamData.team_scores}
-                      />
-                      <div></div>
+                      <div className='h-[90%] w-[200px]'>
+                        <SimpleRadarChart
+                          isFirst={true}
+                          scores={teamData.team_scores}
+                        />
+                      </div>
                     </div>
-                    <div className='bg-white w-1/2 h-44'>
-                      <div className='mt-2 text-center text-sm'>ギャップ値</div>
-                      <div className="mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
+                    <div className='flex max-w-md'>
+                      <div className='h-36 sm:h-52 flex items-center '>
+                        <ul>
+                          <li className='text-xs'>A - 心理的安全度</li>
+                          <li className='text-xs'>B - 個人ビジョン明確度</li>
+                          <li className='text-xs'>C - 会社ビジョン共感度</li>
+                          <li className='text-xs'>D - 会社と個人の統合度</li>
+                          <li className='text-xs'>E - 意欲度</li>
+                          <li className='text-xs'>F - 影響力</li>
+                        </ul>
+                      </div>
+                      <div className='bg-white h-full sm:h-52 flex flex-col items-center justify-center sm:justify-start'>
+                        <div className='mt-2 text-center text-sm'>ギャップ値</div>
+                        <div className="sm:mt-12 text-3xl flex justify-center items-center">{teamData.gap}</div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -225,20 +238,44 @@ export default function TeamTemplate({ data }) {
                 <div className='overflow-x-auto'>
                   {scoreData && scoreData["1st"] && scoreData["3rd"] && scoreData["3rd_average"] && (
                     <div className='bg-white w-fit min-w-full h-64 flex items-center justify-start'>
-                      <div className='h-44 w-72 flex flex-col items-center'>
-                        <div className=' text-red-600 text-sm mb-2'>自己評価 & 第三者からの評価（平均）</div>
-                        <ComplexChart
-                          showThirdPerson={true}
-                          scores={scoreData}
-                        />
+                      <div className='h-44 w-80 flex flex-col items-center'>
+                        <div className=' text-red-600 text-sm'>自己評価 & 第三者からの評価（平均）</div>
+                        <div className='h-full w-full flex justify-center items-center'>
+                          <div className='w-1/2 h-full'>
+                            <ComplexChart
+                              showThirdPerson={true}
+                              scores={scoreData}
+                            />
+                          </div>
+                          {/* <ul className='w-1/2'>
+                            <li className='text-xs'>A - 心理的安全度</li>
+                            <li className='text-xs'>B - 個人ビジョン明確度</li>
+                            <li className='text-xs'>C - 会社ビジョン共感度</li>
+                            <li className='text-xs'>D - 会社と個人の統合度</li>
+                            <li className='text-xs'>E - 意欲度</li>
+                            <li className='text-xs'>F - 影響力</li>
+                          </ul> */}
+                        </div>
                       </div>
                       {scoreData["3rd"].map((score, idx) => (
-                        <div className='h-44 w-72 flex flex-col items-center mb-2' key={idx}>
+                        <div className='h-44 w-80 flex flex-col items-center mb-2' key={idx}>
                           <div className=' text-red-600 text-sm'>第三者からの評価（匿名）</div>
-                          <SimpleRadarChart
-                            isFirst={false}
-                            scores={score}
-                          />
+                          <div className='h-full w-full flex justify-center items-center'>
+                            <div className='w-1/2 h-full'>
+                              <SimpleRadarChart
+                                isFirst={false}
+                                scores={score}
+                              />
+                            </div>
+                            {/* <ul className='w-1/2'>
+                              <li className='text-xs'>A - 心理的安全度</li>
+                              <li className='text-xs'>B - 個人ビジョン明確度</li>
+                              <li className='text-xs'>C - 会社ビジョン共感度</li>
+                              <li className='text-xs'>D - 会社と個人の統合度</li>
+                              <li className='text-xs'>E - 意欲度</li>
+                              <li className='text-xs'>F - 影響力</li>
+                            </ul> */}
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -252,13 +289,11 @@ export default function TeamTemplate({ data }) {
                           <tr className='text-left'>
                             <th className='w-[5%]'></th>
                             <th>設問</th>
-                            <th>回答</th>
+                            <th className='break-keep'>回答</th>
+                            <th className='break-keep'>会社平均</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td colSpan={3}>全く思わない、思わない、思う、強く思うの4段階から回答</td>
-                          </tr>
                           {categories &&
                             categories.map((category, idx) => {
                               const categoryAnswers = userAnswers.filter(
@@ -267,18 +302,14 @@ export default function TeamTemplate({ data }) {
                               return (
                                 <>
                                   <tr className='bg-slate-100 p-1 mt-5' key={idx}>
-                                    <td colSpan={3}>{category}</td>
+                                    <td colSpan={4}>{category}</td>
                                   </tr>
                                   {categoryAnswers.map((answer, idx) => (
                                     <tr key={idx}>
                                       <td>{idx + 1}</td>
                                       <td>{answer.quiz}</td>
-                                      <td>
-                                        {answer.answer === 1 && "全く思わない"}
-                                        {answer.answer === 2 && "思わない"}
-                                        {answer.answer === 3 && "思う"}
-                                        {answer.answer === 4 && "強く思う"}
-                                      </td>
+                                      <td>{answer.answer}</td>
+                                      <td className='text-center'>{answer.company_answer_avg.toFixed(1)}</td>
                                     </tr>
                                   ))}
                                 </>

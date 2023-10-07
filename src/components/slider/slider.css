@@ -27,7 +27,6 @@
   box-shadow: 0px 0px 1px 1.5px rgba(0, 0, 0, 0.212);
 }
 
-
 .rc-slider-dot {
   top: 50%;
   margin-top: -9px;
@@ -66,4 +65,36 @@
   display: inline-block;
   width: 50px;
   white-space: nowrap;
+}
+
+.answer-slider {
+  appearance: none;
+  background-color: white;
+  width: 120%;
+  margin-left: -10%;
+  margin-right: -10%;
+  height: 2px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+.answer-slider::-webkit-slider-thumb {
+  -moz-appearance: none !important;
+  appearance: none !important;
+  position: relative;
+  height: 20px;
+  width: 30%;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
+}
+.answer-slider::-moz-range-thumb {
+  -moz-appearance: none !important;
+  appearance: none !important;
+  position: relative;
+  height: 20px;
+  width: 30%;
+  background: transparent;
+  cursor: pointer;
+  z-index: 2;
 }

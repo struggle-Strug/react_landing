@@ -1,7 +1,10 @@
 //import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import Assesment from './pages/AssessmentPage';
+import AssesmentTest from './pages/AssessmentTestPage';
+import AssessmentTestOwn from "./pages/AssessmentTestOwnPage";
 import Home from './pages/HomePage';
+import HomeTest from './pages/HomeTestPage';
 import RegisterMember from './pages/RegisterMemberPage';
 import RegisterTeam from './pages/RegisterTeamPage'
 import RegisterCompany from './pages/RegisterCompanyPage';
@@ -34,8 +37,11 @@ function App() {
                 <SideNavigationLayout>
                   <Routes>
                     <Route element={<PrivateRoutes />}>
-                      <Route path=':id/' element={<Home />} />
-                      <Route path=':id/assessment' element={<Assesment />} />
+                      {/* <Route path=':id/' element={<Home />} /> */}
+                      <Route path=':id' element={<HomeTest />} />
+                      {/* <Route path=':id/assessment' element={<Assesment />} /> */}
+                      <Route path=':id/assessmentOwn' element={<AssessmentTestOwn />} />
+                      <Route path=':id/assessment' element={<AssesmentTest />} />
                       <Route path=':id/result' element={<Result />} />
                       <Route path=':id/team' element={<Team />} />
                       <Route path=':id/register/member' element={<RegisterMember />} />

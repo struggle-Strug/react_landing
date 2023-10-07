@@ -27,6 +27,7 @@ export default function Sidebar() {
     { name: 'メンバー登録・編集', href: `/${subdomain}/register/member`, current: false },
     { name: 'チーム登録・編集', href: `/${subdomain}/register/team`, current: false },
     { name: 'ログアウト', href: `/login`, current: false },
+    { name: 'マイページ', href: `/${subdomain}`, icon: HomeIcon, current: true },
   ]
   const [menuItems, setMenuItems] = useState(navigation)
   const [menu, setMenu] = useState('マイページ')
@@ -40,7 +41,7 @@ export default function Sidebar() {
     } else {
       setMenuItems(navigation)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user.is_staff])
 
   function logoutUser() {
@@ -54,7 +55,7 @@ export default function Sidebar() {
           <div className="flex grow flex-col mt-3 overflow-y-auto border-r px-6">
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="-mx-primary-2 space-y-3">
-                {!user.is_superuser && (
+                {/* {!user.is_superuser && (
                   <li key={menuItems[0].name}>
                     <NavLink
                       to={menuItems[0].href}
@@ -77,7 +78,34 @@ export default function Sidebar() {
                     </NavLink>
                     <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' />
                   </li>
+                )} */}
+
+                {!user.is_superuser && (
+                  <li key={menuItems[6].name}>
+                    <NavLink
+                      to={menuItems[6].href}
+                      onClick={() => handleMenuItemClick(menuItems[6].name)}
+                      className={classNames(
+                        menuItems[6].name === menu
+                          ? ' text-primary-2 font-bold'
+                          : 'text-gray-700',
+                        'group flex  gap-x-3 py-1 rounded-md text-sm leading-6'
+                      )}
+                    >
+                      <HomeIcon
+                        className={classNames(
+                          menuItems[6].name === menu ? 'text-primary-2' : 'text-gray-400 group-hover:text-gray-500',
+                          'h-6 w-6 shrink-0'
+                        )}
+                        aria-hidden="true"
+                      />
+                      {menuItems[6].name}
+                    </NavLink>
+                    <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' />
+                  </li>
                 )}
+
+
                 {!user.is_superuser && (
                   <li key={menuItems[1].name}>
                     <NavLink
