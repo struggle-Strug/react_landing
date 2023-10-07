@@ -37,11 +37,11 @@ function App() {
                 <SideNavigationLayout>
                   <Routes>
                     <Route element={<PrivateRoutes />}>
-                      <Route path=':id/' element={<Home />} />
-                      <Route path=':id/test' element={<HomeTest />} />
-                      <Route path=':id/assessment' element={<Assesment />} />
-                      <Route path=':id/assessmentTestOwn' element={<AssessmentTestOwn />} />
-                      <Route path=':id/assessmentTest' element={<AssesmentTest />} />
+                      {/* <Route path=':id/' element={<Home />} /> */}
+                      <Route path=':id' element={<HomeTest />} />
+                      {/* <Route path=':id/assessment' element={<Assesment />} /> */}
+                      <Route path=':id/assessmentOwn' element={<AssessmentTestOwn />} />
+                      <Route path=':id/assessment' element={<AssesmentTest />} />
                       <Route path=':id/result' element={<Result />} />
                       <Route path=':id/team' element={<Team />} />
                       <Route path=':id/register/member' element={<RegisterMember />} />
