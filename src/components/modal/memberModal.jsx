@@ -16,6 +16,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
   const [name, setName] = useState("")
   const [hiraganaName, setHiraganaName] = useState("")
   const [email, setEmail] = useState("")
+  const [productivity, setProductivity] = useState("")
   const [category, setCategory] = useState(null)
   const [isActive, setIsActive] = useState({ value: true, label: "有効" })
   const [isValidData, setIsValidData] = useState(false)
@@ -54,11 +55,12 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
       member_category: category,
       is_active: isActive.value,
       team_relation: newTeams,
-      assessment_1st_exclude: assessmentExclude
+      assessment_1st_exclude: assessmentExclude,
+      productivity_member: productivity
     }
     setFormData(formData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hiraganaName, name, email, category, isActive, selectedTeams, assessmentExclude])
+  }, [hiraganaName, name, email, category, isActive, selectedTeams, assessmentExclude, productivity])
 
 
   useEffect(() => {
@@ -204,6 +206,24 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                             options={userStatusTypes}
                             selectedOption={isActive}
                             setSelectedOption={setIsActive}
+                          />
+                        </div>
+                      </div>
+                      <div className='flex'>
+                        <div className='mt-2'>
+                          <div className='text-left font-semibold'>
+                            生産性
+                            <span className="ml-2 text-xs text-red-600">
+                              必須
+                            </span>
+                          </div>
+                          <InputField
+                            type="number"
+                            value={productivity}
+                            min={1}
+                            max={10}
+                            onChange={(e) => setProductivity(e.target.value)}
+                            className="w-32"
                           />
                         </div>
                       </div>
