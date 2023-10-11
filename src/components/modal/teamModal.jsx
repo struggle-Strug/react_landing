@@ -12,6 +12,7 @@ import Loader from '../loader'
 export default function TeamModal({ open, title, onClose, team, submitForm, loading }) {
   const [, setFormData] = useAtom(formAtom)
   const [teamName, setTeamName] = useState("")
+  const [productivity, setProductivity] = useState("")
   const [isValidData, setIsValidData] = useState(false)
 
   function clickHandler() {
@@ -20,15 +21,17 @@ export default function TeamModal({ open, title, onClose, team, submitForm, load
 
   useEffect(() => {
     const formData = {
-      team_name: teamName
+      team_name: teamName,
+      productivity_team: productivity
     }
     setFormData(formData)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [teamName])
+  }, [teamName, productivity])
 
   useEffect(() => {
     if (!team) { return }
     setTeamName(team.team_name)
+    setProductivity(team.productivity_team)
   }, [team])
 
   useEffect(() => {
@@ -80,6 +83,16 @@ export default function TeamModal({ open, title, onClose, team, submitForm, load
                           type="text"
                           value={teamName}
                           onChange={(e) => setTeamName(e.target.value)}
+                        />
+                      </div>
+                      <div className='mt-4'>
+                        <div className='text-left font-semibold'>生産性</div>
+                        <InputField
+                          type="number"
+                          value={productivity}
+                          min={1}
+                          max={10}
+                          onChange={(e) => setProductivity(e.target.value)}
                         />
                       </div>
                     </div>
