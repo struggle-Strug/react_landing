@@ -81,6 +81,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
     }
     setSelectedTeams(defaultTeams)
     setAssessmentExclude(member.assessment_1st_exclude)
+    setProductivity(member.productivity_member)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member])
 
