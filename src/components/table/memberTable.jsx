@@ -88,6 +88,9 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                 <th scope="col" className="hidden py-3.5 min-w-1/6 text-sm lg:text-base font-semibold text-gray-900 lg:table-cell">
                   Email
                 </th>
+                <th scope="col" className="hidden py-3.5 min-w-1/6 text-sm lg:text-base font-semibold text-gray-900 lg:table-cell px-2">
+                  生産性
+                </th>
                 <th scope="col" className="py-3.5 min-w-1/12 text-sm lg:text-base font-semibold text-gray-900">
                   ステータス
                 </th>
@@ -131,6 +134,9 @@ export default function MemberTable({ members, team, setShowModal, setShowResetE
                   </td>
                   <td className="hidden py-4 whitespace-nowrap lg:text-sm text-gray-500 lg:table-cell">
                     {person.email}
+                  </td>
+                  <td className="hidden py-4 whitespace-nowrap lg:text-sm text-gray-500 lg:table-cell">
+                    {person.productivity_member}
                   </td>
                   <td className="py-4 lg:text-sm text-gray-500">
                     {person.is_active

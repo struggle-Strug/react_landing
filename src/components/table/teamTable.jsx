@@ -47,11 +47,16 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                 </th>
                 <th
                   scope="col"
-                  className="hidden py-3.5 w-5/6 text-sm lg:text-base  font-semibold text-gray-900 sm:table-cell"
+                  className="hidden py-3.5 w-3/6 text-sm lg:text-base  font-semibold text-gray-900 sm:table-cell"
                 >
                   チーム名
                 </th>
-
+                <th
+                  scope="col"
+                  className="hidden py-3.5 w-2/6 text-sm lg:text-base  font-semibold text-gray-900 sm:table-cell"
+                >
+                  生産性
+                </th>
                 <th scope="col" className="relative py-3.5 w-1/12">
                   <span className=""></span>
                 </th>
@@ -68,7 +73,8 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                       <div className="absolute bottom-0 right-full h-px w-screen bg-gray-100" />
                       <div className="absolute bottom-0 left-0 h-px w-screen bg-gray-100" />
                     </td>
-                    <td className="hidden py-4 w-5/6 text-sm lg:text-base text-gray-500 sm:table-cell">{team.team_name}</td>
+                    <td className="hidden py-4 w-3/6 text-sm lg:text-base text-gray-500 sm:table-cell">{team.team_name}</td>
+                    <td className="hidden py-4 w-2/6 text-sm lg:text-base text-gray-500 sm:table-cell">{team.productivity_team}</td>
                     <td className="relative py-4 w-1/12 text-left text-sm lg:text-base font-medium">
                       <button
                         className="text-indigo-600 hover:text-indigo-900"
