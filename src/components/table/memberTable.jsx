@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { formAtom } from "../../utils/atom";
+import { formAtom, subscriptionAtom } from "../../utils/atom";
 import { useAtom } from "jotai";
-import { subscriptionAtom } from "../../utils/atom";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { COMPANY_ENDPOINT } from "../../utils/constants";
 
@@ -24,9 +23,6 @@ export default function MemberTable({
     : undefined;
 
   const [productivity, setProductivity] = useState();
-
-
-  console.log(subscriptionGlobal);
 
   function handleCreateButtonClick() {
     setMemberToEdit();
@@ -127,6 +123,7 @@ export default function MemberTable({
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-300"
               onClick={handleCreateButtonClick}
+              disabled={subscriptionGlobal}
             >
               新規登録
             </button>

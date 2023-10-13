@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { formAtom } from '../../utils/atom'
+import { formAtom, subscriptionAtom } from '../../utils/atom'
 import Dropdown from '../dropdown'
 import Button from '../button'
 import CsvUploader from '../csvUploader'
@@ -19,7 +19,7 @@ import AssessorsModal from '../modal/assessorsModal'
 import RandomConfirmModal from '../modal/randomConfirmModal'
 import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router' 
 import Loader from '../loader'
 
 export default function RegisterMemberTemplate({ members, teams, refreshData }) {
@@ -45,6 +45,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   const [showNumOfAssessors, setShowNumOfAssessors] = useState(false)
   const [confirmMakeRandomAssessors, setConfirmMakeRandomAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
+  const [subscriptionGlobal,] = useAtom(subscriptionAtom)
 
   useEffect(() => {
     if (!selectedMethod) { return }
@@ -349,7 +350,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           <div className='w-32 ml-6 mt-4 z-20'>
             <div className='mb-2 whitespace-nowrap'>登録・編集方法</div>
             <Dropdown
-              options={RegistrationMethods}
+              options={subscriptionGlobal ? RegistrationMethods[0] : RegistrationMethods}
               selectedOption={selectedMethod}
               setSelectedOption={setSelectedMethod}
             />
