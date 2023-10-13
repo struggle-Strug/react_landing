@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router";
 import { formAtom } from "../../utils/atom";
 import { useAtom } from "jotai";
-
+import { subscriptionAtom } from "../../utils/atom";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { COMPANY_ENDPOINT } from "../../utils/constants";
 
@@ -16,7 +16,7 @@ export default function MemberTable({
   setMemberToEdit,
 }) {
   const [, setFormData] = useAtom(formAtom);
-
+  const [subscriptionGlobal,] = useAtom(subscriptionAtom)
   const navigate = useNavigate();
 
   const companyId = localStorage.getItem("token")
@@ -25,7 +25,8 @@ export default function MemberTable({
 
   const [productivity, setProductivity] = useState();
 
-  const subscription = JSON.parse(localStorage.getItem("subscription"));
+
+  console.log(subscriptionGlobal);
 
   function handleCreateButtonClick() {
     setMemberToEdit();
@@ -248,6 +249,7 @@ export default function MemberTable({
                       <button
                         className="text-indigo-600 hover:text-indigo-900"
                         onClick={() => handleEditButtonClick(person)}
+                        disabled={subscriptionGlobal}
                       >
                         編集
                       </button>
@@ -259,7 +261,7 @@ export default function MemberTable({
                       <button
                         className="text-indigo-600 hover:text-indigo-900"
                         onClick={() => handleEditEvaluation(person)}
-                        disabled={subscription}
+                        disabled={subscriptionGlobal}
                       >
                         編集
                       </button>

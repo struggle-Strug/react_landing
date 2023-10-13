@@ -2,9 +2,11 @@
 // import { CompanyListResponse } from '../../utils/type'
 import { useAtom } from 'jotai'
 import { formAtom } from '../../utils/atom'
+import { subscriptionAtom } from '../../utils/atom'
 // eslint-disable-next-line react/prop-types
 export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
   const [,setFormData] = useAtom(formAtom)
+  const [subscriptionGlobal,] = useAtom(subscriptionAtom)
   function handleCreateButtonClick() {
     setTeamToEdit()
     setFormData(null)
@@ -79,6 +81,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                       <button
                         className="text-indigo-600 hover:text-indigo-900"
                         onClick={() => handleEditButtonClick(team)}
+                        disabled={subscriptionGlobal}
                       >
                         編集
                       </button>
