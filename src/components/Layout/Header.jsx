@@ -10,6 +10,8 @@ import SidebarResponsive from './SidebarResponsive';
 import Modal from '../modal';
 import AgreeCheckModal from '../modal/agreeCheckModal';
 import SubscriptionModal from '../modal/subscriptionModal';
+import { useAtom } from 'jotai';
+import { subscriptionAtom } from '../../utils/atom';
 import Loader from '../loader';
 
 export default function Header() {
@@ -24,6 +26,7 @@ export default function Header() {
   const [openAgreeModal, setOpenAgreeModal] = useState(false)
   const [modalTitle, setModalTitle] = useState('')
   const [modalStatus, setModalStatus] = useState('')
+  const [, setSubscriptionGlobal] = useAtom(subscriptionAtom)
   const fetchSubscription = useCallback(async () => {
     if (!user) { return }
     if (user.is_superuser) {
@@ -40,6 +43,7 @@ export default function Header() {
     const data = await resp.json()
     setSubscription(data?.subscription_active)
     localStorage.setItem("subscription", data?.subscription_active)
+    setSubscriptionGlobal(data?.subscription_active)
   }, [navigate])
 
   const fetchAgreeStatus = async() => {
@@ -89,6 +93,7 @@ export default function Header() {
       })
       if(resp.status === 200){
         setSubscription(true)
+        setSubscriptionGlobal(true)
         setModalStatus('success')
         setModalTitle('メンバー全員がアセスメント実施可能な状態になりました。')
       }
@@ -101,7 +106,7 @@ export default function Header() {
     }
     updateSubscription()
   }
-  
+
   return (
     <div className='text-white fixed top-0 z-30 w-full flex h-16 bg-main justify-between items-center'>
       <div className='flex ml-5 items-center'>
