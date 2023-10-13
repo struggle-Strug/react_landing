@@ -114,7 +114,7 @@ export default function MemberTable({
                 type="number"
                 min={1}
                 max={10}
-                className="w-12 px-1"
+                className="w-12 p-1 mx-5"
                 value={productivity}
                 onChange={(e) => handleChangeProductivity(e.target.value)}
               />
