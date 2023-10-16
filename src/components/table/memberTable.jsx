@@ -9,6 +9,7 @@ import { COMPANY_ENDPOINT } from "../../utils/constants";
 export default function MemberTable({
   members,
   team,
+  companyProductivity,
   setShowModal,
   setShowResetEvaluation,
   setShowEditEvaluation,
@@ -22,7 +23,7 @@ export default function MemberTable({
     ? JSON.parse(localStorage.getItem("token")).company_relation
     : undefined;
 
-  const [productivity, setProductivity] = useState();
+  const [productivity, setProductivity] = useState(companyProductivity);
 
   function handleCreateButtonClick() {
     setMemberToEdit();
@@ -114,8 +115,9 @@ export default function MemberTable({
                 type="number"
                 min={1}
                 max={10}
-                className="w-12 p-1 mx-5"
+                className="w-12 p-1 mx-5 disabled:bg-slate-300 disabled:border-none"
                 value={productivity}
+                disabled={subscriptionGlobal}
                 onChange={(e) => handleChangeProductivity(e.target.value)}
               />
             </div>

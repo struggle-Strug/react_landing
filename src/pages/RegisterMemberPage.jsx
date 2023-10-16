@@ -10,6 +10,7 @@ const ResigterMember = () => {
   const [companyTeams, setCompanyTeams] = useState();
   const [firstAssessment, setFirstAssessment] = useState();
   const [thirdAssessment, setThirdAssessment] = useState();
+  const [companyProductivity, setcompanyProductivity] = useState()
 
   const fetchMembers = useCallback(async () => {
     const resp = await requestWithTokenRefresh(
@@ -21,6 +22,7 @@ const ResigterMember = () => {
     const users = await data.users;
     const teams = await data.teams;
     const status = await data.assessment_status;
+    setcompanyProductivity(await data.company.productivity_company)
     const teamsFromResponse = teams.map((t) => ({
       value: t.id,
       label: t.team_name,
@@ -55,6 +57,7 @@ const ResigterMember = () => {
     fetchMembers();
   }, [fetchMembers]);
 
+
   return (
     <div className="relative top-16 flex justify-center h-[calc(100vh-4rem)]">
       {members && companyTeams && (
@@ -62,6 +65,7 @@ const ResigterMember = () => {
           members={members}
           teams={companyTeams}
           refreshData={fetchMembers}
+          companyProductivity={companyProductivity}
         />
       )}
     </div>
