@@ -22,7 +22,7 @@ import { requestWithTokenRefresh } from '../../utils/AuthService'
 import { useNavigate } from 'react-router' 
 import Loader from '../loader'
 
-export default function RegisterMemberTemplate({ members, teams, refreshData }) {
+export default function RegisterMemberTemplate({ members, teams, refreshData, companyProductivity }) {
   const navigate = useNavigate()
   const [selectedTeam, setSelectedTeam] = useState({ value: 0, label: "全チーム" })
   const [selectedMethod, setSelectedMethod] = useState(RegistrationMethods[0])
@@ -412,6 +412,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             <MemberTable
               members={teamMembers}
               team={selectedTeam}
+              companyProductivity={companyProductivity}
               setShowModal={setShowModal}
               setShowResetEvaluation={setShowResetEvaluation}
               setShowEditEvaluation={setShowEditEvaluation}
