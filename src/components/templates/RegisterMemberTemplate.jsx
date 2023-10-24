@@ -43,6 +43,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
   const [showResetEvaluation, setShowResetEvaluation] = useState(false)
   const [showEditEvaluation, setShowEditEvaluation] = useState(false)
   const [showNumOfAssessors, setShowNumOfAssessors] = useState(false)
+  const [showNumOfAssessorsMessage, setShowNumOfAssessorsMessage] = useState("アセスメントはすでに有効であるためランダム作成はできません。")
   const [confirmMakeRandomAssessors, setConfirmMakeRandomAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
   const [subscriptionGlobal,] = useAtom(subscriptionAtom)
@@ -108,9 +109,11 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
             if (resp.status >= 200 && resp.status < 300) {
               window.location.reload(true);
             } else {
+              const data = await resp.json();
+              setShowNumOfAssessorsMessage(data.error)
               setShowNumOfAssessors(true)
             }
-          } catch {
+          } catch(err) {
             setShowNumOfAssessors(true)
           }
         }
@@ -489,7 +492,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
         <AssessorsModal
           open={showNumOfAssessors}
           title={"第三者評価者の組み合わせを作成"}
-          msg={ "アセスメントはすでに有効であるためランダム作成はできません。"}
+          msg={showNumOfAssessorsMessage}
           status={"failed"}
           setShowNumOfAssessors={setShowNumOfAssessors}
         />
