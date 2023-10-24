@@ -24,8 +24,7 @@ export default function Header() {
   const [showsubscriptionModal, setShowSubScriptionModal] = useState(false)
   const [isWaiting, setIsWaiting] = useState(false)
   const [openAgreeModal, setOpenAgreeModal] = useState(false)
-  const [modalTitle, setModalTitle] = useState('')
-  const [ModalTitleMessage, setModalMessage] = useState('操作が失敗しました。')
+  const [modalTitle, setModalTitle] = useState('操作が失敗しました。')
   const [modalStatus, setModalStatus] = useState('')
   const [, setSubscriptionGlobal] = useAtom(subscriptionAtom)
   const fetchSubscription = useCallback(async () => {
