@@ -17,7 +17,7 @@ export default function MemberTable({
   setMemberToEdit,
 }) {
   const [, setFormData] = useAtom(formAtom);
-  const [subscriptionGlobal] = useAtom(subscriptionAtom);
+  const [subscriptionGlobal,] = useAtom(subscriptionAtom);
   const navigate = useNavigate();
   const [showPopupMessage, setShowPopupMessage] = useState(false);
 
@@ -26,7 +26,6 @@ export default function MemberTable({
     : undefined;
 
   const [productivity, setProductivity] = useState(companyProductivity);
-  console.log("subscriptionGlobal", subscriptionGlobal);
   function handleCreateButtonClick() {
     if (!subscriptionGlobal) {
       setMemberToEdit();
