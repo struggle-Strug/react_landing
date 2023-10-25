@@ -5,6 +5,7 @@ import { formAtom, subscriptionAtom } from "../../utils/atom";
 import { useAtom } from "jotai";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { COMPANY_ENDPOINT } from "../../utils/constants";
+import PopupMessageModal from "../modal/popupMessageModal";
 
 export default function MemberTable({
   members,
@@ -16,24 +17,28 @@ export default function MemberTable({
   setMemberToEdit,
 }) {
   const [, setFormData] = useAtom(formAtom);
-  const [subscriptionGlobal,] = useAtom(subscriptionAtom)
+  const [subscriptionGlobal,] = useAtom(subscriptionAtom);
   const navigate = useNavigate();
+  const [showPopupMessage, setShowPopupMessage] = useState(false);
 
   const companyId = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token")).company_relation
     : undefined;
 
   const [productivity, setProductivity] = useState(companyProductivity);
-
   function handleCreateButtonClick() {
-    setMemberToEdit();
-    setFormData();
-    setShowModal(true);
+    if (!subscriptionGlobal) {
+      setMemberToEdit();
+      setFormData();
+      setShowModal(true);
+    } else setShowPopupMessage(true);
   }
 
   function handleEditButtonClick(person) {
-    setMemberToEdit(person);
-    setShowModal(true);
+    if (!subscriptionGlobal) {
+      setMemberToEdit(person);
+      setShowModal(true);
+    } else setShowPopupMessage(true);
   }
 
   function generateGivenEvaluation(person) {
@@ -47,13 +52,16 @@ export default function MemberTable({
   }
 
   function handleEditEvaluation(person) {
-    let givenEvaluations = person.given_evaluations.name;
-    setMemberToEdit(person);
-    if (givenEvaluations.length > 0) {
-      setShowResetEvaluation(true);
-    } else {
-      setShowEditEvaluation(true);
+    if (!subscriptionGlobal) {
+      let givenEvaluations = person.given_evaluations.name;
+      setMemberToEdit(person);
+      if (givenEvaluations.length > 0) {
+        setShowResetEvaluation(true);
+      } else {
+        setShowEditEvaluation(true);
+      }
     }
+    else setShowPopupMessage(true);
   }
 
   async function handleChangeProductivity(productivity) {
@@ -125,10 +133,17 @@ export default function MemberTable({
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-300"
               onClick={handleCreateButtonClick}
-              disabled={subscriptionGlobal}
             >
               新規登録
             </button>
+            {showPopupMessage && (
+              <PopupMessageModal
+                open={showPopupMessage}
+                msg={"アセスメント開始後は各種作成及び編集は不可となります。"}
+                status={"failed"}
+                setShowPopupMessage={setShowPopupMessage}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -248,7 +263,6 @@ export default function MemberTable({
                       <button
                         className="text-indigo-600 hover:text-indigo-900"
                         onClick={() => handleEditButtonClick(person)}
-                        disabled={subscriptionGlobal}
                       >
                         編集
                       </button>
@@ -260,7 +274,6 @@ export default function MemberTable({
                       <button
                         className="text-indigo-600 hover:text-indigo-900"
                         onClick={() => handleEditEvaluation(person)}
-                        disabled={subscriptionGlobal}
                       >
                         編集
                       </button>
