@@ -1,5 +1,5 @@
 export const BACKEND_URL =
-    '__env__' in window ? window.__env__.BACKEND_URL : "https://production-backend.heart-beat.me/";
+    '__env__' in window ? window.__env__.BACKEND_URL : "https://staging-backend.heart-beat.me/";
 
 export const LOGIN_ENDPOINT = BACKEND_URL + 'api/auth/jwt/create/'
 

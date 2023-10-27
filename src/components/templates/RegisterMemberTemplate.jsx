@@ -2,7 +2,7 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react'
 import { useAtom } from 'jotai'
-import { formAtom } from '../../utils/atom'
+import { formAtom, subscriptionAtom } from '../../utils/atom'
 import Dropdown from '../dropdown'
 import Button from '../button'
 import CsvUploader from '../csvUploader'
@@ -19,10 +19,10 @@ import AssessorsModal from '../modal/assessorsModal'
 import RandomConfirmModal from '../modal/randomConfirmModal'
 import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { useNavigate } from 'react-router'
+import { useNavigate } from 'react-router' 
 import Loader from '../loader'
 
-export default function RegisterMemberTemplate({ members, teams, refreshData }) {
+export default function RegisterMemberTemplate({ members, teams, refreshData, companyProductivity }) {
   const navigate = useNavigate()
   const [selectedTeam, setSelectedTeam] = useState({ value: 0, label: "全チーム" })
   const [selectedMethod, setSelectedMethod] = useState(RegistrationMethods[0])
@@ -43,8 +43,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
   const [showResetEvaluation, setShowResetEvaluation] = useState(false)
   const [showEditEvaluation, setShowEditEvaluation] = useState(false)
   const [showNumOfAssessors, setShowNumOfAssessors] = useState(false)
+  const [showNumOfAssessorsMessage, setShowNumOfAssessorsMessage] = useState("アセスメントはすでに有効であるためランダム作成はできません。")
   const [confirmMakeRandomAssessors, setConfirmMakeRandomAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
+  const [subscriptionGlobal,] = useAtom(subscriptionAtom)
 
   useEffect(() => {
     if (!selectedMethod) { return }
@@ -107,9 +109,11 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             if (resp.status >= 200 && resp.status < 300) {
               window.location.reload(true);
             } else {
+              const data = await resp.json();
+              setShowNumOfAssessorsMessage(data.error)
               setShowNumOfAssessors(true)
             }
-          } catch {
+          } catch(err) {
             setShowNumOfAssessors(true)
           }
         }
@@ -133,10 +137,10 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         teams
           .filter(t => t.label !== "全チーム")
           .map(t => t.label)
-      headers = [...RegisterationHeaders, "assessment_1st_exclude",...teamNames]
+      headers = [...RegisterationHeaders, "assessment_1st_exclude", "productivity",...teamNames]
       // eslint-disable-next-line no-unused-vars
       const teamExplanations = teamNames.map(_ => "所属する場合は1を記入してください")
-      secondRow = [...explanationRow, "True/Falseを入力（例：自己アセスメントを実施しない社員に対してTrueを設定する）", ...teamExplanations]
+      secondRow = [...explanationRow, "True/Falseを入力（例：自己アセスメントを実施しない社員に対してTrueを設定する）", "生産性について1〜10まで数字を入力",...teamExplanations]
       // }
     } else if (selectedMethod.value === 3) {
       if(selectedAssignMethod.value == 1) {
@@ -300,6 +304,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
               m.member_category,
               m.is_active,
               m.assessment_1st_exclude,
+              m.productivity_member,
               ...m.teamArray
               // ""
             ])
@@ -319,6 +324,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             m.member_category,
             m.is_active,
             "",
+            m.productivity_member,
             // ...m.teamArray
             ...given_evaluations
           ])
@@ -347,7 +353,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
           <div className='w-32 ml-6 mt-4 z-20'>
             <div className='mb-2 whitespace-nowrap'>登録・編集方法</div>
             <Dropdown
-              options={RegistrationMethods}
+              options={subscriptionGlobal ? RegistrationMethods[0] : RegistrationMethods}
               selectedOption={selectedMethod}
               setSelectedOption={setSelectedMethod}
             />
@@ -409,6 +415,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
             <MemberTable
               members={teamMembers}
               team={selectedTeam}
+              companyProductivity={companyProductivity}
               setShowModal={setShowModal}
               setShowResetEvaluation={setShowResetEvaluation}
               setShowEditEvaluation={setShowEditEvaluation}
@@ -485,7 +492,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData }) 
         <AssessorsModal
           open={showNumOfAssessors}
           title={"第三者評価者の組み合わせを作成"}
-          msg={ "アセスメントはすでに有効であるためランダム作成はできません。"}
+          msg={showNumOfAssessorsMessage}
           status={"failed"}
           setShowNumOfAssessors={setShowNumOfAssessors}
         />
