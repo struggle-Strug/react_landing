@@ -62,7 +62,7 @@ function LoginPage() {
         </div>
         <div className="flex flex-col justify-center items-center">
           <div className=" my-3">
-            <img src={CompanyLogo} alt="Company-logo" />
+            <img src={CompanyLogo} alt="company-logo" />
           </div>
           <p className="text-xs text-white font-NotoSansCJKjp-Regular">
             © 2023 CUOREMO inc. all lights reserved.

@@ -10,9 +10,9 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/20/solid";
 import { UseUserDetails } from "../../context/UserContext";
-import Logo from "/public/logo.png";
-import CompanyLogo from "/public/Company-logo.png";
-import SelectSymbol from "/public/triangle.png";
+import Logo from "../../../public/logo.png";
+import CompanyLogo from "../../../public/company-logo.png";
+import SelectSymbol from "../../../public/triangle.png";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -299,7 +299,7 @@ export default function Sidebar() {
               </ul>
               <div>
                 <div className="flex justify-center mt-20">
-                  <img src={CompanyLogo} alt="Company-logo" />
+                  <img src={CompanyLogo} alt="company-logo" />
                 </div>
               </div>
               <div className="mt-7 mx-auto mb-3">
