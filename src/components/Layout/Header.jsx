@@ -2,7 +2,7 @@ import { UseUserDetails} from '../../context/UserContext'
 import { useState, useEffect, useCallback} from 'react'
 import { useNavigate } from "react-router-dom";
 
-import Logo from '../../../public/logo.png';
+import Logo from '/public/logo.png';
 import { requestWithTokenRefresh } from '../../utils/AuthService'
 import { SUBSCRIPTION, MEMBER_ENDPOINT } from '../../utils/constants';
 

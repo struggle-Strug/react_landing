@@ -10,9 +10,9 @@ import {
   ArrowRightOnRectangleIcon,
 } from "@heroicons/react/20/solid";
 import { UseUserDetails } from "../../context/UserContext";
-import Logo from "../../../public/logo.png";
-import CompanyLogo from "../../../public/Company-logo.png";
-import SelectSymbol from "../../../public/triangle.png";
+import Logo from "/public/logo.png";
+import CompanyLogo from "/public/Company-logo.png";
+import SelectSymbol from "/public/triangle.png";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
