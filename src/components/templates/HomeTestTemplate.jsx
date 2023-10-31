@@ -87,7 +87,7 @@ export default function HomeTestTemplate({ assessments }) {
                     />
                   </NavLink>
                   <div className="w-full mt-2 border-[0.5px] border-main"></div>
-                  <div className="w-full text-center text-main border border-main font-HiraginoKakuGothicProNW3">アセスメントの対象者</div>
+                  <div className="w-full text-center text-main border border-main font-HiraginoKakuGothicProNW3 font-bold">アセスメントの対象者</div>
                   <div className="flex flex-wrap justify-between w-full mx-5">
                     {otherAssessments &&
                       otherAssessments.map((assessment, index) =>
