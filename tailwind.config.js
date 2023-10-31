@@ -16,6 +16,11 @@ export default {
         main: '#00008C',
         btn: '#140AAA'
       },
+      fontFamily: {
+        'CenturyGothic': ['CenturyGothic'],
+        'HiraginoKakuGothicProNW3': ['HiraginoKakuGothicProNW3'],
+        'NotoSansCJKjp-Regular': ['NotoSansCJKjp-Regular'],
+      },
       extend: {},
     }
   },
