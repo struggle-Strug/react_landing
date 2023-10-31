@@ -14,11 +14,13 @@ const SideNavigationLayout = ({ children }) => {
   // //   setUser('')
   // // }
   return (
-    <div className="w-full pb-[140px] sm:pb-[100px]">
-      <Header />
+    <div className="w-full">
+      <div className='block sm:hidden'>
+        <Header />
+      </div>
       <Sidebar />
-      <main className="sm:pl-60 w-full">{children}</main>
-      <Footer />
+      <main className="sm:pl-96 w-full">{children}</main>
+      {/* <Footer /> */}
     </div>
   );
 };

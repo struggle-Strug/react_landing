@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face { 
+  font-family: "CenturyGothic"; 
+  src: url("../public/fonts/Century Gothic.ttf"); 
+} 
+
+@font-face { 
+  font-family: "HiraginoKakuGothicProNW3"; 
+  src: url("../public/fonts/Hiragino Kaku Gothic ProN W3.otf"); 
+}
+
+@font-face { 
+  font-family: "NotoSansCJKjp-Regular"; 
+  src: url("../public/fonts/NotoSansCJKjp-Regular.otf"); 
+} 
