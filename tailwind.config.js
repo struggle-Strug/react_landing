@@ -21,6 +21,9 @@ export default {
         'HiraginoKakuGothicProNW3': ['HiraginoKakuGothicProNW3'],
         'NotoSansCJKjp-Regular': ['NotoSansCJKjp-Regular'],
       },
+      screens: {
+        'sp': {'max': '768px'}
+      },
       extend: {},
     }
   },

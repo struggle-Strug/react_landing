@@ -92,7 +92,7 @@ export default function Sidebar() {
   return (
     <>
       <div>
-        <div className="bg-main fixed z-20 flex w-96 h-screen flex-col">
+        <div className="bg-main fixed z-20 flex md:w-80 lg:w-96 h-screen flex-col">
           <div className="flex grow flex-col mt-3 overflow-y-auto border-r px-10">
             <nav className="flex flex-1 flex-col">
               <div className="mx-auto mt-20">

@@ -116,7 +116,7 @@ export default function Header() {
       </div>
       <div className='flex items-center mr-10 justify-center'>
 
-        <button
+        {/* <button
           disabled={subscription}
           type='button'
           className={
@@ -127,7 +127,7 @@ export default function Header() {
           onClick={() => {setShowSubScriptionModal(true)}}
         >
           開始する
-        </button>
+        </button> */}
         <div className='ml-4'>
           <section className="flex sm:hidden">
             <div
