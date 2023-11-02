@@ -6,7 +6,6 @@ import './slider.css'
 
 import { requestWithTokenRefresh } from '../../utils/AuthService';
 import { USERANSWER_UPDATE_ENDPOINT } from '../../utils/constants';
-import point from '../../../public/point.png'
 
 export const MarkedSlider = ({ answer, setAnswer }) => {
   const marks = {
