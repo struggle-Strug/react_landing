@@ -22,7 +22,9 @@ const SideNavigationLayout = ({ children }) => {
         <Sidebar />
       </div>
       <main className="sm:pl-96 md:pl-80 lg:pl-96 w-full sp:pl-0">{children}</main>
-      {/* <Footer /> */}
+      <div className='hidden sp:block mt-32'>
+        <Footer />
+      </div>
     </div>
   );
 };

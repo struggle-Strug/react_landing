@@ -37,12 +37,13 @@ export default function AssessmentTestTemplate({
       <div>
         <div className="w-full">
           <div className="mt-6 mb-10">
+            <div className="hidden sp:block text-center mb-8">{"第三者のアセスメントを実施する"}</div>
             <div className="text-center text-lg	sm:text-2xl mb-16 mx-3">
               {/* {assessment.received_evaluations_name} さんのアセスメント */}
-              <p className="text-3xl mb-2 text-[#707070] font-bold font-CenturyGothic">
+              <p className="text-3xl sp:text-xl mb-2 text-[#707070] font-bold font-CenturyGothic">
                 {"Question"}
               </p>
-              <p className="text-4xl mb-5 font-HiraginoKakuGothicProNW3 text-main">
+              <p className="text-4xl mb-5 sp:text-[28px] font-HiraginoKakuGothicProNW3 text-main">
                 {"以下の質問にお答えください。"}
               </p>
               <p className="text-xs font-HiraginoKakuGothicProNW3 text-main">
@@ -56,11 +57,11 @@ export default function AssessmentTestTemplate({
                 }
               </p>
             </div>
-            <div className="border-2 border-main mx-5 lg:mb-32 md:mb-16">
+            <div className="border-2 border-main sp:border-0 mx-5 lg:mb-32 md:mb-16">
               <div className="text-xs text-center bg-main text-white py-2 font-HiraginoKakuGothicProNW3">
                 {"各メンバーのアイコンを該当する評価にドラッグしてください"}
               </div>
-              <ul className="max-w-fit m-auto lg:px-20 md:px-8 sp:px-10 py-14" >
+              <ul className="max-w-fit m-auto lg:px-20 md:px-8 sp:px-0 py-14" >
                 {userQuestions &&
                   userQuestions.map((question) => (
                     <li
