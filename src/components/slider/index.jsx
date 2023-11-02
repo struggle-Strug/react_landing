@@ -111,7 +111,7 @@ export const ChangeValueSlider = ({ answer, question, setAnswer }) => {
         answers.map((a, index) => (
           <div className='relative flex p-1 w-11/12 bg-repeat-y py-2' key={index}  style={{backgroundImage: 'url(/background.png)', backgroundSize: "100%"}} >
             <input type="range" min={1} max={4} className="answer-slider hover:cursor-pointer bg-transparent relative" onChange={(e) => handleChange(e, a.answer.id)} defaultValue={a.answer.answer} />
-            <div className={`absolute inset-y-1/2 -translate-y-1/2 flex justify-center items-center bg-[#4E4C4C] text-white text-center w-28 leading-none px-2 h-7 -translate-x-1/2 break-keep cursor-pointer border border-white rounded-full sp:w-20`} style={{ left: `${(a.answer.answer - 1) * 33}%` }}>{a.received_evaluations_name}</div>
+            <div className={`absolute inset-y-1/2 -translate-y-1/2 flex justify-center items-center bg-[#4E4C4C] text-white text-center w-28 leading-none px-2  sp:px-12 h-7 -translate-x-1/2 break-keep cursor-pointer border border-white rounded-full sp:w-20`} style={{ left: `${(a.answer.answer - 1) * 33}%` }}>{a.received_evaluations_name}</div>
           </div>
 
         ))

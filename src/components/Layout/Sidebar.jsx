@@ -299,7 +299,7 @@ export default function Sidebar() {
               </ul>
               <div>
                 <div className="flex justify-center mt-20">
-                  <img src={CompanyLogo} alt="company-logo" />
+                  <img src={CompanyLogo} width={131} alt="company-logo" />
                 </div>
               </div>
               <div className="mt-7 mx-auto mb-3">
