@@ -15,11 +15,13 @@ const SideNavigationLayout = ({ children }) => {
   // // }
   return (
     <div className="w-full">
-      <div className='block sm:hidden'>
+      <div className='hidden sp:block'>
         <Header />
       </div>
-      <Sidebar />
-      <main className="sm:pl-96 w-full">{children}</main>
+      <div className='block sp:hidden'>
+        <Sidebar />
+      </div>
+      <main className="sm:pl-96 md:pl-80 lg:pl-96 w-full sp:pl-0">{children}</main>
       {/* <Footer /> */}
     </div>
   );

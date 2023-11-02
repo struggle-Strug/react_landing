@@ -1,68 +1,99 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from 'react'
-import { MarkedTestSlider, ChangeValueSlider } from '../slider'
-import Button from '../button'
+import { useState, useEffect } from "react";
+import { MarkedTestSlider, ChangeValueSlider } from "../slider";
+import Button from "../button";
 
-export default function AssessmentTestTemplate({ questionAnswerData, updateQuestion, submitAnswers }) {
-
-  const [questions, setQuestions] = useState()
-  const [answers, setAnswers] = useState()
+export default function AssessmentTestTemplate({
+  questionAnswerData,
+  updateQuestion,
+  submitAnswers,
+}) {
+  const [questions, setQuestions] = useState();
+  const [answers, setAnswers] = useState();
   const sortedQuestion = (questions) => {
-    const sorted = questions.sort((a, b) => a.quiz_number.localeCompare(b.quiz_number))
-    return sorted
-  }
+    const sorted = questions.sort((a, b) =>
+      a.quiz_number.localeCompare(b.quiz_number)
+    );
+    return sorted;
+  };
 
-  const [userQuestions, setUserQuestions] = useState()
+  const [userQuestions, setUserQuestions] = useState();
 
   useEffect(() => {
     if (!questionAnswerData) {
-      return
+      return;
     }
-    setQuestions(questionAnswerData.quiz_list)
-    setAnswers(questionAnswerData.user_answer_list)
-  }, [questionAnswerData])
+    setQuestions(questionAnswerData.quiz_list);
+    setAnswers(questionAnswerData.user_answer_list);
+  }, [questionAnswerData]);
 
   useEffect(() => {
-    setUserQuestions(questions ? sortedQuestion(questions) : null)
-  }, [questions])
+    setUserQuestions(questions ? sortedQuestion(questions) : null);
+  }, [questions]);
 
   return (
     <>
       <div>
-        <div className='w-full'>
-          <div className='mt-6'>
-            <div className='text-center text-lg	sm:text-2xl mb-2 mx-3' >
+        <div className="w-full">
+          <div className="mt-6 mb-10">
+            <div className="text-center text-lg	sm:text-2xl mb-16 mx-3">
               {/* {assessment.received_evaluations_name} さんのアセスメント */}
-              {"精度の高いフィードバックにするためにも、率直に正直にお答えください。"}<br />
-              {"（もし対象者について回答する場合も、対象者に回答が開示されることはありませんのでご安心ください。）"}
+              <p className="text-3xl mb-2 text-[#707070] font-bold font-CenturyGothic">
+                {"Question"}
+              </p>
+              <p className="text-4xl mb-5 font-HiraginoKakuGothicProNW3 text-main">
+                {"以下の質問にお答えください。"}
+              </p>
+              <p className="text-xs font-HiraginoKakuGothicProNW3 text-main">
+                {
+                  "精度の高いフィードバックにするためにも、率直に正直にお答えください。"
+                }
+              </p>
+              <p className="text-xs font-HiraginoKakuGothicProNW3 text-main">
+                {
+                  "（もし対象者について回答する場合も、対象者に回答が開示されることはありませんのでご安心ください。）"
+                }
+              </p>
             </div>
-            <ul className='max-w-fit m-auto'>
-              {userQuestions && userQuestions.map(
-                question => (
-                  <li
-                    key={question.id + question.quiz_number}
-                    className='px-6 pl-12 '
-                  >
-                    {question.quiz && <p className='py-2'>{question.quiz}</p>}
-                    <MarkedTestSlider question={question} answer={answers} />
-                    <div className='pt-6 pb-3'>
-                      <ChangeValueSlider answer={answers} question={question} setAnswer={updateQuestion}/>
-                    </div>
-                  </li>
-                )
-              )}
-            </ul>
+            <div className="border-2 border-main mx-5 lg:mb-32 md:mb-16">
+              <div className="text-xs text-center bg-main text-white py-2 font-HiraginoKakuGothicProNW3">
+                {"各メンバーのアイコンを該当する評価にドラッグしてください"}
+              </div>
+              <ul className="max-w-fit m-auto lg:px-20 md:px-8 sp:px-10 py-14" >
+                {userQuestions &&
+                  userQuestions.map((question) => (
+                    <li
+                      key={question.id + question.quiz_number}
+                      className="px-6 pl-12"
+                    >
+                      {question.quiz && <p className="py-2">{question.quiz}</p>}
+                      <MarkedTestSlider question={question} answer={answers} />
+                      <div className="pt-8 pb-12 text-sm sp:text-xs font-HiraginoKakuGothicProNW3">
+                        <ChangeValueSlider
+                          answer={answers}
+                          question={question}
+                          setAnswer={updateQuestion}
+                        />
+                      </div>
+                    </li>
+                  ))}
+              </ul>
+              <div className="text-main">
+                <p className="text-center font-HiraginoKakuGothicProNW3">{"ご回答ありがとうございました！"}</p>
+                <p className="text-center font-HiraginoKakuGothicProNW3">{"下の「回答を提出する」ボタンを押して、終了してください。"}</p>
+              </div>
+              <div className="flex justify-center pt-6 lg:pb-20 md:pb-10 sp:pb-10">
+                <Button
+                  title="回答を提出する"
+                  className="w-96 py-3 font-HiraginoKakuGothicProNW3 bg-main"
+                  onClick={submitAnswers}
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className='flex justify-center py-6'>
-          <Button
-            title="提出する"
-            className='w-80 bg-cyan-500'
-            onClick={submitAnswers}
-          />
         </div>
       </div>
     </>
-  )
+  );
 }
