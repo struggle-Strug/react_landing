@@ -15,7 +15,7 @@ function RadarChart({ showThirdPerson, scores }) {
     : []
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="100%" height="100%" className={"font-HiraginoKakuGothicProNW3"}>
       <RadarChartBase cx="45%" cy="50%" outerRadius="70%" data={data} fill="#f3f6f4">
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" tick={{ fontSize: '12px' }} radius="40%"/>
