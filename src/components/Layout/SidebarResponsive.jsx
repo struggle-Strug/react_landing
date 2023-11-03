@@ -54,7 +54,7 @@ export default function SidebarResponsive(props) {
   return (
     <>
       <div>
-        <div className={shownStatus ? "bg-zinc-100 top-16 fixed z-20 flex w-60 h-screen flex-col absolute left-0" : "hidden"}>
+        <div className={shownStatus ? "bg-zinc-100 top-16 fixed z-20 flex w-96 h-screen flex-col absolute left-0" : "hidden"}>
           <div className="flex grow flex-col mt-3 overflow-y-auto border-r px-6">
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="-mx-primary-2 space-y-3">

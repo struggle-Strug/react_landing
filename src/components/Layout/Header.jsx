@@ -111,10 +111,10 @@ export default function Header() {
   return (
     <div className='text-white fixed top-0 z-30 w-full flex h-16 bg-main justify-between items-center'>
       <div className='flex ml-5 items-center'>
-        <p className='text-3xl hidden sm:block'>Heart Beat</p>
+        <p className='text-3xl hidden'>Heart Beat</p>
         <img className='w-24 ml-2' src={Logo} alt='Logo' />
       </div>
-      <div className='flex items-center mr-10 justify-center'>
+      <div className='flex items-center mr-7 justify-center'>
 
         {/* <button
           disabled={subscription}
@@ -129,20 +129,20 @@ export default function Header() {
           開始する
         </button> */}
         <div className='ml-4'>
-          <section className="flex sm:hidden">
+          <section className="flex sp:block">
             <div
               className="space-y-2"
               onClick={() => setIsNavOpen((prev) => !prev)}
             >
               {!isNavOpen?(
                 <>
-                  <span className="block h-0.5 w-8 bg-white"></span>
-                  <span className="block h-0.5 w-8 bg-white"></span>
-                  <span className="block h-0.5 w-8 bg-white"></span>
+                  <span className="block h-0.5 w-12 bg-white"></span>
+                  <span className="block h-0.5 w-12 bg-white"></span>
+                  {/* <span className="block h-0.5 w-12 bg-white"></span> */}
                 </>
               ):(
                 <svg
-                className="h-8 w-8 text-white"
+                className="h-10 w-10 text-white"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -157,7 +157,7 @@ export default function Header() {
             </div>
             <SidebarResponsive setIsNavOpen={setIsNavOpen} shownStatus={isNavOpen}/>
           </section>
-          <section className='hidden sm:block'>
+          <section className='hidden'>
             <p className='text-[14px]'>{jobTitle}</p>
             <p className='-mt-1 text-lg font-semibold'>{user.name}</p>
           </section>
