@@ -47,20 +47,24 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex">
-      <div className="w-1/2  bg-main">
-        <div className="w-full h-[90%] flex flex-col">
+    <div className="flex sp:flex-col sp:justify-between sp:h-screen">
+      <div className="w-1/2 sp:w-full bg-main">
+        <div className="w-full h-[90%] flex flex-col sp:pb-4">
           <div className="grow-[2]"></div>
           <div className="flex justify-center items-center flex-col">
-            <div className="px-5 mb-32">
+            <div className="px-5 mb-32 sp:pt-20 sp:w-3/4 sp:mb-0">
               <img className="" src={Logo} alt="Logo" />
             </div>
-            <p className="text-white font-bold text-4xl font-CenturyGothic">Heart Beat FINDER</p>
-            <p className="text-white text-3xl font-NotoSansCJKjp-Regular">Assessment Tool</p>
+            <p className="text-white font-bold text-4xl font-CenturyGothic sp:mt-7 sp:text-xl">
+              Heart Beat FINDER
+            </p>
+            <p className="text-white text-3xl font-NotoSansCJKjp-Regular sp:text-lg sp:font-thin">
+              Assessment Tool
+            </p>
           </div>
           <div className="grow-[1]"></div>
         </div>
-        <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center sp:hidden">
           <div className=" my-3">
             <img src={CompanyLogo} width={131} alt="company-logo" />
           </div>
@@ -69,9 +73,9 @@ function LoginPage() {
           </p>
         </div>
       </div>
-      <div className="w-1/2 flex flex-col items-center justify-center min-h-screen ">
+      <div className="w-1/2 sp:w-full flex flex-col items-center justify-center min-h-screen sp:min-h-fit	 sp:justify-start">
         <form
-          className="max-w-[600px] w-full p-5 flex flex-col justify-center items-center"
+          className="max-w-[600px] w-full p-5 flex flex-col justify-center items-center sp:px-5 sp:pt-0"
           onSubmit={(e) => submitHandler(e)}
         >
           <p
@@ -81,20 +85,28 @@ function LoginPage() {
           >
             emailかパスワードが間違っています
           </p>
-          <p className="text-5xl text-center font-light	mb-3 font-CenturyGothic">Mail Address</p>
-          <p className="mb-3 text-center text-xs font-HiraginoKakuGothicProNW3">メールアドレス</p>
+          <p className="text-5xl text-center font-light	mb-3 sp:mb-2 font-CenturyGothic sp:text-2xl">
+            Mail Address
+          </p>
+          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3">
+            メールアドレス
+          </p>
           <input
-            className="lg:w-full md:w-80 w-64 border-[#00008C] border-2 rounded-full focus:border-0 "
+            className="lg:w-full md:w-80 w-64 sp:h-9 sp:w-5/6 border-[#00008C] border-2 rounded-full focus:border-0 text-xl"
             label="メールアドレス"
             type="email"
             value={email}
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <p className="text-5xl text-center font-light	mb-2 mt-10 font-CenturyGothic">Password</p>
-          <p className="mb-3 text-center text-xs font-HiraginoKakuGothicProNW3">パスワード</p>
+          <p className="text-5xl text-center font-light	mb-2 mt-10 sp:mt-5 font-CenturyGothic sp:text-2xl">
+            Password
+          </p>
+          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3">
+            パスワード
+          </p>
           <input
-            className="lg:w-full mb-8 md:w-80 w-64 border-main border-2 rounded-full focus:border-0 "
+            className="lg:w-full mb-8 sp:mb-5 md:w-80 w-64 sp:w-5/6 sp:h-9 border-main border-2 rounded-full focus:border-0 text-xl"
             label="パスワード"
             type="password"
             value={password}
@@ -103,16 +115,32 @@ function LoginPage() {
           />
           <Button
             title="Login"
-            className="lg:w-72 h-16 text-4xl md:w-80 w-64 rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors font-CenturyGothic"
+            className="lg:w-72 sp:w-44 h-16 sp:h-12 text-4xl sp:text-2xl md:w-80 w-64 rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors font-CenturyGothic"
             disabled={!buttonEnabled}
           />
         </form>
         <NavLink
           to="/forgot"
-          className="-mt-1 text-sm hover:opacity-60 transition-opacity text-[#4215FF] font-NotoSansCJKjp-Regular"
+          className="-mt-1 text-sm hover:opacity-60 transition-opacity text-[#4215FF] font-NotoSansCJKjp-Regular sp:mb-6"
         >
           パスワードを忘れた場合
         </NavLink>
+      </div>
+      <div className="hidden flex-col justify-center items-center bg-main pt-10 pb-20 sp:flex">
+        <div className="">
+          <img src={CompanyLogo} width={131} alt="company-logo" />
+        </div>
+        <p className="text-xs mt-5 mb-2 text-white">
+          <NavLink to={"/terms"} className={"mr-5"}>
+            利用規約
+          </NavLink>
+          <NavLink to={"https://cuoremo.co.jp/privacy/"} target="__blank">
+            プライバシーポリシー
+          </NavLink>
+        </p>
+        <p className="text-xs text-white font-NotoSansCJKjp-Regular">
+          © 2023 CUOREMO inc. all lights reserved.
+        </p>
       </div>
     </div>
   );
