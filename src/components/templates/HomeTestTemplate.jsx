@@ -34,7 +34,7 @@ export default function HomeTestTemplate({ assessments }) {
   return (
     user.id && (
       <>
-        <div className="w-full flex-col justify-center bg-white overflow-auto  mt-[120px]">
+        <div className="w-full flex-col justify-center bg-white overflow-auto mt-[120px] font-bold">
           <div className="hidden sp:block text-3xl font-HiraginoKakuGothicProNW3 text-center">アセスメントを実施する</div>
           <div className="flex place-content-center mb-[]">
             <div className="flex sp:flex-col items-center w-full mx-3 md:w-5/6 my-10 rounded-l-[37px] sp:rounded-t-lg sp:rounded-bl-none bg-[#DFFAFD]">
@@ -47,7 +47,7 @@ export default function HomeTestTemplate({ assessments }) {
                 <p className="text-main text-xl mb-3 font-semibold font-HiraginoKakuGothicProNW3">
                   {"自分自身のアセスメントを実施する"}
                 </p>
-                <div className="w-full px-8">
+                <div className="w-full px-4">
                   {selfAssessment &&
                     (selfAssessment.complete ? (
                       <Button
@@ -75,7 +75,7 @@ export default function HomeTestTemplate({ assessments }) {
               </div>
               <div className="m-auto my-10 w-3/4 sp:w-11/12">
                 <p className="text-main text-xl text-center mb-2 font-semibold font-HiraginoKakuGothicProNW3">{"第三者のアセスメントを実施する"}</p>
-                <div className="flex flex-col justify-center items-center gap-y-10 sp:gap-y-8 px-8 w-full">
+                <div className="flex flex-col justify-center items-center gap-y-10 sp:gap-y-8 px-4 w-full">
                   <NavLink to={`/${id}/assessment`} className={"w-full"}>
                     <Button
                       title="START"

@@ -20,7 +20,7 @@ const Result = () => {
   }, [fetchResults])
 
   return (
-    <div className='relative sp:top-16 flex justify-center'>
+    <div className='relative sp:top-16 flex justify-center font-bold'>
       {results && (
         <ResultTemplate results={results} />
       )}

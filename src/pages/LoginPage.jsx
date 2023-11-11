@@ -55,10 +55,10 @@ function LoginPage() {
             <div className="px-5 mb-32 sp:pt-20 sp:w-3/4 sp:mb-0">
               <img className="" src={Logo} alt="Logo" />
             </div>
-            <p className="text-white font-bold text-4xl font-CenturyGothic sp:mt-7 sp:text-xl">
+            <p className="text-white font-bold text-4xl font-CenturyGothic sp:mt-7 sp:text-2xl">
               Heart Beat FINDER
             </p>
-            <p className="text-white text-3xl font-NotoSansCJKjp-Regular sp:text-lg sp:font-thin">
+            <p className="text-white text-3xl font-NotoSansCJKjp-Regular sp:font-thin sp:text-xl font-bold">
               Assessment Tool
             </p>
           </div>
@@ -85,10 +85,10 @@ function LoginPage() {
           >
             emailかパスワードが間違っています
           </p>
-          <p className="text-5xl text-center font-light	mb-3 sp:mb-2 font-CenturyGothic sp:text-2xl">
+          <p className="text-5xl text-center mb-3 sp:mb-2 font-CenturyGothic sp:text-2xl">
             Mail Address
           </p>
-          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3">
+          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3 font-bold">
             メールアドレス
           </p>
           <input
@@ -102,7 +102,7 @@ function LoginPage() {
           <p className="text-5xl text-center font-light	mb-2 mt-10 sp:mt-5 font-CenturyGothic sp:text-2xl">
             Password
           </p>
-          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3">
+          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3 font-bold">
             パスワード
           </p>
           <input
@@ -123,7 +123,7 @@ function LoginPage() {
           to="/forgot"
           className="-mt-1 text-sm hover:opacity-60 transition-opacity text-[#4215FF] font-NotoSansCJKjp-Regular sp:mb-6"
         >
-          パスワードを忘れた場合
+          パスワードを忘れた場合はこちら
         </NavLink>
       </div>
       <div className="hidden flex-col justify-center items-center bg-main pt-10 pb-20 sp:flex">

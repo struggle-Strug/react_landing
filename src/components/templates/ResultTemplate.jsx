@@ -35,13 +35,13 @@ export default function ResultTemplate({ results }) {
   return (
     <div className="w-full overflow-auto">
       <div className="flex place-content-center">
-        <div className="relative w-full mx-3 md:w-4/5 my-6 flex flex-col items-center border-2 border-main">
-          <div className="w-full text-white text-center font-CenturyGothic py-3 bg-main">
-            <p className="text-3xl font-bold font-CenturyGothic ">Result</p>
-            <p className="text-2xl font-HiraginoKakuGothicProNW3">あなたのアセスメント結果</p>
+        <div className="relative w-full mx-3 md:w-4/5 my-6 sp:mt-10 sp:mb-6 flex flex-col items-center border-8 border-main">
+          <div className="w-full text-white h-[143px] sp:h-[66px] flex flex-col justify-center items-center gap-4 sp:gap-1 font-CenturyGothic py-3 bg-main">
+            <p className="text-3xl sp:text-lg font-bold font-CenturyGothic ">Result</p>
+            <p className="text-2xl sp:text-base font-HiraginoKakuGothicProNW3">あなたのアセスメント結果</p>
           </div>
           <div className="m-8 flex justify-center items-center">
-            <div className="mr-6 font-HiraginoKakuGothicProNW3">●実施日を選択</div>
+            <div className="mr-6 sp:mr-3 font-HiraginoKakuGothicProNW3">●実施日を選択</div>
             <div className="lg:w-56 sp:w-40">
               {selectedDate && (
                 <Dropdown

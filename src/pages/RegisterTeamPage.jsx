@@ -19,7 +19,7 @@ const ResigterTeam = () => {
   }, [fetchTeams])
 
   return (
-    <div className='relative top-16 flex justify-center min-h-screen'>
+    <div className='relative flex justify-center min-h-screen'>
         <RegisterTeamTemplate
           teams={teams}
           refreshData={fetchTeams}

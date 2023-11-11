@@ -109,10 +109,10 @@ export default function Header() {
   }
 
   return (
-    <div className='text-white fixed top-0 z-30 w-full flex h-16 bg-main justify-between items-center'>
-      <div className='flex ml-5 items-center'>
+    <div className='text-white fixed top-0 z-30 w-full flex h-20 bg-main justify-between items-end'>
+      <div className='flex ml-5 items-center pb-3'>
         <p className='text-3xl hidden'>Heart Beat</p>
-        <img className='w-24 ml-2' src={Logo} alt='Logo' />
+        <img className='w-[87px] ml-2' src={Logo} alt='Logo' />
       </div>
       <div className='flex items-center mr-7 justify-center'>
 
@@ -128,7 +128,7 @@ export default function Header() {
         >
           開始する
         </button> */}
-        <div className='ml-4'>
+        <div className='ml-4 pb-5'>
           <section className="flex sp:block">
             <div
               className="space-y-2"
