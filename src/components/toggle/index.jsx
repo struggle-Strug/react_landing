@@ -38,7 +38,7 @@ export default function Toggle({setShowThirdPerson}) {
         />
       </Switch>
       <Switch.Label as="span" className="ml-3">
-        <span className="font-medium text-gray-900">第三者アセスメントの結果を表示</span>{' '}
+        <span className="font-bold text-gray-900">第三者アセスメントの結果を表示</span>{' '}
       </Switch.Label>
     </Switch.Group>
   )

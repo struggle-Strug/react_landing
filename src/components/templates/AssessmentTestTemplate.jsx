@@ -35,29 +35,29 @@ export default function AssessmentTestTemplate({
   return (
     <>
       <div>
-        <div className="w-full">
-          <div className="mt-6 mb-10">
-            <div className="hidden sp:block text-center mb-8">{"第三者のアセスメントを実施する"}</div>
+        <div className="w-full font-bold">
+          <div className="mt-6 mb-10 sp:w-[96%] sp:mx-auto sp:mt-6">
+            <div className="hidden sp:block text-center mb-8 sp:text-xs">{"第三者のアセスメントを実施する"}</div>
             <div className="text-center text-lg	sm:text-2xl mb-16 mx-3">
               {/* {assessment.received_evaluations_name} さんのアセスメント */}
               <p className="text-3xl sp:text-xl mb-2 text-[#707070] font-bold font-CenturyGothic">
                 {"Question"}
               </p>
-              <p className="text-4xl mb-5 sp:text-[28px] font-HiraginoKakuGothicProNW3 text-main">
+              <p className="text-4xl mb-5 sp:text-[25px] font-HiraginoKakuGothicProNW3 text-main">
                 {"以下の質問にお答えください。"}
               </p>
-              <p className="text-xs font-HiraginoKakuGothicProNW3 text-main">
+              <p className="text-xs sp:text-[13px] font-HiraginoKakuGothicProNW3 text-main">
                 {
                   "精度の高いフィードバックにするためにも、率直に正直にお答えください。"
                 }
               </p>
-              <p className="text-xs font-HiraginoKakuGothicProNW3 text-main">
+              <p className="text-xs sp:text-[13px] font-HiraginoKakuGothicProNW3 text-main">
                 {
                   "（もし対象者について回答する場合も、対象者に回答が開示されることはありませんのでご安心ください。）"
                 }
               </p>
             </div>
-            <div className="border-2 border-main sp:border-0 mx-5 lg:mb-32 md:mb-16">
+            <div className="border-2 border-main sp:border-0 mx-5 sp:mx-0 lg:mb-32 md:mb-16">
               <div className="text-xs text-center bg-main text-white py-2 font-HiraginoKakuGothicProNW3">
                 {"各メンバーのアイコンを該当する評価にドラッグしてください"}
               </div>
@@ -68,7 +68,7 @@ export default function AssessmentTestTemplate({
                       key={question.id + question.quiz_number}
                       className="px-6 pl-12"
                     >
-                      {question.quiz && <p className="py-2">{question.quiz}</p>}
+                      {question.quiz && <p className="py-2 sp:text-[15px]">{question.quiz}</p>}
                       <MarkedTestSlider question={question} answer={answers} />
                       <div className="pt-8 pb-12 text-sm sp:text-xs font-HiraginoKakuGothicProNW3">
                         <ChangeValueSlider
@@ -81,13 +81,13 @@ export default function AssessmentTestTemplate({
                   ))}
               </ul>
               <div className="text-main">
-                <p className="text-center font-HiraginoKakuGothicProNW3">{"ご回答ありがとうございました！"}</p>
-                <p className="text-center font-HiraginoKakuGothicProNW3">{"下の「回答を提出する」ボタンを押して、終了してください。"}</p>
+                <p className="text-center font-HiraginoKakuGothicProNW3 sp:text-[15px]">{"ご回答ありがとうございました！"}</p>
+                <p className="text-center font-HiraginoKakuGothicProNW3 sp:text-[15px]">{"下の「回答を提出する」ボタンを押して、終了してください。"}</p>
               </div>
               <div className="flex justify-center pt-6 lg:pb-20 md:pb-10 sp:pb-10">
                 <Button
                   title="回答を提出する"
-                  className="w-96 py-3 font-HiraginoKakuGothicProNW3 bg-main"
+                  className="w-96 sp:w-72 py-2 sp:py-2 font-HiraginoKakuGothicProNW3 bg-main sp:text-[17px]"
                   onClick={submitAnswers}
                 />
               </div>
