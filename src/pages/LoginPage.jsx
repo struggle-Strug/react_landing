@@ -52,13 +52,13 @@ function LoginPage() {
         <div className="w-full h-[90%] flex flex-col sp:pb-4">
           <div className="grow-[2]"></div>
           <div className="flex justify-center items-center flex-col">
-            <div className="px-5 mb-32 sp:pt-20 sp:w-3/4 sp:mb-0">
+            <div className="w-2/3 px-5 mb-32 sp:pt-20 sp:w-3/4 sp:mb-0">
               <img className="" src={Logo} alt="Logo" />
             </div>
-            <p className="text-white font-bold text-4xl font-CenturyGothic sp:mt-7 sp:text-2xl">
+            <p className="text-white font-bold font-CenturyGothic xl:text-4xl lg:text-3xl md:text-2xl sp:mt-7 sp:text-2xl">
               Heart Beat FINDER
             </p>
-            <p className="text-white text-3xl font-NotoSansCJKjp-Regular sp:font-thin sp:text-xl font-bold">
+            <p className="text-white font-NotoSansCJKjp-Regular xl:text-3xl lg:text-2xl md:text-xl sp:font-thin sp:text-xl font-bold">
               Assessment Tool
             </p>
           </div>
@@ -115,7 +115,7 @@ function LoginPage() {
           />
           <Button
             title="Login"
-            className="lg:w-72 sp:w-44 h-16 sp:h-12 text-4xl sp:text-2xl md:w-80 w-64 rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors font-CenturyGothic"
+            className="lg:w-72 sp:w-44 h-16 sp:h-12 text-4xl sp:text-2xl md:w-80 w-64 font-bold rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors font-CenturyGothic"
             disabled={!buttonEnabled}
           />
         </form>
