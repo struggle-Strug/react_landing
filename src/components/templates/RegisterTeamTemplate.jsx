@@ -47,7 +47,7 @@ export default function RegisterTeamTemplate({ teams, refreshData }) {
 
   return (
     <div className='w-full overflow-auto px-6'>
-      <div className="px-2 pt-28 z-10">
+      <div className="pt-20 sp:pt-28 z-10">
         <TeamTable
           teams={teams}
           setShowModal={setShowModal}
