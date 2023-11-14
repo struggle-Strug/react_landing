@@ -22,7 +22,7 @@ export default function Dropdown ({ options, placeholder, selectedOption, setSel
   }
 
   return (
-    <div className='text-lg text-black'>
+    <div className='max-w-[304px] w-full text-lg text-black'>
       <Select
         styles={(screenWidth > 768) ? dropboxStyles : tabletStyles}
         value={selectedOption}

@@ -126,7 +126,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                         </td>
                         {/* <td className="hidden py-4 w-2/6 text-sm lg:text-base text-gray-500 sm:table-cell"> */}
                         <td className="hidden w-full py-4 text-sm mx-auto lg:text-base text-gray-500 sm:flex sm:items-center sm:justify-center sm:gap-1">
-                          <div className="w-16 h-6 border border-black text-[10px] bg-white">
+                          <div className={team.productivity_team ? "w-16 h-6 border border-black text-base bg-white" : "w-16 h-6 border border-black text-[10px] bg-white"}>
                             {team.productivity_team
                               ? team.productivity_team
                               : "数値を入力"}
