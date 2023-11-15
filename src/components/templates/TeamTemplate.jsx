@@ -215,8 +215,8 @@ export default function TeamTemplate({ data }) {
       ) : (
         <div className="mx-4 mt-12 border-[7px] border-main">
           <div className="w-full flex flex-col justify-center items-center gap-1 py-4 bg-main text-white">
-            <p className="text-4xl font-bold">Result</p>
-            <p className="text-2xl">チーム/メンバーのアセスメント結果</p>
+            <p className="text-4xl font-bold font-CenturyGothic">Result</p>
+            <p className="text-2xl font-HiraginoKakuGothicProNW3">チーム/メンバーのアセスメント結果</p>
           </div>
           <div className="max-w-[512px] w-full mx-auto px-5">
             <div className="w-full mt-4 flex justify-between items-center gap-5">

@@ -14,7 +14,7 @@ const SideNavigationLayout = ({ children }) => {
   // //   setUser('')
   // // }
   return (
-    <div className="w-full">
+    <div className="w-full font-HiraginoKakuGothicProNW3">
       <div className='hidden sp:block'>
         <Header />
       </div>
