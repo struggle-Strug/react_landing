@@ -26,10 +26,10 @@ export default function AssessmentTemplate({
       if (userAnswers) {
         const hasObject = userAnswers.some((obj) => obj.id === data.id);
         if (hasObject) {
-          const newAnswers = userAnswers.filter((obj) => obj.id !== data.id);
-          setUserAnswers(sortedAnswer([...newAnswers, data]));
+          const newAnswers = userAnswers.map((obj) => (obj.id !== data.id ? obj : data));
+          setUserAnswers(newAnswers);
         } else {
-          setUserAnswers(sortedAnswer([...userAnswers, data]));
+          setUserAnswers(userAnswers);
         }
       }
       updateAnswer(data);
@@ -41,7 +41,7 @@ export default function AssessmentTemplate({
       <div>
         <div className="w-full font-bold">
           <div className="mt-6 mb-10">
-          <div className="hidden sp:block text-center mb-8 sp:text-xs">{"自分自身のアセスメントを実施する"}</div>
+            <div className="hidden sp:block text-center mb-8 sp:text-xs">{"自分自身のアセスメントを実施する"}</div>
             <div className="text-center text-lg	sm:text-2xl mb-16 mx-3 sp:mx-0 sp:px-5 sp:mb-0">
               {/* {assessment.received_evaluations_name} さんのアセスメント */}
               <p className="text-3xl sp:text-xl mb-2 text-[#707070] font-bold font-CenturyGothic">
