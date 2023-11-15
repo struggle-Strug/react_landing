@@ -14,7 +14,9 @@ export default {
           3: '#90D0D9'
         },
         main: '#00008C',
-        btn: '#140AAA'
+        btn: '#140AAA',
+        grays: '#A0A0A0',
+        table: '#F5F5F5'
       },
       fontFamily: {
         'CenturyGothic': ['CenturyGothic'],
@@ -22,7 +24,7 @@ export default {
         'NotoSansCJKjp-Regular': ['NotoSansCJKjp-Regular'],
       },
       screens: {
-        'sp': {'max': '768px'}
+        'sp': { 'max': '768px' }
       },
       extend: {},
     }
