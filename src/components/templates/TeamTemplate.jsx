@@ -213,10 +213,12 @@ export default function TeamTemplate({ data }) {
       {!data ? (
         <Loader />
       ) : (
-        <div className="mx-4 mt-12 border-[7px] border-main">
+        <div className="mx-4 mt-12 pb-40 border-[7px] border-main">
           <div className="w-full flex flex-col justify-center items-center gap-1 py-4 bg-main text-white">
             <p className="text-4xl font-bold font-CenturyGothic">Result</p>
-            <p className="text-2xl font-HiraginoKakuGothicProNW3">チーム/メンバーのアセスメント結果</p>
+            <p className="text-2xl font-HiraginoKakuGothicProNW3">
+              チーム/メンバーのアセスメント結果
+            </p>
           </div>
           <div className="max-w-[512px] w-full mx-auto px-5">
             <div className="w-full mt-4 flex justify-between items-center gap-5">
@@ -250,22 +252,6 @@ export default function TeamTemplate({ data }) {
           </p>
           {teamData && (
             <div className="mt-8 mx-6">
-              <div className="xl:absolute top-60 left-5 m-auto mt-10 xl:mt-0 xl:w-60 w-52">
-                <div className="text-sm border border-black xl:pl-5 xl:pr-1 pl-2 py-1">
-                  <div className="text-red-500 flex items-center xl:mb-3 mb-1">
-                    <hr className="w-10 h-1 bg-[#FF0000] mr-2" />
-                    <p className="text-[#FF0000] text-xs font-HiraginoKakuGothicProNW3">
-                      チーム平均値
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    <hr className="w-10 h-1 bg-[#0303FF] mr-2" />
-                    <p className="text-[#0303FF] text-xs font-HiraginoKakuGothicProNW3">
-                      第三者アセスメント平均値
-                    </p>
-                  </div>
-                </div>
-              </div>
               {/* <div className="mb-2">メンバーを選択</div> */}
               <div className="flex flex-wrap flex-col">
                 {/* <div className="w-64 mb-2 mr-4">
@@ -277,31 +263,118 @@ export default function TeamTemplate({ data }) {
                     />
                   </div>
                 </div> */}
-                <div className="flex flex-col sm:flex-row bg-white w-full sm:w-fit sm:pr-10 justify-center items-center">
+                <div className="flex flex-col sm:flex-row bg-white w-full sm:w-full justify-between items-start">
                   <div className="h-52 max-w-md">
+                    <div className="m-auto mt-10 xl:mt-0 xl:w-60 w-52">
+                      <div className="text-sm border border-black xl:pl-5 xl:pr-1 pl-2 py-1">
+                        <div className="text-red-500 flex items-center xl:mb-3 mb-1">
+                          <hr className="w-10 h-1 bg-[#FF0000] mr-2" />
+                          <p className="text-[#FF0000] text-xs font-HiraginoKakuGothicProNW3">
+                            チーム平均値
+                          </p>
+                        </div>
+                        <div className="flex items-center">
+                          <hr className="w-10 h-1 bg-[#0303FF] mr-2" />
+                          <p className="text-[#0303FF] text-xs font-HiraginoKakuGothicProNW3">
+                            第三者アセスメント平均値
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                     <div className="mt-2 text-center text-sm">チーム平均</div>
-                    <div className="h-[90%] w-[200px]">
+                    <div className="h-[90%] w-[340px]">
                       <SimpleRadarChart
                         isFirst={true}
                         scores={teamData.team_scores}
                       />
                     </div>
                   </div>
-                  <div className="flex max-w-md">
-                    <div className="h-36 sm:h-52 flex items-center ">
-                      <ul>
-                        <li className="text-xs">A - 心理的安全度</li>
+                  <div className="flex gap-3">
+                    <div className="flex flex-col max-w-md bg-[#DFFAFD] font-bold">
+                      <div className="h-14 flex justify-center items-center text-center text-xl bg-main text-white">
+                        <span>ギャップ値</span>
+                        <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full">?</span>
+                      </div>
+                      <div className="flex justify-between items-center px-7 py-2">
+                        <div className="text-xl">全体平均</div>
+                        <div className="text-5xl">{teamData.gap}</div>
+                      </div>
+                      <div className="h-[3px] border-t border-b border-black mx-2"></div>
+                      <div className=" flex items-center px-7 pt-4 pb-8">
+                        <ul>
+                          <li className="flex justify-between items-center my-1">
+                            <div className="text-sm break-keep">
+                              心理的安全度
+                            </div>
+                            <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                            <div className="text-3xl">2.29</div>
+                          </li>
+                          <li className="text-xs flex justify-between items-center my-2">
+                            <div className="text-sm break-keep">
+                              個人ビジョン明確度
+                            </div>
+                            <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                            <div className="text-3xl">2.29</div>
+                          </li>
+                          <li className="text-xs flex justify-between items-center my-2">
+                            <div className="text-sm break-keep">
+                              会社ビジョン共感度
+                            </div>
+                            <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                            <div className="text-3xl">2.29</div>
+                          </li>
+                          <li className="text-xs flex justify-between items-center my-2">
+                            <div className="text-sm break-keep">
+                              会社と個人の統合度
+                            </div>
+                            <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                            <div className="text-3xl">2.29</div>
+                          </li>
+                          <li className="text-xs flex justify-between items-center my-2">
+                            <div className="text-sm break-keep">意欲度</div>
+                            <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                            <div className="text-3xl">2.29</div>
+                          </li>
+                          <li className="text-xs flex justify-between items-center my-2">
+                            <div className="text-sm break-keep">影響力</div>
+                            <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                            <div className="text-3xl">2.29</div>
+                          </li>
+
+                          {/* <li className="text-xs">A - 心理的安全度</li>
                         <li className="text-xs">B - 個人ビジョン明確度</li>
                         <li className="text-xs">C - 会社ビジョン共感度</li>
                         <li className="text-xs">D - 会社と個人の統合度</li>
                         <li className="text-xs">E - 意欲度</li>
-                        <li className="text-xs">F - 影響力</li>
-                      </ul>
+                        <li className="text-xs">F - 影響力</li> */}
+                        </ul>
+                        {/* <div className="bg-white h-full sm:h-52 flex flex-col items-center justify-center sm:justify-start border">
+                        <div className="mt-2 text-center text-sm">
+                          ギャップ値
+                        </div>
+                        <div className="sm:mt-12 text-3xl flex justify-center items-center">
+                          {teamData.gap}
+                        </div>
+                      </div> */}
+                      </div>
                     </div>
-                    <div className="bg-white h-full sm:h-52 flex flex-col items-center justify-center sm:justify-start">
-                      <div className="mt-2 text-center text-sm">ギャップ値</div>
-                      <div className="sm:mt-12 text-3xl flex justify-center items-center">
-                        {teamData.gap}
+                    <div className="bg-[#DFFAFD]">
+                      <div className="w-40 h-14 flex justify-center items-center bg-main px-2">
+                        <Dropdown placeholder={'同業種平均'} />
+                      </div>
+                      <div>
+                        <div className="flex justify-center items-center h-16 text-3xl font-bold">
+                          2.29
+                        </div>
+                        <div className="h-[3px] border-t border-b border-black mx-2"></div>
+                      </div>
+                      <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
+                        <div>2.29</div>
+                        <div>2.29</div>
+                        <div>2.29</div>
+                        <div>2.29</div>
+                        <div>2.29</div>
+                        <div>2.29</div>
                       </div>
                     </div>
                   </div>
