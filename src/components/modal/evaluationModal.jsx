@@ -36,8 +36,8 @@ export default function EvaluationModal({ open, setOpenAgreeModal }) {
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-2xl sm:p-6 border-4 border-main">
                 <div className='h-[40px] mt-2 mr-auto flex justify-end cursor-pointer' onClick={clickHandler}>
                   <div>
-                    <span className='w-[40px] h-[1px] block bg-main rotate-45'></span>
-                    <span className='w-[40px] h-[1px] block bg-main -rotate-45'></span>
+                    <span className='w-[40px] h-[1px] block bg-black rotate-45'></span>
+                    <span className='w-[40px] h-[1px] block bg-black -rotate-45'></span>
                   </div>
                 </div>
                 <div>

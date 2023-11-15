@@ -16,5 +16,5 @@ export const RegistrationTypes = [
 
 export const userStatusTypes = [
   { value: true, label: "有効" },
-  { value: false, label: "停止中" },
+  { value: false, label: "無効" },
 ]
