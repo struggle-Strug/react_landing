@@ -1,6 +1,6 @@
 import React,{ useState, useCallback, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { CloudArrowUpIcon } from '@heroicons/react/20/solid';
+import { CloudArrowUpIcon } from '@heroicons/react/24/outline';
 import Papa from 'papaparse';
 
 const CsvUploader = ({uploadData}) => {
@@ -24,11 +24,13 @@ const CsvUploader = ({uploadData}) => {
 
   return (
     <>
-      <div {...getRootProps()} className={`border-2 border-dashed rounded px-5 py-2 text-center transition-all bg-slate-50 border-primary-1 ${isDragActive ? "opacity-50" : ""}`}>
+      <div {...getRootProps()} className={`border-2 border-dashed rounded p-5 text-center transition-all bg-slate-50 border-main max-w-lg mx-auto ${isDragActive ? "opacity-50" : ""}`}>
         <input {...getInputProps()} />
         <div className='flex flex-col justify-center items-center cursor-pointer'>
-          <CloudArrowUpIcon className="text-primary-2 h-8 w-8  mb-1"/>
-          <p>ファイルをドロップ or クリックしてファイル選択</p>
+          <CloudArrowUpIcon className="text-main h-24 w-24 mb-1 font-bold"/>
+          <p className='font-bold text-main'>ファイルをここにドロップ </p>
+          <p className='font-bold text-main'> or </p>
+          <p className='font-bold text-main'>枠内をクリックしてファイル選択</p>
         </div>
       </div>
     </>
