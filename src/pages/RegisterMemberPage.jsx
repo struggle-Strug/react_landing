@@ -59,7 +59,7 @@ const ResigterMember = () => {
 
 
   return (
-    <div className="relative top-16 flex justify-center min-h-screen">
+    <div className="relative top-20 flex justify-center min-h-screen">
       {members && companyTeams && (
         <RegisterMemberTemplate
           members={members}

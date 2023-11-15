@@ -25,12 +25,12 @@ function RadarChart({ showThirdPerson, scores }) {
   const labels = scores ? scores['1st']['labels'] : null
   const data = scores
     ? labels.map((l, i) => ({
-      subject: labels[i],
-      A: scores['1st']['scores'][i],
-      B: scores['3rd']['scores'][i],
-      fullMark: 4
-    }))
-    : []
+        subject: labels[i],
+        A: scores["1st"]["scores"][i],
+        B: scores["3rd"]["scores"][i],
+        fullMark: 4,
+      }))
+    : [];
 
   return (
     <>
@@ -53,4 +53,4 @@ function RadarChart({ showThirdPerson, scores }) {
     </>
   );
 }
-export default RadarChart
+export default RadarChart;

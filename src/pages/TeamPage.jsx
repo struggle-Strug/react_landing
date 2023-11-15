@@ -18,7 +18,7 @@ const Team = () => {
     fetchResults()
   }, [fetchResults])
   return (
-    <div className='relative flex justify-center min-h-screen'>
+    <div className='relative sp:top-16 flex justify-center min-h-screen'>
       <TeamTemplate data={teamResults}/>
     </div>)
 }

@@ -12,7 +12,7 @@ import {
 import { UseUserDetails } from "../../context/UserContext";
 import Logo from "../../../public/logo.png";
 import CompanyLogo from "../../../public/company-logo.png";
-import SelectSymbol from "../../../public/triangle.png";
+import { useRoutes } from "react-router-dom";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -24,22 +24,24 @@ export default function Sidebar() {
   const tokenFromStorage = localStorage.getItem("token");
   const token = tokenFromStorage ? JSON.parse(tokenFromStorage) : null;
   const subdomain = token.subdomain;
+  // const router = useRoutes();
+  // const exam = router.exam;
+  // console.log(exam);
   const navigation = [
     {
-      name: "マイページ",
+      name: "アセスメントを実施する",
       href: `/${subdomain}`,
       icon: HomeIcon,
       current: true,
     },
     {
-      name: "アセスメント結果を確認",
+      name: "自分のアセスメント結果を確認",
       href: `/${subdomain}/result`,
       current: false,
     },
-    { name: "チームの結果を確認", href: `/${subdomain}/team`, current: false },
     {
-      name: "メンバー登録・編集",
-      href: `/${subdomain}/register/member`,
+      name: "チームのアセスメント結果を確認",
+      href: `/${subdomain}/team`,
       current: false,
     },
     {
@@ -47,16 +49,21 @@ export default function Sidebar() {
       href: `/${subdomain}/register/team`,
       current: false,
     },
+    {
+      name: "メンバー登録・編集",
+      href: `/${subdomain}/register/member`,
+      current: false,
+    },
     { name: "Logout", href: `/login`, current: false },
     {
-      name: "マイページ",
+      name: "アセスメントを実施する",
       href: `/${subdomain}`,
       icon: HomeIcon,
       current: true,
     },
   ];
   const [menuItems, setMenuItems] = useState(navigation);
-  const [menu, setMenu] = useState("マイページ");
+  const [menu, setMenu] = useState("アセスメントを実施する");
   const handleMenuItemClick = (itemName) => {
     setMenu(itemName);
   };
@@ -93,7 +100,7 @@ export default function Sidebar() {
     <>
       <div>
         <div className="bg-main fixed z-20 flex md:w-80 lg:w-96 h-screen flex-col">
-          <div className="flex grow flex-col mt-3 overflow-y-auto border-r px-10">
+          <div className="flex grow flex-col mt-3 overflow-y-auto px-10">
             <nav className="flex flex-1 flex-col">
               <div className="mx-auto mt-20">
                 <img src={Logo} alt="Logo" width={240} />
@@ -106,10 +113,16 @@ export default function Sidebar() {
               </p>
               <div className="flex justify-around items-center  mt-3">
                 <div>
-                  <span className="text-white text-xl font-NotoSansCJKjp-Regular">{user.name}</span>
-                  <span className="text-white font-NotoSansCJKjp-Regular">さん</span>
+                  <span className="text-white text-xl font-NotoSansCJKjp-Regular">
+                    {user.name}
+                  </span>
+                  <span className="text-white font-NotoSansCJKjp-Regular">
+                    さん
+                  </span>
                 </div>
-                <p className="text-white text-xs border font-NotoSansCJKjp-Regular">{jobTitle}</p>
+                <p className="text-white text-xs py-1 px-2 border font-NotoSansCJKjp-Regular">
+                  {jobTitle}
+                </p>
               </div>
               <ul role="list" className="-mx-primary-2 space-y-3 mt-7">
                 {/* {!user.is_superuser && (
@@ -146,12 +159,12 @@ export default function Sidebar() {
                         menuItems[6].name === menu
                           ? " bg-[#01015F] font-bold"
                           : "text-white",
-                        "group flex justify-center gap-x-3 py-2 text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
+                        "group flex justify-center gap-x-3 py-2 text-xs lg:text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
                       )}
                     >
                       {menuItems[6].name === menu && (
-                        <div className="absolute right-5 top-2.5">
-                          <img className="" src={SelectSymbol} alt="triangle" />
+                        <div className="absolute lg:right-5 right-2 top-3">
+                          <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                         </div>
                       )}
                       {/* <HomeIcon
@@ -176,12 +189,12 @@ export default function Sidebar() {
                         menuItems[1].name === menu
                           ? " bg-[#01015F] font-bold"
                           : "text-white",
-                        "group flex justify-center gap-x-3 py-2 text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
+                        "group flex justify-center gap-x-3 py-2 text-xs lg:text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
                       )}
                     >
                       {menuItems[1].name === menu && (
-                        <div className="absolute right-5 top-2.5">
-                          <img className="" src={SelectSymbol} alt="triangle" />
+                        <div className="absolute lg:right-5 right-2 top-3">
+                          <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                         </div>
                       )}
                       {/* <DocumentMinusIcon
@@ -205,12 +218,12 @@ export default function Sidebar() {
                         menuItems[2].name === menu
                           ? " bg-[#01015F] font-bold"
                           : "text-white",
-                        "group flex justify-center gap-x-3 py-2 text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
+                        "group flex justify-center gap-x-3 py-2 text-xs lg:text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
                       )}
                     >
                       {menuItems[2].name === menu && (
-                        <div className="absolute right-5 top-2.5">
-                          <img className="" src={SelectSymbol} alt="triangle" />
+                        <div className="absolute lg:right-5 right-2 top-3">
+                          <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                         </div>
                       )}
                       {/* <UserGroupIcon
@@ -234,12 +247,12 @@ export default function Sidebar() {
                         menuItems[3].name === menu
                           ? " bg-[#01015F] font-bold"
                           : "text-white",
-                        "group flex justify-center gap-x-3 py-2 text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
+                        "group flex justify-center gap-x-3 py-2 text-xs lg:text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
                       )}
                     >
                       {menuItems[3].name === menu && (
-                        <div className="absolute right-5 top-2.5">
-                          <img className="" src={SelectSymbol} alt="triangle" />
+                        <div className="absolute lg:right-5 right-2 top-3">
+                          <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                         </div>
                       )}
                       {/* <UserPlusIcon
@@ -263,12 +276,12 @@ export default function Sidebar() {
                         menuItems[4].name === menu
                           ? " bg-[#01015F] font-bold"
                           : "text-white",
-                        "group flex justify-center gap-x-3 py-2 text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
+                        "group flex justify-center gap-x-3 py-2 text-xs lg:text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
                       )}
                     >
                       {menuItems[4].name === menu && (
-                        <div className="absolute right-5 top-2.5">
-                          <img className="" src={SelectSymbol} alt="triangle" />
+                        <div className="absolute lg:right-5 right-2 top-3">
+                          <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                         </div>
                       )}
                       {/* <UsersIcon
@@ -287,7 +300,7 @@ export default function Sidebar() {
                   <NavLink
                     to={menuItems[5].href}
                     onClick={logoutUser}
-                    className="w-28 flex justify-center py-1 text-white text-sm border-2 rounded-full m-auto font-bold font-CenturyGothic"
+                    className="w-28 flex justify-center py-1 mt-8 text-white text-sm border-2 rounded-full m-auto font-bold font-CenturyGothic"
                   >
                     {/* <ArrowRightOnRectangleIcon
                       className='h-6 w-6 shrink-0 group-hover:text-gray-500'
@@ -303,7 +316,10 @@ export default function Sidebar() {
                 </div>
               </div>
               <div className="mt-7 mx-auto mb-3">
-                <NavLink to={"/terms"} className="text-[10px] text-white mr-6 font-NotoSansCJKjp-Regular">
+                <NavLink
+                  to={"/terms"}
+                  className="text-[10px] text-white mr-6 font-NotoSansCJKjp-Regular"
+                >
                   利用規約
                 </NavLink>
                 <NavLink
