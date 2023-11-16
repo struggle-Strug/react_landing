@@ -51,19 +51,19 @@ export default function HomeTestTemplate({ assessments }) {
                 <p className="text-main lg:text-2xl text-lg mb-5 sp:mb-3 font-semibold font-HiraginoKakuGothicProNW3">
                   {"自分自身のアセスメントを実施する"}
                 </p>
-                <div className="w-3/4 sp:w-full px-4 sp:px-0">
+                <div className="md:w-3/4 sp:w-full px-4 sp:px-0">
                   {selfAssessment &&
                     (selfAssessment.complete ? (
                       <Button
                         title="START"
-                        className="max-w-3xl w-full text-4xl sp:text-xl font-bold m-auto font-CenturyGothic py-[14px]"
+                        className="max-w-3xl w-full text-4xl sp:text-xl font-bold m-auto font-CenturyGothic lg:py-[14px] sp:py-0"
                         disabled
                       />
                     ) : (
                       <NavLink to={`/${id}/assessmentOwn`}>
                         <Button
                           title="START"
-                          className="max-w-3xl w-full text-3xl sp:text-xl font-bold m-auto font-CenturyGothic"
+                          className="max-w-3xl w-full text-4xl sp:text-xl font-bold m-auto font-CenturyGothic lg:py-[14px]"
                           onClick={() => setAssessment(selfAssessment)}
                         />
                       </NavLink>
@@ -87,7 +87,7 @@ export default function HomeTestTemplate({ assessments }) {
                   <NavLink to={`/${id}/assessment`} className={"w-full"}>
                     <Button
                       title="START"
-                      className="w-2/3 sp:w-full sp:px-4 text-4xl sp:text-xl font-bold max-w-3xl m-auto font-CenturyGothic py-[14px]"
+                      className="w-2/3 sp:w-full sp:px-4 text-4xl sp:text-xl font-bold max-w-3xl m-auto font-CenturyGothic lg:py-[14px]"
                       disabled={
                         otherAssessments &&
                         otherAssessments.filter((a) => a.complete === false)
