@@ -3,7 +3,7 @@ import CompanyLogo from '../../../public/company-logo.png'
 
 export default function Footer() {
   return (
-    <div className='text-white bottom-0 z-30 w-full flex flex-col h-auto bg-main items-center py-10'>
+    <div className='text-white bottom-0 z-30 w-full flex flex-col h-auto bg-main items-center py-10 sp:py-9 sp:pb-20'>
       <div><img src={CompanyLogo} alt="Company-Logo" width={150}/></div>
       <p className='text-xs mt-5 mb-2'>
         <NavLink to={"/terms"} className={"mr-5"}>利用規約</NavLink>

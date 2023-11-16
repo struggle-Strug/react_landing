@@ -21,8 +21,9 @@ const SideNavigationLayout = ({ children }) => {
       <div className='block sp:hidden'>
         <Sidebar />
       </div>
-      <main className="sm:pl-96 md:pl-80 lg:pl-96 w-full sp:pl-0">{children}</main>
-      <div className='hidden sp:block mt-32'>
+      <main className="sm:pl-[450px] md:pl-80 lg:pl-[450px] w-full sp:pl-0">{children}</main>
+      {/* <div className='hidden sp:block mt-32'> */}
+      <div className='hidden sp:block'>
         <Footer />
       </div>
     </div>

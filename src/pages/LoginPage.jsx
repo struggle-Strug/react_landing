@@ -55,10 +55,10 @@ function LoginPage() {
             <div className="w-2/3 px-5 mb-32 sp:pt-20 sp:w-3/4 sp:mb-0">
               <img className="" src={Logo} alt="Logo" />
             </div>
-            <p className="text-white font-bold font-CenturyGothic xl:text-4xl lg:text-3xl md:text-2xl sp:mt-7 sp:text-2xl">
+            <p className="text-white font-bold font-CenturyGothic xl:text-[42px] lg:text-3xl md:text-2xl sp:mt-7 sp:text-2xl mb-4">
               Heart Beat FINDER
             </p>
-            <p className="text-white font-NotoSansCJKjp-Regular xl:text-3xl lg:text-2xl md:text-xl sp:font-thin sp:text-xl font-bold">
+            <p className="text-white font-NotoSansCJKjp-Regular xl:text-3xl lg:text-2xl md:text-xl sp:font-thin sp:text-xl">
               Assessment Tool
             </p>
           </div>
@@ -68,7 +68,7 @@ function LoginPage() {
           <div className=" my-3">
             <img src={CompanyLogo} width={131} alt="company-logo" />
           </div>
-          <p className="text-xs text-white font-NotoSansCJKjp-Regular">
+          <p className="text-[10px] text-white font-NotoSansCJKjp-Regular">
             © 2023 CUOREMO inc. all lights reserved.
           </p>
         </div>
@@ -92,21 +92,21 @@ function LoginPage() {
             メールアドレス
           </p>
           <input
-            className="lg:w-full md:w-80 w-64 sp:h-9 sp:w-5/6 border-[#00008C] border-2 rounded-full focus:border-0 text-xl"
+            className="lg:w-full pl-12 flex items-center sp:pl-5 md:w-80 w-64 sp:h-10 sp:w-5/6 border-[#00008C] border-2 rounded-full focus:border-0 text-xl bg-[#F2FAFD]"
             label="メールアドレス"
             type="email"
             value={email}
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <p className="text-5xl text-center font-light	mb-2 mt-10 sp:mt-5 font-CenturyGothic sp:text-2xl">
+          <p className="text-5xl text-center font-light	mb-2 mt-16 sp:mt-5 font-CenturyGothic sp:text-2xl">
             Password
           </p>
           <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3 font-bold">
             パスワード
           </p>
           <input
-            className="lg:w-full mb-8 sp:mb-5 md:w-80 w-64 sp:w-5/6 sp:h-9 border-main border-2 rounded-full focus:border-0 text-xl"
+            className="lg:w-full pl-12 sp:pl-5 mb-20 sp:mb-5 md:w-80 w-64 sp:w-5/6 sp:h-9 border-main border-2 rounded-full focus:border-0 text-xl bg-[#F2FAFD]"
             label="パスワード"
             type="password"
             value={password}

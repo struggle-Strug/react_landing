@@ -8,6 +8,8 @@ import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
 import { useNavigate } from "react-router";
 
+import PersonAnswerResultModal from '../modal/personAnswerResultModal'
+
 export default function TeamTemplate({ data }) {
   const navigate = useNavigate();
   // const companyOptions = data ? data.company.map(c => ({value: c.id, label:c.company_name})) : null
@@ -27,6 +29,7 @@ export default function TeamTemplate({ data }) {
   const [team, setTeam] = useState();
   const [teamListOptions, setTeamListOptions] = useState();
   const [scoreData, setScoreData] = useState();
+  const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) {
@@ -208,12 +211,21 @@ export default function TeamTemplate({ data }) {
     getTeamScore();
   }, [team]);
 
+  const handleClickAnswerResult = () => {
+    setShowPersonAnswerModal(true);
+  }
+
   return (
+    <>
+    <PersonAnswerResultModal
+        open={showPersonAnswerModal}
+        setOpenAgreeModal={setShowPersonAnswerModal}
+      />
     <div className="max-w-[1280px] w-full overflow-auto">
       {!data ? (
         <Loader />
       ) : (
-        <div className="mx-4 mt-12 pb-40 border-[7px] border-main">
+        <div className="mx-4 mt-12 pb-40 mb-28 border-[7px] border-main">
           <div className="w-full flex flex-col justify-center items-center gap-1 py-4 bg-main text-white">
             <p className="text-4xl font-bold font-CenturyGothic">Result</p>
             <p className="text-2xl font-HiraginoKakuGothicProNW3">
@@ -263,8 +275,8 @@ export default function TeamTemplate({ data }) {
                     />
                   </div>
                 </div> */}
-                <div className="flex flex-col sm:flex-row bg-white w-full sm:w-full justify-between items-start">
-                  <div className="h-52 max-w-md">
+                <div className="flex flex-col sm:flex-row bg-white w-full sm:w-full justify-between">
+                  <div className="">
                     <div className="m-auto mt-10 xl:mt-0 xl:w-60 w-52">
                       <div className="text-sm border border-black xl:pl-5 xl:pr-1 pl-2 py-1">
                         <div className="text-red-500 flex items-center xl:mb-3 mb-1">
@@ -282,7 +294,7 @@ export default function TeamTemplate({ data }) {
                       </div>
                     </div>
                     <div className="mt-2 text-center text-sm">チーム平均</div>
-                    <div className="h-[90%] w-[340px]">
+                    <div className="h-[500px] w-[650px]">
                       <SimpleRadarChart
                         isFirst={true}
                         scores={teamData.team_scores}
@@ -290,10 +302,10 @@ export default function TeamTemplate({ data }) {
                     </div>
                   </div>
                   <div className="flex gap-3">
-                    <div className="flex flex-col max-w-md bg-[#DFFAFD] font-bold">
+                    <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold">
                       <div className="h-14 flex justify-center items-center text-center text-xl bg-main text-white">
                         <span>ギャップ値</span>
-                        <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full">?</span>
+                        <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full" onClick={handleClickAnswerResult}>?</span>
                       </div>
                       <div className="flex justify-between items-center px-7 py-2">
                         <div className="text-xl">全体平均</div>
@@ -515,5 +527,6 @@ export default function TeamTemplate({ data }) {
         </div>
       )}
     </div>
+    </>
   );
 }
