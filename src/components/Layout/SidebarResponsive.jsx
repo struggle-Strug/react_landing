@@ -191,7 +191,7 @@ export default function SidebarResponsive(props) {
                       {menuItems[6].name}
                     </NavLink>
                     {menuItems[6].name === menu && (
-                      <div className="absolute lg:right-5 right-4 top-4">
+                      <div className="absolute lg:right-5 right-4 top-1/2 -translate-y-1/2">
                         <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                       </div>
                     )}
@@ -219,7 +219,7 @@ export default function SidebarResponsive(props) {
                       {menuItems[1].name}
                     </NavLink>
                     {menuItems[1].name === menu && (
-                      <div className="absolute lg:right-5 right-4 top-4">
+                      <div className="absolute lg:right-5 right-4 top-1/2 -translate-y-1/2">
                         <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                       </div>
                     )}
@@ -246,7 +246,7 @@ export default function SidebarResponsive(props) {
                       {menuItems[2].name}
                     </NavLink>
                     {menuItems[2].name === menu && (
-                      <div className="absolute lg:right-5 right-4 top-4">
+                      <div className="absolute lg:right-5 right-4 top-1/2 -translate-y-1/2">
                         <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                       </div>
                     )}
@@ -273,7 +273,7 @@ export default function SidebarResponsive(props) {
                       {menuItems[3].name}
                     </NavLink>
                     {menuItems[3].name === menu && (
-                      <div className="absolute lg:right-5 right-4 top-4">
+                      <div className="absolute lg:right-5 right-4 top-1/2 -translate-y-1/2">
                         <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                       </div>
                     )}
@@ -300,7 +300,7 @@ export default function SidebarResponsive(props) {
                       {menuItems[4].name}
                     </NavLink>
                     {menuItems[4].name === menu && (
-                      <div className="absolute lg:right-5 right-4 top-4">
+                      <div className="absolute lg:right-5 right-4 top-1/2 -translate-y-1/2">
                         <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
                       </div>
                     )}
