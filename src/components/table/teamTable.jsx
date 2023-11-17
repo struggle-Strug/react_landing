@@ -4,18 +4,33 @@ import { useAtom } from "jotai";
 import { useNavigate } from "react-router";
 import { formAtom, subscriptionAtom } from "../../utils/atom";
 import PopupMessageModal from "../modal/popupMessageModal";
-import { BACKEND_URL, COMPANY_ENDPOINT } from "../../utils/constants";
+import { BACKEND_URL, COMPANY_ENDPOINT, MEMBER_ENDPOINT } from "../../utils/constants";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 // eslint-disable-next-line react/prop-types
 export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
   const navigate = useNavigate()
   const [, setFormData] = useAtom(formAtom);
   const [subscriptionGlobal] = useAtom(subscriptionAtom);
   const [showPopupMessage, setShowPopupMessage] = useState(false);
-  const [productivity, setProductivity] = useState()
+  const [productivity, setProductivity] = useState();
 
-  const companyId = localStorage.getItem("token")
+  
+  const fetchMembers = useCallback(async () => {
+    const resp = await requestWithTokenRefresh(
+      MEMBER_ENDPOINT + "list/",
+      {},
+      navigate
+      );
+      const data = await resp.json();
+      setProductivity(await data.company.productivity_company)
+    }, [navigate]);
+    
+    useEffect(() => {
+      fetchMembers();
+    }, [fetchMembers]);
+    
+    const companyId = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token")).company_relation
     : undefined;
 
