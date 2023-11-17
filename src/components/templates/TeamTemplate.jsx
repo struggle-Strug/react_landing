@@ -228,7 +228,7 @@ export default function TeamTemplate({ data }) {
         {!data ? (
           <Loader />
         ) : (
-          <div className="mx-4 mt-12 pb-40 mb-28 border-[7px] border-main">
+          <div className="mx-4 mt-12 pb-10 mb-28 border-[7px] border-main">
             <div className="w-full text-white sp:h-[66px] flex flex-col justify-center items-center lg:gap-3 gap-2 sp:gap-1 font-CenturyGothic lg:pt-4 pt-3 sp:pt-2 lg:pb-7 pb-4 sp:pb-3 bg-main">
               <p className="lg:text-4xl text-3xl sp:text-lg font-bold font-CenturyGothic">
                 Result
@@ -272,8 +272,8 @@ export default function TeamTemplate({ data }) {
                   </p>
                 </div>
                 <div className="flex flex-wrap flex-col">
-                  <div className="flex flex-col sm:flex-row bg-white w-full sm:w-full justify-between">
-                    <div className="w-1/2">
+                  <div className="flex flex-col flex-wrap sm:flex-row bg-white w-full sm:w-full justify-between">
+                    <div className="w-1/2 max-w-[600px] min-w-[390px] mx-auto">
                       <div className="m-auto mt-10 xl:mt-0 xl:w-60 w-52">
                         <div className="text-sm border border-black xl:pl-5 xl:pr-1 pl-2 py-1">
                           <div className="text-red-500 flex items-center xl:mb-3 mb-1">
@@ -290,7 +290,7 @@ export default function TeamTemplate({ data }) {
                           </div>
                         </div>
                       </div>
-                      <div className="mt-2 text-center text-sm">チーム平均</div>
+                      {/* <div className="mt-2 text-center text-sm">チーム平均</div> */}
                       <div className="lg:col-span-2 aspect-square">
                         <SimpleRadarChart
                           isFirst={true}
@@ -299,7 +299,7 @@ export default function TeamTemplate({ data }) {
                         {console.log(teamData.team_scores[0])}
                       </div>
                     </div>
-                    <div className="flex gap-3">
+                    <div className="flex gap-3 mx-auto">
                       <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold">
                         <div className="h-14 flex justify-center items-center text-center text-xl bg-main text-white">
                           <span>ギャップ値</span>
@@ -323,53 +323,7 @@ export default function TeamTemplate({ data }) {
                                 <div className="text-3xl">{teamData.team_scores[i].toFixed(1)}</div>
                               </li>
                             ))}
-                            {/* <li className="text-xs flex justify-between items-center my-2">
-                              <div className="text-sm break-keep">
-                                個人ビジョン明確度
-                              </div>
-                              <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                              <div className="text-3xl">2.29</div>
-                            </li>
-                            <li className="text-xs flex justify-between items-center my-2">
-                              <div className="text-sm break-keep">
-                                会社ビジョン共感度
-                              </div>
-                              <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                              <div className="text-3xl">2.29</div>
-                            </li>
-                            <li className="text-xs flex justify-between items-center my-2">
-                              <div className="text-sm break-keep">
-                                会社と個人の統合度
-                              </div>
-                              <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                              <div className="text-3xl">2.29</div>
-                            </li>
-                            <li className="text-xs flex justify-between items-center my-2">
-                              <div className="text-sm break-keep">意欲度</div>
-                              <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                              <div className="text-3xl">2.29</div>
-                            </li>
-                            <li className="text-xs flex justify-between items-center my-2">
-                              <div className="text-sm break-keep">影響力</div>
-                              <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                              <div className="text-3xl">2.29</div>
-                            </li> */}
-
-                            {/* <li className="text-xs">A - 心理的安全度</li>
-                        <li className="text-xs">B - 個人ビジョン明確度</li>
-                        <li className="text-xs">C - 会社ビジョン共感度</li>
-                        <li className="text-xs">D - 会社と個人の統合度</li>
-                        <li className="text-xs">E - 意欲度</li>
-                        <li className="text-xs">F - 影響力</li> */}
                           </ul>
-                          {/* <div className="bg-white h-full sm:h-52 flex flex-col items-center justify-center sm:justify-start border">
-                        <div className="mt-2 text-center text-sm">
-                          ギャップ値
-                        </div>
-                        <div className="sm:mt-12 text-3xl flex justify-center items-center">
-                          {teamData.gap}
-                        </div>
-                      </div> */}
                         </div>
                       </div>
                       <div className="bg-[#DFFAFD]">
@@ -435,15 +389,15 @@ export default function TeamTemplate({ data }) {
                 <div className="text-center text-3xl">
                   自己評価とメンバーからの第三者評価（平均値）
                 </div>
-                <div className="flex justify-between items-center">
+                <div className="flex justify-evenly items-center flex-wrap mb-5">
                   {scoreData &&
                     scoreData["1st"] &&
                     scoreData["3rd"] &&
                     scoreData["3rd_average"] && (
-                      <div className="w-1/2 flex flex-col items-center">
-                        <div className=" text-red-600 text-sm">
+                      <div className="w-1/2 max-w-[600px] min-w-[390px] flex flex-col items-center">
+                        {/* <div className=" text-main text-sm">
                           自己評価 & 第三者からの評価（平均）
-                        </div>
+                        </div> */}
                         <div className="h-full w-full flex lg:col-span-2 aspect-square justify-center items-center">
                           <div className="w-full h-full ">
                             <ComplexChart
@@ -464,7 +418,7 @@ export default function TeamTemplate({ data }) {
                     )}
 
                   <div className="h-full flex flex-col justify-between">
-                    <div className="m-auto mt-10 xl:mt-0 xl:w-72 w-64">
+                    <div className="m-auto mt-10 xl:mt-0 xl:w-full w-64">
                       <div className="text-sm border border-black xl:p-5 pl-2 py-1">
                         <div className="text-red-500 flex items-center xl:mb-3 mb-1">
                           <hr className="w-14 h-1 bg-[#FF0000] mr-2" />
@@ -492,7 +446,7 @@ export default function TeamTemplate({ data }) {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row">
+                    <div className="flex flex-col sm:flex-row mx-auto mt-16">
                       {/* <div className="mb-2">
                     {selectedMember.received_evaluations_snapshot}{" "}
                     のアセスメント結果
@@ -514,10 +468,10 @@ export default function TeamTemplate({ data }) {
                     scoreData["1st"] &&
                     scoreData["3rd"] &&
                     scoreData["3rd_average"] && (
-                      <div className="bg-white w-fit min-w-full h-64 flex items-center justify-start mt-20">
+                      <div className="bg-white w-fit min-w-full flex items-center justify-start mt-8 flex-wrap">
                         {scoreData["3rd"].map((score, idx) => (
                           <div
-                            className="w-1/4 flex flex-col items-center"
+                            className="w-[300px] flex flex-col items-center mx-auto"
                             key={idx}
                           >
                             <div className="w-full text-sm px-5 text-center">
@@ -532,14 +486,6 @@ export default function TeamTemplate({ data }) {
                                   scores={score}
                                 />
                               </div>
-                              {/* <ul className='w-1/2'>
-                              <li className='text-xs'>A - 心理的安全度</li>
-                              <li className='text-xs'>B - 個人ビジョン明確度</li>
-                              <li className='text-xs'>C - 会社ビジョン共感度</li>
-                              <li className='text-xs'>D - 会社と個人の統合度</li>
-                              <li className='text-xs'>E - 意欲度</li>
-                              <li className='text-xs'>F - 影響力</li>
-                            </ul> */}
                             </div>
                           </div>
                         ))}
