@@ -476,7 +476,7 @@ export default function TeamTemplate({ data }) {
                           >
                             <div className="w-full text-sm px-5 text-center">
                               <div className="text-main text-sm border-b border-black ">
-                                匿名メンバー_A
+                                {`匿名メンバー_${(idx + 10).toString(36).toUpperCase()}`}
                               </div>
                             </div>
                             <div className="h-full w-full flex justify-center items-center">
