@@ -178,6 +178,8 @@ export default function TeamTemplate({ data }) {
           ...scoreData,
           "3rd": data.given_third_score.map((d) => d.average_score),
           "3rd_average": data.given_average_score,
+          "industry": data.industry,
+          "finder": data.finder,
         });
       }
     };
@@ -209,6 +211,8 @@ export default function TeamTemplate({ data }) {
           ...scoreData,
           "3rd": data.given_third_score.map((d) => d.average_score),
           "3rd_average": data.given_average_score,
+          "industry": data.industry,
+          "finder": data.finder,
         });
       }
     };
@@ -296,7 +300,6 @@ export default function TeamTemplate({ data }) {
                           isFirst={true}
                           scores={teamData.team_scores}
                         />
-                        {console.log(teamData.team_scores[0])}
                       </div>
                     </div>
                     <div className="flex gap-3 mx-auto">

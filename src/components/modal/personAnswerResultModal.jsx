@@ -13,7 +13,6 @@ export default function PersonAnswerResultModal({
   const clickHandler = () => {
     setOpenModal(false);
   };
-  console.log(userAnswers);
 
   return (
     <Transition.Root show={open} as={Fragment}>
