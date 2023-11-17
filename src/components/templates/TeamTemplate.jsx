@@ -6,6 +6,7 @@ import ComplexChart from "../radarChart/complexChart";
 import Loader from "../loader";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
+import { subjects } from "../radarChart/simpleChart";
 import { useNavigate } from "react-router";
 
 import PersonAnswerResultModal from "../modal/personAnswerResultModal";
@@ -47,7 +48,7 @@ export default function TeamTemplate({ data }) {
     if (resp.ok) {
       setUserAnswers(data);
       setShowPersonAnswerModal(true);
-  }
+    }
   };
 
   useEffect(() => {
@@ -295,15 +296,14 @@ export default function TeamTemplate({ data }) {
                           isFirst={true}
                           scores={teamData.team_scores}
                         />
+                        {console.log(teamData.team_scores[0])}
                       </div>
                     </div>
                     <div className="flex gap-3">
                       <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold">
                         <div className="h-14 flex justify-center items-center text-center text-xl bg-main text-white">
                           <span>ギャップ値</span>
-                          <span
-                            className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full"
-                          >
+                          <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full">
                             ?
                           </span>
                         </div>
@@ -314,14 +314,16 @@ export default function TeamTemplate({ data }) {
                         <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         <div className=" flex items-center px-7 pt-4 pb-8">
                           <ul>
-                            <li className="flex justify-between items-center my-1">
-                              <div className="text-sm break-keep">
-                                心理的安全度
-                              </div>
-                              <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                              <div className="text-3xl">2.29</div>
-                            </li>
-                            <li className="text-xs flex justify-between items-center my-2">
+                            {subjects.map((sub, i) => (
+                              <li className="flex justify-between items-center my-1" key={`score-${i}`}>
+                                <div className="text-sm break-keep">
+                                  {sub}
+                                </div>
+                                <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                                <div className="text-3xl">{teamData.team_scores[i].toFixed(1)}</div>
+                              </li>
+                            ))}
+                            {/* <li className="text-xs flex justify-between items-center my-2">
                               <div className="text-sm break-keep">
                                 個人ビジョン明確度
                               </div>
@@ -351,7 +353,7 @@ export default function TeamTemplate({ data }) {
                               <div className="text-sm break-keep">影響力</div>
                               <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
                               <div className="text-3xl">2.29</div>
-                            </li>
+                            </li> */}
 
                             {/* <li className="text-xs">A - 心理的安全度</li>
                         <li className="text-xs">B - 個人ビジョン明確度</li>
@@ -409,9 +411,7 @@ export default function TeamTemplate({ data }) {
             )}
             {teamList && (
               <div className="mt-8 mx-6">
-                <div className="w-full flex justify-center py-4 bg-main text-white">
-                  
-                </div>
+                <div className="w-full flex justify-center py-4 bg-main text-white"></div>
                 <div className="max-w-[600px] flex items-center w-full m-auto mt-7 mb-2 gap-5">
                   <div className="mb-2">
                     ●アセスメントを実施したチームを選択{" "}
@@ -521,7 +521,9 @@ export default function TeamTemplate({ data }) {
                             key={idx}
                           >
                             <div className="w-full text-sm px-5 text-center">
-                              <div className="text-main text-sm border-b border-black ">匿名メンバー_A</div>
+                              <div className="text-main text-sm border-b border-black ">
+                                匿名メンバー_A
+                              </div>
                             </div>
                             <div className="h-full w-full flex justify-center items-center">
                               <div className="w-full h-full lg:col-span-2 aspect-square">
@@ -544,7 +546,6 @@ export default function TeamTemplate({ data }) {
                       </div>
                     )}
                 </div>
-                
               </div>
             )}
           </div>
