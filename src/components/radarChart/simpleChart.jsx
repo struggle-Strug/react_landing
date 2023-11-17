@@ -4,7 +4,7 @@ import { useState } from 'react';
 import EvaluationModal from '../modal/evaluationModal';
 
 
-const subjects = ["心理的安全性", "個人ビジョン明確度", "会社ビジョン共感度", "会社と個人の統合度", "意欲性", "影響力"]
+export const subjects = ["心理的安全性", "個人ビジョン明確度", "会社ビジョン共感度", "会社と個人の統合度", "意欲性", "影響力"]
 // const subjects = ["A", "B", "C", "D", "E", "F"]
 
 
