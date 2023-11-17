@@ -24,8 +24,8 @@ export default function PopupMessageModal({ open, msg, status, setShowPopupMessa
     }
   }
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {setShowPopupMessage(false)}}>
+    <Transition.Root show={open} as={Fragment} >
+      <Dialog as="div" className="relative z-50" onClose={() => {setShowPopupMessage(false)}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
