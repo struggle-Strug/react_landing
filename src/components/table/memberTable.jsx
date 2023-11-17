@@ -1,17 +1,13 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { useNavigate } from "react-router";
 import { formAtom, subscriptionAtom, subscriptionModalAtom } from "../../utils/atom";
 import { useAtom } from "jotai";
-import { requestWithTokenRefresh } from "../../utils/AuthService";
-import { COMPANY_ENDPOINT } from "../../utils/constants";
 import PopupMessageModal from "../modal/popupMessageModal";
 import Button from "../button";
 
 export default function MemberTable({
   members,
   team,
-  companyProductivity,
   setShowModal,
   setShowResetEvaluation,
   setShowEditEvaluation,
@@ -20,14 +16,12 @@ export default function MemberTable({
   const [, setFormData] = useAtom(formAtom);
   const [subscriptionGlobal, setSubscriptionGlobal] = useAtom(subscriptionAtom);
   const [, setSubscriptionModalGlobal] = useAtom(subscriptionModalAtom);
-  const navigate = useNavigate();
   const [showPopupMessage, setShowPopupMessage] = useState(false);
 
   const companyId = localStorage.getItem("token")
     ? JSON.parse(localStorage.getItem("token")).company_relation
     : undefined;
 
-  const [productivity, setProductivity] = useState(companyProductivity);
 
   function handleCreateButtonClick() {
     if (!subscriptionGlobal) {
@@ -67,49 +61,6 @@ export default function MemberTable({
     else setShowPopupMessage(true);
   }
 
-  async function handleChangeProductivity(productivity) {
-    if (parseInt(productivity) > 10) {
-      await requestWithTokenRefresh(
-        `${COMPANY_ENDPOINT}${companyId}/`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({ productivity_company: 10 }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-        navigate
-      );
-      setProductivity(10);
-    } else if (parseInt(productivity) < 1) {
-      await requestWithTokenRefresh(
-        `${COMPANY_ENDPOINT}${companyId}/`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({ productivity_company: 1 }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-        navigate
-      );
-      setProductivity(1);
-    } else {
-      await requestWithTokenRefresh(
-        `${COMPANY_ENDPOINT}${companyId}/`,
-        {
-          method: "PATCH",
-          body: JSON.stringify({ productivity_company: productivity }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        },
-        navigate
-      );
-      setProductivity(productivity);
-    }
-  }
-
   return (
     <div>
       <div className="mx-auto px-4 sm:px-6 lg:px-8 border-b-4 border-black py-5">
@@ -132,18 +83,6 @@ export default function MemberTable({
             title="この内容でアセスメントを開始する"
           />
           {/* <div className="mt-4 sm:ml-16 sm:mt-0 flex-col sm:flex sm:flex-row">
-            <div className="flex justify-center items-center">
-              <p className="text-center break-keep text-sm">会社 生産性</p>
-              <input
-                type="number"
-                min={1}
-                max={10}
-                className="w-12 p-1 mx-5 disabled:bg-slate-300 disabled:border-none"
-                value={productivity}
-                disabled={subscriptionGlobal}
-                onChange={(e) => handleChangeProductivity(e.target.value)}
-              />
-            </div>
             <button
               type="button"
               className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-slate-300"

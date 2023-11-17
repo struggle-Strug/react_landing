@@ -85,16 +85,18 @@ export default function TeamModal({ open, title, onClose, team, submitForm, load
                           onChange={(e) => setTeamName(e.target.value)}
                         />
                       </div>
-                      <div className='mt-4'>
-                        <div className='text-left font-semibold'>生産性</div>
-                        <InputField
-                          type="number"
-                          value={productivity}
-                          min={1}
-                          max={10}
-                          onChange={(e) => setProductivity(e.target.value)}
-                        />
-                      </div>
+                      {!team && (
+                        <div className='mt-4'>
+                          <div className='text-left font-semibold'>生産性</div>
+                          <InputField
+                            type="number"
+                            value={productivity}
+                            min={1}
+                            max={10}
+                            onChange={(e) => setProductivity(e.target.value)}
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="mt-8 flex justify-center">
                       <Button

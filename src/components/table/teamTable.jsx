@@ -1,15 +1,23 @@
 /* eslint-disable react/prop-types */
 // import { CompanyListResponse } from '../../utils/type'
 import { useAtom } from "jotai";
+import { useNavigate } from "react-router";
 import { formAtom, subscriptionAtom } from "../../utils/atom";
 import PopupMessageModal from "../modal/popupMessageModal";
+import { BACKEND_URL, COMPANY_ENDPOINT } from "../../utils/constants";
+import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { useState } from "react";
 // eslint-disable-next-line react/prop-types
 export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
+  const navigate = useNavigate()
   const [, setFormData] = useAtom(formAtom);
   const [subscriptionGlobal] = useAtom(subscriptionAtom);
   const [showPopupMessage, setShowPopupMessage] = useState(false);
-  // const [inputValue, setInputValue] = useState("");
+  const [productivity, setProductivity] = useState()
+
+  const companyId = localStorage.getItem("token")
+    ? JSON.parse(localStorage.getItem("token")).company_relation
+    : undefined;
 
   function handleCreateButtonClick() {
     if (!subscriptionGlobal) {
@@ -26,17 +34,37 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
     } else setShowPopupMessage(true);
   }
 
-  const handleKeyPress = (event) => {
-    const isNumber = /^[0-9]$/.test(event.key);
+  async function handleChangeProductivity(productivity) {
+    if (productivity > 0 && productivity < 11) {
+      await requestWithTokenRefresh(
+        `${COMPANY_ENDPOINT}${companyId}/`,
+        {
+          method: "PATCH",
+          body: JSON.stringify({ productivity_company: productivity }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+        navigate
+      );
+      setProductivity(productivity);
+    }
+  }
 
-    if (!isNumber) {
-      event.preventDefault();
+  const handleProductivityChange = async (e, id) => {
+    if (e.target.value > 0 && e.target.value < 11) {
+      const url = BACKEND_URL + 'api/team/update/' + id;
+      const method = 'PATCH'
+      const body = { productivity_team: parseInt(e.target.value) }
+      await requestWithTokenRefresh(url, {
+        method: method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }, navigate)
     }
   };
-
-  // const handleInputChange = (event) => {
-  //   setInputValue(event.target.value);
-  // };
 
   return (
     <div>
@@ -75,13 +103,13 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
             <p className="xl:text-2xl lg:text-lg md:text-sm">株式会社CUOREMO</p>
             <div className="flex justify-center items-center">
               <p className="text-xs">会社の生産性スコア</p>
-              <input className=" w-20 h-7 bg-white ml-4 mr-1" />
-              {/* <div className="w-5 xl:w-7 /"
-                <img
-                  src={CompanyProductivityEdit}
-                  alt="company-productivity-edit"
-                />
-              </div> */}
+              <input className="w-20 border border-black bg-white flex text-center placeholder:text-xs px-0 py-1 text-black" type="number"
+                min={1}
+                max={10}
+                placeholder="会社の生産性"
+                value={productivity}
+                disabled={subscriptionGlobal}
+                onChange={(e) => handleChangeProductivity(e.target.value)} />
             </div>
           </div>
           <div className="overflow-y-visible	">
@@ -128,7 +156,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                           {/* <div className="absolute bottom-0 right-full h-px w-screen bg-gray-100" /> */}
                           {/* <div className="absolute bottom-0 left-0 h-px w-screen bg-main" /> */}
                         </td>
-                        <td className="hidden py-4 w-5/12 text-sm lg:text-base text-gray-500 sm:table-cell border-l border-[#A0A0A0]">
+                        <td className="py-4 w-5/12 text-sm lg:text-base text-gray-500 sm:table-cell border-l border-[#A0A0A0]">
                           {team.team_name}
                         </td>
                         <td className="w-1/6 relative py-4 text-center text-sm lg:text-base font-medium border-r border-[#A0A0A0]">
@@ -139,28 +167,17 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                             編集
                           </button>
                         </td>
-                        {/* <td className="hidden py-4 w-2/6 text-sm lg:text-base text-gray-500 sm:table-cell"> */}
-                        <td className="hidden w-full py-4 text-sm mx-auto lg:text-base text-gray-500 sm:flex sm:items-center sm:justify-center sm:gap-1">
+                        <td className="w-full py-4 text-sm mx-auto lg:text-base text-gray-500 flex items-center justify-center sm:gap-1">
                           <input
-                            type="text"
-                            // value={inputValue}
-                            // onChange={(e) => setProductivity(e.target.value)}
-                            onKeyPress={handleKeyPress}
-                            className={
-                              team.productivity_team
-                                ? "w-16 h-6 border border-black text-base bg-white flex text-center"
-                                : "w-16 h-6 border border-black text-[10px] bg-white text-center"
-                            }
-                            placeholder={
-                              team.productivity_team
-                                ? team.productivity_team
-                                : "数値を入力"
-                            }
+                            type="number"
+                            defaultValue={team.productivity_team}
+                            onChange={(e) => handleProductivityChange(e, team.id)}
+                            className="w-16 border border-black bg-white flex text-center placeholder:text-xs px-0 py-1 text-black"
+                            max={10}
+                            min={1}
+                            disabled={subscriptionGlobal}
+                            placeholder="数値を入力"
                           />
-
-                          {/* <div>
-                            <img src={ItemProductivityEdit} alt="company" />
-                          </div> */}
                         </td>
                       </tr>
                     ))}
