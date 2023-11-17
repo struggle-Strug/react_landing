@@ -228,7 +228,7 @@ export default function TeamTemplate({ data }) {
         {!data ? (
           <Loader />
         ) : (
-          <div className="mx-4 mt-12 pb-40 mb-28 border-[7px] border-main">
+          <div className="mx-4 mt-12 pb-10 mb-28 border-[7px] border-main">
             <div className="w-full text-white sp:h-[66px] flex flex-col justify-center items-center lg:gap-3 gap-2 sp:gap-1 font-CenturyGothic lg:pt-4 pt-3 sp:pt-2 lg:pb-7 pb-4 sp:pb-3 bg-main">
               <p className="lg:text-4xl text-3xl sp:text-lg font-bold font-CenturyGothic">
                 Result
@@ -389,7 +389,7 @@ export default function TeamTemplate({ data }) {
                 <div className="text-center text-3xl">
                   自己評価とメンバーからの第三者評価（平均値）
                 </div>
-                <div className="flex justify-evenly items-center flex-wrap">
+                <div className="flex justify-evenly items-center flex-wrap mb-5">
                   {scoreData &&
                     scoreData["1st"] &&
                     scoreData["3rd"] &&
