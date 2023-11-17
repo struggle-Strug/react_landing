@@ -4,13 +4,13 @@ import { useAtom } from "jotai";
 import { formAtom, subscriptionAtom } from "../../utils/atom";
 import PopupMessageModal from "../modal/popupMessageModal";
 import { useState } from "react";
-import CompanyProductivityEdit from "../../../public/company-edit.png";
-import ItemProductivityEdit from "../../../public/item-edit.png";
 // eslint-disable-next-line react/prop-types
 export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
   const [, setFormData] = useAtom(formAtom);
   const [subscriptionGlobal] = useAtom(subscriptionAtom);
   const [showPopupMessage, setShowPopupMessage] = useState(false);
+  // const [inputValue, setInputValue] = useState("");
+
   function handleCreateButtonClick() {
     if (!subscriptionGlobal) {
       setTeamToEdit();
@@ -25,6 +25,18 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
       setShowModal(true);
     } else setShowPopupMessage(true);
   }
+
+  const handleKeyPress = (event) => {
+    const isNumber = /^[0-9]$/.test(event.key);
+
+    if (!isNumber) {
+      event.preventDefault();
+    }
+  };
+
+  // const handleInputChange = (event) => {
+  //   setInputValue(event.target.value);
+  // };
 
   return (
     <div>
@@ -63,13 +75,13 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
             <p className="xl:text-2xl lg:text-lg md:text-sm">株式会社CUOREMO</p>
             <div className="flex justify-center items-center">
               <p className="text-xs">会社の生産性スコア</p>
-              <div className=" w-20 h-7 bg-white ml-4 mr-1"></div>
-              <div className="w-5 xl:w-7">
+              <input className=" w-20 h-7 bg-white ml-4 mr-1" />
+              {/* <div className="w-5 xl:w-7 /"
                 <img
                   src={CompanyProductivityEdit}
                   alt="company-productivity-edit"
                 />
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="overflow-y-visible	">
@@ -90,7 +102,10 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                   >
                     チーム名
                   </th>
-                  <th scope="col" className="w-1/6 border-r border-[#A0A0A0] relative py-3.5">
+                  <th
+                    scope="col"
+                    className="w-1/6 border-r border-[#A0A0A0] relative py-3.5"
+                  >
                     <span></span>
                   </th>
                   <th
@@ -126,14 +141,26 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                         </td>
                         {/* <td className="hidden py-4 w-2/6 text-sm lg:text-base text-gray-500 sm:table-cell"> */}
                         <td className="hidden w-full py-4 text-sm mx-auto lg:text-base text-gray-500 sm:flex sm:items-center sm:justify-center sm:gap-1">
-                          <div className={team.productivity_team ? "w-16 h-6 border border-black text-base bg-white" : "w-16 h-6 border border-black text-[10px] bg-white"}>
-                            {team.productivity_team
-                              ? team.productivity_team
-                              : "数値を入力"}
-                          </div>
-                          <div>
+                          <input
+                            type="text"
+                            // value={inputValue}
+                            // onChange={(e) => setProductivity(e.target.value)}
+                            onKeyPress={handleKeyPress}
+                            className={
+                              team.productivity_team
+                                ? "w-16 h-6 border border-black text-base bg-white flex text-center"
+                                : "w-16 h-6 border border-black text-[10px] bg-white text-center"
+                            }
+                            placeholder={
+                              team.productivity_team
+                                ? team.productivity_team
+                                : "数値を入力"
+                            }
+                          />
+
+                          {/* <div>
                             <img src={ItemProductivityEdit} alt="company" />
-                          </div>
+                          </div> */}
                         </td>
                       </tr>
                     ))}
