@@ -38,7 +38,7 @@ export default function HomeTestTemplate({ assessments }) {
           <div className="hidden sp:block text-2xl font-HiraginoKakuGothicProNW3 text-center">
             アセスメントを実施する
           </div>
-          <div className="flex place-content-center mb-[]">
+          <div className="flex place-content-center">
             <div className="flex sp:flex-col items-center w-full mx-3 md:w-5/6 my-10 sp:mt-7 sp:mb-0 rounded-l-[37px] sp:rounded-t-lg sp:rounded-bl-none bg-[#DFFAFD]">
               <div className="w-1/4 sp:w-full flex justify-center items-center rounded-[37px] sp:rounded-lg h-full bg-main sp:py-4">
                 <div className="w-full flex justify-center items-center px-4">
