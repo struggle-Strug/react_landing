@@ -9,6 +9,7 @@ import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
 import { useNavigate } from "react-router";
 
 import PersonAnswerResultModal from "../modal/personAnswerResultModal";
+
 import Button from "../button";
 
 export default function TeamTemplate({ data }) {
@@ -45,7 +46,8 @@ export default function TeamTemplate({ data }) {
     const data = await resp.json();
     if (resp.ok) {
       setUserAnswers(data);
-    }
+      setShowPersonAnswerModal(true);
+  }
   };
 
   useEffect(() => {
@@ -212,15 +214,14 @@ export default function TeamTemplate({ data }) {
     getTeamScore();
   }, [team]);
 
-  const handleClickAnswerResult = () => {
-    setShowPersonAnswerModal(true);
-  };
-
   return (
     <>
       <PersonAnswerResultModal
         open={showPersonAnswerModal}
-        setOpenAgreeModal={setShowPersonAnswerModal}
+        setOpenModal={setShowPersonAnswerModal}
+        userAnswers={userAnswers}
+        categories={categories}
+        selectedMember={selectedMember}
       />
       <div className="max-w-[1280px] w-full overflow-auto">
         {!data ? (
@@ -302,7 +303,6 @@ export default function TeamTemplate({ data }) {
                           <span>ギャップ値</span>
                           <span
                             className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full"
-                            onClick={handleClickAnswerResult}
                           >
                             ?
                           </span>
@@ -410,8 +410,7 @@ export default function TeamTemplate({ data }) {
             {teamList && (
               <div className="mt-8 mx-6">
                 <div className="w-full flex justify-center py-4 bg-main text-white">
-                  {selectedMember.received_evaluations_snapshot}{" "}
-                  さんへのアセスメント結果を見る
+                  
                 </div>
                 <div className="max-w-[600px] flex items-center w-full m-auto mt-7 mb-2 gap-5">
                   <div className="mb-2">
@@ -515,7 +514,7 @@ export default function TeamTemplate({ data }) {
                     scoreData["1st"] &&
                     scoreData["3rd"] &&
                     scoreData["3rd_average"] && (
-                      <div className="bg-white w-fit min-w-full h-64 flex items-center justify-start">
+                      <div className="bg-white w-fit min-w-full h-64 flex items-center justify-start mt-20">
                         {scoreData["3rd"].map((score, idx) => (
                           <div
                             className="w-1/4 flex flex-col items-center"
@@ -545,51 +544,7 @@ export default function TeamTemplate({ data }) {
                       </div>
                     )}
                 </div>
-                <div>
-                  {userAnswers !== undefined && (
-                    <div className="mt-10 flow-root overflow-y-auto bg-white py-10 px-5">
-                      <table className="w-full">
-                        <thead>
-                          <tr className="text-left">
-                            <th className="w-[5%]"></th>
-                            <th>設問</th>
-                            <th className="break-keep">回答</th>
-                            <th className="break-keep">会社平均</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {categories &&
-                            categories.map((category, idx) => {
-                              const categoryAnswers = userAnswers.filter(
-                                (answers) =>
-                                  answers.quiz_category_name === category
-                              );
-                              return (
-                                <>
-                                  <tr
-                                    className="bg-slate-100 p-1 mt-5"
-                                    key={idx}
-                                  >
-                                    <td colSpan={4}>{category}</td>
-                                  </tr>
-                                  {categoryAnswers.map((answer, idx) => (
-                                    <tr key={idx}>
-                                      <td>{idx + 1}</td>
-                                      <td>{answer.quiz}</td>
-                                      <td>{answer.answer}</td>
-                                      <td className="text-center">
-                                        {answer.company_answer_avg.toFixed(1)}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                </>
-                              );
-                            })}
-                        </tbody>
-                      </table>
-                    </div>
-                  )}
-                </div>
+                
               </div>
             )}
           </div>
