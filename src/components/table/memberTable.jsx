@@ -270,12 +270,8 @@ export default function MemberTable({
                     <td className="relative p-3 w-1/12 border-r-[1px] border-grays">
                       {person.assessment_1st_exclude && "完了"}
                     </td>
-                    <td className="hidden py-4 whitespace-nowrap lg:text-xs lg:table-cell border-r-[1px] border-gray">
-                      残{" "}
-                      {members.length -
-                        person.given_evaluations.name.length -
-                        1}
-                      名
+                    <td className="hidden py-4 whitespace-nowrap lg:text-sm lg:table-cell border-r-[1px] border-gray">
+                      残 {person.given_evaluations.name.length}名
                     </td>
                   </tr>
                 ))}
