@@ -340,7 +340,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
   return (
     <div className='w-full overflow-auto'>
       <div className='mx-4'>
-        <h1 className='lg:text-4xl md:text-3xl sp:text-2xl font-bold text-gray-900 text-center'>メンバー登録・編集</h1>
+        <h1 className='lg:text-[45px] md:text-4xl sp:text-3xl font-bold text-gray-900 text-center'>メンバー登録・編集</h1>
         <div className='lg:flex lg:justify-around'>
           <div className='ml-6 mt-4 z-20 flex items-center w-full'>
             <div className='mr-2'>●メンバーを登録するチームを選択</div>
@@ -440,7 +440,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
         <MemberModal
           open={showModal}
           members={teamMembers.filter((tM) => {
-            return tM.id !== member.id;
+            return tM.id !== member?.id;
           })}
           onClose={setShowModal}
           title="メンバー登録・編集フォーム"
