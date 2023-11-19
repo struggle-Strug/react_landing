@@ -107,16 +107,16 @@ export default function MemberTable({
           </div> */}
         </div>
       </div>
-      <div className="mt-2 w-full">
-        <div className="w-full mx-auto">
-          <table className="w-full text-center">
-            <thead className="w-full sticky top-0 shadow z-10 bg-main">
+      <div className="mt-2 flow-root relative h-[400px] overflow-y-auto overflow-x-auto">
+        <div className="mx-auto">
+          <table className="w-full text-center whitespace-nowrap">
+            <thead className="sticky top-0 shadow z-10 bg-main">
               <tr>
                 <th
                   scope="col"
-                  className="p-3 w-1/6 text-sm lg:text-base font-semibold text-white table-cell justify-center items-center gap-4 border-r-[1px] border-grays"
+                  className="p-3 min-w-1/6 text-sm lg:text-base font-semibold text-white table-cell justify-center items-center gap-4 border-r-[1px] border-grays"
                 >
-                  <div className="flex justify-center items-center gap-3">
+                  <div className="flex justify-center gap-3">
                     <button
                       className="bg-white w-[25px] h-[25px] rounded-full flex justify-center items-center"
                       onClick={handleCreateButtonClick}
@@ -139,31 +139,31 @@ export default function MemberTable({
                 </th>
                 <th
                   scope="col"
-                  className="hidden p-3 text-xs w-1/12 font-semibold text-white sm:table-cell border-r-[1px] border-grays"
+                  className="hidden p-3 text-xs min-w-1/12 font-semibold text-white sm:table-cell border-r-[1px] border-grays"
                 >
                   権限
                 </th>
                 <th
                   scope="col"
-                  className="hidden p-3 w-1/12 text-xs font-semibold text-white md:table-cell border-r-[1px] border-grays"
+                  className="hidden p-3 min-w-1/12 text-xs font-semibold text-white md:table-cell border-r-[1px] border-grays"
                 >
                   所属部署
                 </th>
                 <th
                   scope="col"
-                  className="hidden p-3 w-1/6 text-xs font-semibold text-white lg:table-cell border-r-[1px] border-grays"
+                  className="hidden p-3 min-w-1/6 text-xs font-semibold text-white lg:table-cell border-r-[1px] border-grays"
                 >
                   Email
                 </th>
                 <th
                   scope="col"
-                  className="p-3 w-1/12 text-xs font-semibold text-white border-r-[1px] border-grays"
+                  className="p-3 min-w-1/12 text-xs font-semibold text-white border-r-[1px] border-grays"
                 >
                   ステータス
                 </th>
                 <th
                   scope="col"
-                  className="p-3 w-1/6 text-xs font-semibold text-white border-r-[1px] border-grays"
+                  className="p-3 min-w-1/6 text-xs font-semibold text-white border-r-[1px] border-grays"
                 >
                   {"この人のアセスメントをする"}
                   <br />
@@ -171,13 +171,13 @@ export default function MemberTable({
                 </th>
                 <th
                   scope="col"
-                  className="relative p-3 w-1/12 text-white border-r-[1px] border-grays"
+                  className="relative p-3 min-w-1/12 text-white border-r-[1px] border-grays"
                 >
                   <span className="text-xs">{"自己アセスメント"}</span>
                 </th>
                 <th
                   scope="col"
-                  className="relative p-3 w-1/12 text-white border-r-[1px] border-grays"
+                  className="relative p-3 min-w-1/12 text-white border-r-[1px] border-grays"
                 >
                   <span className="text-xs">{"第三者アセスメント残"}</span>
                 </th>
@@ -256,18 +256,18 @@ export default function MemberTable({
                     </td>
                     <td className="py-4 px-2 lg:text-xs border-r-[1px] border-grays table-cell">
                       <div className="flex items-start">
-                        <p className="w-[200px] text-left">
+                        <p className="w-[260px] text-left whitespace-break-spaces">
                           {generateGivenEvaluation(person)}
                         </p>
                         <button
-                          className="w-10 flex justify-center text-[10px] items-center py-0.5 px-1 bg-[#0303FF] text-white rounded-lg disabled:bg-slate-300 hover:bg-primary-1 transition-colors border-4 border-white shadow-lg"
+                          className="flex justify-center text-[10px] items-center py-0.5 px-1 bg-[#0303FF] text-white rounded-lg disabled:bg-slate-300 hover:bg-primary-1 transition-colors border-4 border-white shadow-lg"
                           onClick={() => handleEditEvaluation(person)}
                         >
                           追加
                         </button>
                       </div>
                     </td>
-                    <td className="relative p-3 w-1/12 border-r-[1px] border-grays">
+                    <td className="relative p-3 min-w-1/12 border-r-[1px] border-grays">
                       {person.assessment_1st_exclude && "完了"}
                     </td>
                     <td className="hidden py-4 whitespace-nowrap lg:text-sm lg:table-cell border-r-[1px] border-gray">

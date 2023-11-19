@@ -313,7 +313,7 @@ export default function MemberModal({
                         <div
                           className="mt-3 w-full flex justify-center"
                           style={{
-                            height: `${thirdEvaluationOptions.length * 20}px`,
+                            height: `${thirdEvaluationOptions.length * 40}px`,
                           }}
                         >
                           <MultiDropdown
