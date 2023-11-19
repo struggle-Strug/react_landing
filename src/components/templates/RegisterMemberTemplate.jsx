@@ -342,8 +342,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       <div className='mx-4'>
         <h1 className='lg:text-[45px] md:text-4xl sp:text-3xl font-bold text-gray-900 text-center'>メンバー登録・編集</h1>
         <div className='lg:flex lg:justify-around'>
-          <div className='ml-6 mt-4 z-20 flex items-center w-full'>
-            <div className='mr-2'>●メンバーを登録するチームを選択</div>
+          <div className={`ml-6 mt-4 z-20 flex w-full ${selectedMethod && selectedMethod.value !== 1 && ' flex-col items-start '}`}>
+            <div className='mr-2 my-2'>●メンバーを登録するチームを選択</div>
             <Dropdown
               options={teams}
               placeholder="全チーム"
@@ -351,8 +351,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
               setSelectedOption={setSelectedTeam}
             />
           </div>
-          <div className='ml-6 mt-4 z-20 flex items-center w-full'>
-            <div className='mr-2'>●メンバーの登録方法を選択</div>
+          <div className={`ml-6 mt-4 z-20 flex w-full ${selectedMethod && selectedMethod.value !== 1 && ' flex-col  '}`}>
+            <div className='mr-2 my-2'>●メンバーの登録方法を選択</div>
             <Dropdown
               options={subscriptionGlobal ? RegistrationMethods[0] : RegistrationMethods}
               selectedOption={selectedMethod}
@@ -360,8 +360,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
             />
           </div>
           {selectedMethod && selectedMethod.value === 2 && (
-            <div className='w-32 ml-6 mt-4 z-20'>
-              <div className='mb-2'>種別</div>
+            <div className='ml-6 mt-4 z-20 flex flex-col w-full'>
+              <div className='mr-2 my-2'>●種別</div>
               <Dropdown
                 options={RegistrationTypes}
                 selectedOption={selectedType}
@@ -370,8 +370,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
             </div>
           )}
           {selectedMethod && selectedMethod.value === 3 && (
-            <div className='w-36 ml-6 mt-4 z-20'>
-              <div className='mb-2 whitespace-nowrap'>第三者評価者の設定</div>
+            <div className='ml-6 mt-4 z-20 flex flex-col w-full'>
+              <div className='mr-2 my-2 whitespace-nowrap'>●第三者評価者の設定</div>
               <Dropdown
                 options={AssignMethods}
                 selectedOption={selectedAssignMethod}
