@@ -41,7 +41,7 @@ export default function ResultTemplate({ results }) {
             <p className="lg:text-3xl text-2xl sp:text-base font-HiraginoKakuGothicProNW3">あなたのアセスメント結果</p>
           </div>
           <div className="m-8 flex justify-center items-center">
-            <div className="lg:text-lg mr-6 sp:mr-3 font-bold font-HiraginoKakuGothicProNW6">●実施日を選択</div>
+            <div className="text-sm lg:text-lg mr-6 sp:mr-3 font-bold font-HiraginoKakuGothicProNW6">●実施日を選択</div>
             <div className="lg:text-lg lg:w-56 sp:w-40">
               {selectedDate && (
                 <Dropdown
@@ -69,7 +69,7 @@ export default function ResultTemplate({ results }) {
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-2 w-full aspect-square mt-12 2xl:mt-0">
+            <div className="lg:col-span-2 w-full aspect-square">
               <RadarChart
                 showThirdPerson={showThirdPersonAssessment}
                 scores={scores}
