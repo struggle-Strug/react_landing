@@ -41,7 +41,7 @@ export default function ResultTemplate({ results }) {
             <p className="lg:text-3xl text-2xl sp:text-base font-HiraginoKakuGothicProNW3">あなたのアセスメント結果</p>
           </div>
           <div className="m-8 flex justify-center items-center">
-            <div className="lg:text-lg mr-6 sp:mr-3 font-HiraginoKakuGothicProNW3">●実施日を選択</div>
+            <div className="lg:text-lg mr-6 sp:mr-3 font-bold font-HiraginoKakuGothicProNW6">●実施日を選択</div>
             <div className="lg:text-lg lg:w-56 sp:w-40">
               {selectedDate && (
                 <Dropdown
@@ -57,8 +57,8 @@ export default function ResultTemplate({ results }) {
             <Toggle setShowThirdPerson={setShowThirdPersonAssessment} />
           </div>
           <div className="mx-10 w-2/3">
-            <div className="xl:absolute top-60 left-5 m-auto mt-10 xl:mt-0 xl:w-72 w-64">
-              <div className="text-sm border border-black xl:p-5 pl-2 py-1">
+            <div className="xl:absolute top-90 left-5 m-auto mt-5 xl:mt-2 2xl:w-72 w-64">
+              <div className="text-sm border border-black 2xl:p-5 pl-2 py-1">
                 <div className="text-red-500 flex items-center xl:mb-3 mb-1">
                   <hr className="w-14 h-1 bg-[#FF0000] mr-2" />
                   <p className="text-[#FF0000] font-HiraginoKakuGothicProNW3">自己評価</p>
@@ -69,7 +69,7 @@ export default function ResultTemplate({ results }) {
                 </div>
               </div>
             </div>
-            <div className="lg:col-span-2 w-full aspect-square">
+            <div className="lg:col-span-2 w-full aspect-square mt-12 2xl:mt-0">
               <RadarChart
                 showThirdPerson={showThirdPersonAssessment}
                 scores={scores}
