@@ -392,26 +392,26 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
           )}
         </div>
         {selectedMethod && selectedType && (selectedMethod.value === 2 || selectedMethod.value === 3) && (
-          <div className='flex mt-6 lg:mr-10 justify-center gap-20 flex-col-reverse lg:flex-col border-2 border-grays py-5 pb-16'>
-            <div className='text-center'>
-              <div className='flex mt-4 items-center justify-center'>
-                <svg className="h-16 w-26 text-main" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />  <polyline points="14 2 14 8 20 8" />  <line x1="16" y1="13" x2="8" y2="13" />  <line x1="16" y1="17" x2="8" y2="17" />  <polyline points="10 9 9 9 8 9" /></svg>
-                <Button
-                  title='雛形のCSVをダウンロード'
-                  onClick={handleButtonClick}
-                  className='px-5'
-                />
-              </div>
-            </div>
-            <div className='text-center'>
-              <div className='font-bold'>CSVファイルをアップロード</div>
-              <div className=''>
-                <CsvUploader
-                  uploadData={setUploadedData}
-                />
-              </div>
+          <div className='flex mt-6 lg:mr-10 justify-center gap-20 flex-col border-2 border-grays py-5 pb-16'>
+          <div className='text-center'>
+            <div className='flex gap-x-8 mt-4 items-center justify-center'>
+              <img className='w-[62px]' src='/public/icon-note.svg' alt='アイコン' />
+              <Button
+                title='ひな形のCSVをダウンロード'
+                onClick={handleButtonClick}
+                className='px-6 py-3'
+              />
             </div>
           </div>
+          <div className='text-center'>
+            <div className='font-bold font-HiraginoKakuGothicProNW6 text-lg'>CSVファイルをアップロード</div>
+            <div className='m-3.5'>
+              <CsvUploader
+                uploadData={setUploadedData}
+              />
+            </div>
+          </div>
+        </div>
         )}
         {members && selectedMethod.value === 1 && (
           <div className={`bg-white px-10 ${selectedMethod.value === 1 ? "mt-6" : "mt-16"} border border-black`}>
