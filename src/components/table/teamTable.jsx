@@ -125,7 +125,6 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                 value={productivity}
                 disabled={subscriptionGlobal}
                 onChange={(e) => handleChangeProductivity(e.target.value)} />
-                <img className="w-5 lg:w-6 block sp:hidden" src="/public/company-edit.png" alt="編集" />
             </div>
           </div>
           <div className="overflow-y-visible	">
@@ -194,7 +193,6 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                             disabled={subscriptionGlobal}
                             placeholder="数値を入力"
                           />
-                          <img className="w-5 block sp:hidden" src="/public/item-edit.png" alt="編集" />
                         </td>
                       </tr>
                     ))}
