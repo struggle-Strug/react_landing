@@ -55,12 +55,10 @@ function LoginPage() {
             <div className="w-2/3 px-5 mb-32 sp:pt-20 sp:w-3/4 sp:mb-0">
               <img className="" src={Logo} alt="Logo" />
             </div>
-            <p className="text-white font-bold font-CenturyGothic xl:text-[42px] lg:text-3xl md:text-2xl sp:mt-7 sp:text-2xl mb-4">
+            <p className="text-white font-bold font-CenturyGothic-Bold xl:text-5xl lg:text-3xl md:text-2xl sp:mt-7 sp:text-2xl mb-4 sp:mb-0">
               Heart Beat FINDER
             </p>
-            <p className="text-white font-NotoSansCJKjp-Regular xl:text-3xl lg:text-2xl md:text-xl sp:font-thin sp:text-xl">
-              Assessment Tool
-            </p>
+            <p className="text-white font-Light font-NotoSansCJKjp-Light xl:text-3xl lg:text-2xl md:text-xl sp:text-xl">Assessment Tool</p>
           </div>
           <div className="grow-[1]"></div>
         </div>
@@ -68,7 +66,7 @@ function LoginPage() {
           <div className=" my-3">
             <img src={CompanyLogo} width={131} alt="company-logo" />
           </div>
-          <p className="text-[10px] text-white font-NotoSansCJKjp-Regular">
+          <p className="text-[10px] text-white font-NotoSansCJKjp-Light">
             © 2023 CUOREMO inc. all lights reserved.
           </p>
         </div>
@@ -85,28 +83,28 @@ function LoginPage() {
           >
             emailかパスワードが間違っています
           </p>
-          <p className="text-5xl text-center mb-3 sp:mb-2 font-CenturyGothic sp:text-2xl">
+          <p className="text-5xl text-center mb-3 sp:mb-2 font-CenturyGothic sp:text-xl">
             Mail Address
           </p>
-          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3 font-bold">
+          <p className="mb-3 sp:mb-2 text-center text-sm sp:text-xs font-HiraginoKakuGothicProNW6 font-bold">
             メールアドレス
           </p>
           <input
-            className="lg:w-full pl-12 flex items-center sp:pl-5 md:w-80 w-64 sp:h-10 sp:w-5/6 border-[#00008C] border-2 rounded-full focus:border-0 text-xl bg-[#F2FAFD]"
+            className="lg:w-full pl-12 flex items-center sp:pl-5 md:w-80 w-64 sp:h-10 sp:w-5/6 border-[#00008C] border-2 rounded-full focus:border-0 text-xl sp:text-lg bg-[#F2FAFD]"
             label="メールアドレス"
             type="email"
             value={email}
             placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
-          <p className="text-5xl text-center font-light	mb-2 mt-16 sp:mt-5 font-CenturyGothic sp:text-2xl">
+          <p className="text-5xl text-center font-light	mb-2 mt-16 sp:mt-5 font-CenturyGothic sp:text-xl">
             Password
           </p>
-          <p className="mb-3 sp:mb-2 text-center text-xs font-HiraginoKakuGothicProNW3 font-bold">
+          <p className="mb-3 sp:mb-2 text-center text-sm sp:text-xs font-HiraginoKakuGothicProNW6 font-bold">
             パスワード
           </p>
           <input
-            className="lg:w-full pl-12 sp:pl-5 mb-20 sp:mb-5 md:w-80 w-64 sp:w-5/6 sp:h-9 border-main border-2 rounded-full focus:border-0 text-xl bg-[#F2FAFD]"
+            className="lg:w-full pl-12 sp:pl-5 mb-20 sp:mb-5 md:w-80 w-64 sp:w-5/6 sp:h-9 border-main border-2 rounded-full focus:border-0 text-xl sp:text-lg bg-[#F2FAFD]"
             label="パスワード"
             type="password"
             value={password}
@@ -115,13 +113,13 @@ function LoginPage() {
           />
           <Button
             title="Login"
-            className="lg:w-72 sp:w-44 h-16 sp:h-12 text-4xl sp:text-2xl md:w-80 w-64 font-bold rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors font-CenturyGothic"
+            className="lg:w-72 sp:w-44 h-16 sp:h-12 text-4xl sp:text-xl md:w-80 w-64 font-bold rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors font-CenturyGothic-Bold"
             disabled={!buttonEnabled}
           />
         </form>
         <NavLink
           to="/forgot"
-          className="-mt-1 text-sm hover:opacity-60 transition-opacity text-[#4215FF] font-NotoSansCJKjp-Regular sp:mb-6"
+          className="-mt-1 text-sm sp:text-xs hover:opacity-60 transition-opacity text-[#4215FF] font-NotoSansCJKjp-Regular sp:mb-6"
         >
           パスワードを忘れた場合はこちら
         </NavLink>
@@ -130,7 +128,7 @@ function LoginPage() {
         <div className="">
           <img src={CompanyLogo} width={131} alt="company-logo" />
         </div>
-        <p className="text-xs mt-5 mb-2 text-white">
+        <p className="text-xs mt-5 mb-2 text-white font-NotoSansCJKjp-Light">
           <NavLink to={"/terms"} className={"mr-5"}>
             利用規約
           </NavLink>
@@ -138,7 +136,7 @@ function LoginPage() {
             プライバシーポリシー
           </NavLink>
         </p>
-        <p className="text-xs text-white font-NotoSansCJKjp-Regular">
+        <p className="text-[10px] text-white font-NotoSansCJKjp-Light">
           © 2023 CUOREMO inc. all lights reserved.
         </p>
       </div>
