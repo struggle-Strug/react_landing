@@ -34,12 +34,11 @@ export default function MemberModal({
     teams.filter((t) => t.value !== 0).map((t) => ({ ...t, checked: false }))
   );
 
+
   const [thirdEvaluationOptions, setThirdEvaluationOptions] = useState(
     members.map((mem) => ({ value: mem.id, label: mem.name }))
   );
-  const [thirdEvaluation, setThirdEvaluation] = useState(
-    members.map((mem) => ({ value: mem.id, label: mem.name }))
-  );
+  const [thirdEvaluation, setThirdEvaluation] = useState();
 
   function clickHandler() {
     onClose(false);
@@ -71,6 +70,7 @@ export default function MemberModal({
       team_relation: newTeams,
       assessment_1st_exclude: assessmentExclude,
       productivity_member: productivity,
+      thirdEvaluation: thirdEvaluation,
     };
     setFormData(formData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,6 +83,7 @@ export default function MemberModal({
     selectedTeams,
     assessmentExclude,
     productivity,
+    thirdEvaluation,
   ]);
 
   useEffect(() => {
@@ -110,7 +111,13 @@ export default function MemberModal({
     setSelectedTeams(defaultTeams);
     setAssessmentExclude(member.assessment_1st_exclude);
     setProductivity(member.productivity_member);
-    // setThirdEvaluation(member.given_evaluations.name.map(eva => ({ value: eva, label: eva })))
+    setThirdEvaluation(member.given_evaluations.name.map((eva) => {
+      const foundMember = members.find((m) => m.name === eva);
+      if (foundMember) {
+        return { value: foundMember.id, label: foundMember.name };
+      }
+    })
+    )
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member]);
 
@@ -318,6 +325,7 @@ export default function MemberModal({
                         >
                           <MultiDropdown
                             options={thirdEvaluationOptions}
+                            selectedOption={thirdEvaluation}
                             setSelectedOption={setThirdEvaluation}
                           />
                         </div>

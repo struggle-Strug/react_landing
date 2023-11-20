@@ -59,6 +59,7 @@ export function MultiDropdown({ options, placeholder, selectedOption, setSelecte
         styles={(screenWidth > 768) ? dropboxStyles : tabletStyles}
         onChange={handleChange}
         options={options}
+        value={selectedOption}
         isSearchable={false}
         isMulti
       />

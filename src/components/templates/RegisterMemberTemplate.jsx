@@ -173,6 +173,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       })
       const data = await resp.json()
       if (resp.status === 200 || resp.status === 201) {
+        console.log(data)
         setStatus("success")
         setErrorMessage('')
       } else {
