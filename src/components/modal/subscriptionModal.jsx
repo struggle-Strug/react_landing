@@ -10,7 +10,7 @@ export default function SubscriptionModal({ open, title, msg, onClose, onConfirm
   }
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {onClose(false)}}>
+      <Dialog as="div" className="relative z-50" onClose={() => {onClose(false)}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

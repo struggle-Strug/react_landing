@@ -25,7 +25,7 @@ export default function AssessorsModal({ open, title, msg, status, setShowNumOfA
   }
   return (
     <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={() => {setShowNumOfAssessors(false)}}>
+      <Dialog as="div" className="relative z-50" onClose={() => {setShowNumOfAssessors(false)}}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"

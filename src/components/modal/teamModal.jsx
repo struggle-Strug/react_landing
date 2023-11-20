@@ -45,7 +45,7 @@ export default function TeamModal({ open, title, onClose, team, submitForm, load
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={clickHandler}>
+        <Dialog as="div" className="relative z-50" onClose={clickHandler}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
