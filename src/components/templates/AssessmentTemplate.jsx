@@ -38,24 +38,24 @@ export default function AssessmentTemplate({
 
   return (
     <>
-      <div className="max-w-[1144px] w-full">
+      <div className="max-w-[1144px] sm:w-full xl:w-3/4">
         <div className="font-bold">
           <div className="mt-6 mb-10">
             <div className="hidden sp:block text-center mt-10 mb-8 sp:text-xs text-main">{"自分自身のアセスメントを実施する"}</div>
             <div className="text-center text-lg	sm:text-2xl mb-[72px] mx-3 sp:mx-0 sp:px-5 sp:mb-0">
               {/* {assessment.received_evaluations_name} さんのアセスメント */}
-              <p className="lg:text-4xl md:text-3xl sp:text-xl mb-2 text-[#707070] font-bold font-CenturyGothic">
+              <p className="lg:text-4xl md:text-3xl sp:text-xl mb-6 text-[#707070] font-bold font-CenturyGothic">
                 {"Question"}
               </p>
-              <p className="2xl:text-[54px] xl:text-5xl lg:text-4xl md:text-3xl font-light mb-5 font-HiraginoKakuGothicProNW3 text-main sp:text-2xl">
+              <p className="2xl:text-[54px] xl:text-5xl lg:text-4xl md:text-3xl font-light mb-8 font-HiraginoKakuGothicProNW3 text-main sp:text-2xl">
                 {"以下の質問にお答えください。"}
               </p>
-              <p className="text-xs font-HiraginoKakuGothicProNW3 font-light text-main sp:text-xs">
+              <p className="text-sm font-HiraginoKakuGothicProNW3 font-light text-main sp:text-xs">
                 {
                   "精度の高いフィードバックにするためにも、率直に正直にお答えください。"
                 }
               </p>
-              <p className="text-xs font-HiraginoKakuGothicProNW3 text-main sp:text-xs font-light">
+              <p className="text-sm font-HiraginoKakuGothicProNW3 text-main sp:text-xs font-light">
                 {
                   "（もし対象者について回答する場合も、対象者に回答が開示されることはありませんのでご安心ください。）"
                 }
