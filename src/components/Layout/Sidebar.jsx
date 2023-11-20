@@ -98,19 +98,19 @@ export default function Sidebar() {
 
   return (
     <>
-      <div className="bg-main fixed z-20 flex md:w-80 lg:w-[450px] h-screen flex-col overflow-y-auto">
-        <div className="flex grow flex-col my-3 px-10">
+      <div className="bg-main fixed z-20 flex md:w-80 lg:w-[380px] 2xl:w-[450px] h-screen flex-col overflow-y-auto">
+        <div className="flex grow flex-col my-3 2xl:px-10 px-8">
           <nav className="flex flex-1 flex-col">
-            <div className="mx-auto mt-[80px]">
+            <div className="mx-auto mt-8">
               <img src={Logo} alt="Logo" width={240} />
             </div>
-            <p className="text-center text-white mt-8 text-xl font-bold font-CenturyGothic">
+            <p className="text-center text-white mt-8 text-xl font-bold font-CenturyGothic-Bold">
               Heart Beat FINDER
             </p>
-            <p className="text-white mt-8 text-xs text-center font-HiraginoKakuGothicProNW3">
+            <p className="text-white mt-8 text-sm text-center font-HiraginoKakuGothicProNW6 font-bold">
               株式会社CUOREMO
             </p>
-            <div className="lg:flex block justify-around items-center mt-3 ">
+            <div className="lg:flex block justify-around items-center mt-2 ">
               <div>
                 <span className="text-white lg:text-3xl text-2xl font-NotoSansCJKjp-Regular">
                   {user.name}
@@ -299,7 +299,7 @@ export default function Sidebar() {
                 <NavLink
                   to={menuItems[5].href}
                   onClick={logoutUser}
-                  className="w-[140px] flex justify-center py-2 mt-6 text-sm lg:text-base text-white border-2 rounded-full m-auto font-bold font-CenturyGothic"
+                  className="w-[140px] flex justify-center py-1.5 mt-6 text-sm lg:text-base text-white border-2 rounded-full m-auto font-bold font-CenturyGothic-Bold drop-shadow"
                 >
                   {/* <ArrowRightOnRectangleIcon
                       className='h-6 w-6 shrink-0 group-hover:text-gray-500'
@@ -310,11 +310,11 @@ export default function Sidebar() {
               </li>
             </ul>
             <div>
-              <div className="flex justify-center mt-16">
+              <div className="flex justify-center mt-14">
                 <img src={CompanyLogo} width={131} alt="company-logo" />
               </div>
             </div>
-            <div className="mt-7 mx-auto mb-3">
+            <div className="mt-6 mx-auto mb-3">
               <NavLink
                 to={"/terms"}
                 className="text-[10px] text-white mr-6 font-NotoSansCJKjp-Regular"
