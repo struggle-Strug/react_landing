@@ -241,7 +241,7 @@ export default function TeamTemplate({ data }) {
                 チーム/メンバーのアセスメント結果
               </p>
             </div>
-            <div className="flex flex-col gap-8 max-w-[600px] w-full mt-11 mx-auto px-5">
+            <div className="flex flex-col gap-8 max-w-[512px] w-full mt-11 mx-auto px-5">
               <div className="w-full flex justify-between items-center gap-5">
                 <div className="lg:text-xl text-base">●会社を選択</div>
                 <Dropdown
@@ -268,10 +268,10 @@ export default function TeamTemplate({ data }) {
               </div>
             </div>
             {teamData && (
-              <div className="mt-8 mx-6">
-                <div className="my-16">
-                  <div className="w-0 h-0 mx-auto mt-8 border-main border-t-[20px] border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent"></div>
-                  <p className="text-xl text-center mx-auto">
+              <div className="lg:mx-6">
+                <div className="my-8">
+                  <div className="w-0 h-0 mx-auto border-main border-t-[20px] border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent"></div>
+                  <p className="text-xl lg:text-2xl font-bold font-HiraginoKakuGothicProNW6 text-center mx-auto mt-5">
                     自己アセスメントのチーム平均値
                   </p>
                 </div>
@@ -279,7 +279,7 @@ export default function TeamTemplate({ data }) {
                   <div className="flex flex-col flex-wrap sm:flex-row bg-white w-full sm:w-full justify-between">
                     <div className="w-1/2 max-w-[600px] min-w-[390px] mx-auto">
                       <div className="m-auto mt-10 xl:mt-0 xl:w-60 w-52">
-                        <div className="text-sm border border-black xl:pl-5 xl:pr-1 pl-2 py-1">
+                        <div className="text-sm border border-black xl:pl-5 xl:pr-1 pl-2 py-2">
                           <div className="text-red-500 flex items-center xl:mb-3 mb-1">
                             <hr className="w-10 h-1 bg-[#FF0000] mr-2" />
                             <p className="text-[#FF0000] text-xs font-HiraginoKakuGothicProNW3">
@@ -304,18 +304,18 @@ export default function TeamTemplate({ data }) {
                     </div>
                     <div className="flex gap-3 mx-auto">
                       <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold">
-                        <div className="h-14 flex justify-center items-center text-center text-xl bg-main text-white">
+                        <div className="h-14 flex justify-center items-center text-center text-xl lg:text-2xl bg-main text-white">
                           <span>ギャップ値</span>
                           <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full">
                             ?
                           </span>
                         </div>
-                        <div className="flex justify-between items-center px-7 py-2">
+                        <div className="flex justify-between items-center px-4 lg:px-7 py-2">
                           <div className="text-xl">全体平均</div>
-                          <div className="text-5xl">{teamData.gap}</div>
+                          <div className="text-3xl lg:text-5xl">{teamData.gap}</div>
                         </div>
                         <div className="h-[3px] border-t border-b border-black mx-2"></div>
-                        <div className=" flex items-center px-7 pt-4 pb-8">
+                        <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
                           <ul>
                             {subjects.map((sub, i) => (
                               <li className="flex justify-between items-center my-1" key={`score-${i}`}>
@@ -389,10 +389,10 @@ export default function TeamTemplate({ data }) {
             )}
             {selectedTeam && selectedMember && (
               <div className="mt-8 mx-6">
-                <div className="text-center text-3xl">
+                <div className="text-center text-xl lg:text-2xl xl:text-3xl font-bold font-HiraginoKakuGothicProNW6">
                   自己評価とメンバーからの第三者評価（平均値）
                 </div>
-                <div className="flex justify-evenly items-center flex-wrap mb-5">
+                <div className="flex justify-evenly items-center flex-wrap  md:mb-10 xl:mb-5">
                   {scoreData &&
                     scoreData["1st"] &&
                     scoreData["3rd"] &&
@@ -456,7 +456,7 @@ export default function TeamTemplate({ data }) {
                   </div> */}
                       <Button
                         title={`${selectedMember.received_evaluations_snapshot}さんの回答結果を見る`}
-                        className="text-white px-3"
+                        className="text-white px-14 text-sm lg:text-lg py-5"
                         onClick={handleGetAnswer}
                       ></Button>
                     </div>
@@ -464,21 +464,21 @@ export default function TeamTemplate({ data }) {
                 </div>
 
                 <div>
-                  <div className="text-center text-3xl">
+                  <div className="text-center text-xl lg:text-2xl xl:text-3xl font-bold font-HiraginoKakuGothicProNW6">
                     メンバーからの第三者評価（個別の結果）
                   </div>
                   {scoreData &&
                     scoreData["1st"] &&
                     scoreData["3rd"] &&
                     scoreData["3rd_average"] && (
-                      <div className="bg-white w-fit min-w-full flex items-center justify-start mt-8 flex-wrap">
+                      <div className="bg-white w-fit min-w-full flex items-center md:justify-center lg:justify-start mt-8 flex-wrap gap-x-2 gap-y-14">
                         {scoreData["3rd"].map((score, idx) => (
                           <div
-                            className="w-[300px] flex flex-col items-center mx-auto"
+                            className="w-[300px] lg:w-[49%] xl:w-[24%] flex flex-col items-center"
                             key={idx}
                           >
                             <div className="w-full text-sm px-5 text-center">
-                              <div className="text-main text-sm border-b border-black ">
+                              <div className="text-main text-sm border-b border-black pb-3">
                                 {`匿名メンバー_${(idx + 10).toString(36).toUpperCase()}`}
                               </div>
                             </div>
