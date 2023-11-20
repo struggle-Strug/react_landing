@@ -9,13 +9,28 @@
 } 
 
 @font-face { 
+  font-family: "CenturyGothic-Bold"; 
+  src: url("../public/fonts/century-gothic-bold.ttf"); 
+} 
+
+@font-face { 
   font-family: "HiraginoKakuGothicProNW3"; 
   src: url("../public/fonts/Hiragino Kaku Gothic ProN W3.otf"); 
 }
 
 @font-face { 
+  font-family: "HiraginoKakuGothicProNW6"; 
+  src: url("../public/fonts/Hiragino Kaku Gothic ProN W6.otf"); 
+}
+
+@font-face { 
   font-family: "NotoSansCJKjp-Regular"; 
   src: url("../public/fonts/NotoSansCJKjp-Regular.otf"); 
+} 
+
+@font-face { 
+  font-family: "NotoSansCJKjp-Light"; 
+  src: url("../public/fonts/NotoSansCJKjp-Light.ttf"); 
 } 
 
 /* width */
