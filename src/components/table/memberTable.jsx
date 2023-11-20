@@ -101,7 +101,7 @@ export default function MemberTable({
           </div> */}
         </div>
       </div>
-      <div className="mt-8 flow-root relative h-[400px] overflow-y-auto overflow-x-auto">
+      <div className="mt-8 flow-root relative h-[600px] overflow-y-auto overflow-x-auto">
         <div className="mx-auto">
           <table className="w-full text-center whitespace-nowrap">
             <thead className="sticky top-0 shadow z-10 bg-main">
