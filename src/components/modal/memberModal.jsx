@@ -188,7 +188,7 @@ export default function MemberModal({ members, open, title, onClose, member, tea
                       <div className='grid grid-cols-3 gap-4 mt-6'>
                         <div>
                           <div className='text-left font-semibold'>
-                            生産性
+                            生産性スコア
                             <span className="ml-2 text-xs text-red-600">
                               必須
                             </span>
