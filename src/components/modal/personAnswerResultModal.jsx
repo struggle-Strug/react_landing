@@ -40,7 +40,7 @@ export default function PersonAnswerResultModal({
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-[#EBFBFF] px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl sm:p-6 border-4 border-main">
+              <Dialog.Panel className="relative transform overflow-hidden bg-[#EBFBFF] px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-6xl sm:p-6">
                 <div className="font-HiraginoKakuGothicProNW3">
                   {userAnswers !== undefined && (
                     <div className="flow-root overflow-y-auto bg-[#EBFBFF] py-10 px-5">
@@ -53,15 +53,15 @@ export default function PersonAnswerResultModal({
                           <span className="w-[40px] h-[1px] block bg-black -rotate-45"></span>
                         </div>
                       </div>
-                      <div className="text-center text-3xl bg-main w-5/6 mx-auto text-white py-4 mb-10">
+                      <div className="text-center text-2xl lg:text-3xl bg-main w-5/6 mx-auto text-white py-4 mb-10">
                         {selectedMember.received_evaluations_snapshot}{" "}
                         さんへのアセスメント結果を見る
                       </div>
                       <table className="w-full">
-                        <thead className="bg-white py-2">
+                        <thead className="bg-white py-2 font-bold font-HiraginoKakuGothicProNW6">
                           <tr className="text-center">
                             <th className="w-[5%]"></th>
-                            <th>設問</th>
+                            <th className="text-xl">設問</th>
                             <th className="break-keep">回答</th>
                             <th className="break-keep">会社平均</th>
                           </tr>
@@ -86,7 +86,7 @@ export default function PersonAnswerResultModal({
                                   </tr>
                                   {categoryAnswers.map((answer, idx) => (
                                     <tr key={idx}>
-                                      <td className="py-2">{idx + 1}</td>
+                                      <td className="py-3">{idx + 1}</td>
                                       <td>{answer.quiz}</td>
                                       <td className="text-center">
                                         {answer.answer}
