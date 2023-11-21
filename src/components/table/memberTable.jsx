@@ -222,10 +222,11 @@ export default function MemberTable({
                       </div>
                     </td>
                     <td className="relative p-3 min-w-1/12 border-r-[1px] border-grays">
-                      {person.assessment_1st_exclude && '完了'}
+                      {person.first.status_check}
                     </td>
                     <td className="hidden py-4 whitespace-nowrap text-xs lg:table-cell border-r-[1px] border-gray">
-                      残 {person.given_evaluations.name.length}名
+                      {/* 残 {person.given_evaluations.name.length}名 */}
+                      {person.third.status_check}
                     </td>
                   </tr>
                 ))}
