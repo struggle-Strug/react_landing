@@ -14,7 +14,20 @@ export default {
           3: '#90D0D9'
         },
         main: '#00008C',
-        btn: '#140AAA'
+        btn: '#140AAA',
+        grays: '#A0A0A0',
+        table: '#F5F5F5'
+      },
+      fontFamily: {
+        'CenturyGothic': ['CenturyGothic'],
+        'HiraginoKakuGothicProNW3': ['HiraginoKakuGothicProNW3'],
+        'NotoSansCJKjp-Regular': ['NotoSansCJKjp-Regular'],
+      },
+      boxShadow: {
+        'btn-shadow' : '1px 3px 60px rgba(0, 0, 0)'
+      },
+      screens: {
+        'sp': { 'max': '768px' }
       },
       extend: {},
     }

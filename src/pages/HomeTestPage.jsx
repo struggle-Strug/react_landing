@@ -20,7 +20,7 @@ const HomeTest = () => {
   }, [fetchAssessments])
 
   return (
-    <div className='relative top-16 flex justify-center h-[calc(100vh-4rem)]'>
+    <div className='flex md:items-center justify-center min-h-screen'>
       {assessments && (
         <HomeTestTemplate assessments={assessments}/>
       )}

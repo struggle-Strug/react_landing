@@ -19,7 +19,7 @@ import AssessorsModal from '../modal/assessorsModal'
 import RandomConfirmModal from '../modal/randomConfirmModal'
 import { BACKEND_URL, MEMBER_ENDPOINT, ASSIGN_ENDPOINT, EVALUATION_ENDPOINT, EVALUATIONS_ENDPOINT } from '../../utils/constants'
 import { requestWithTokenRefresh } from '../../utils/AuthService'
-import { useNavigate } from 'react-router' 
+import { useNavigate } from 'react-router'
 import Loader from '../loader'
 
 export default function RegisterMemberTemplate({ members, teams, refreshData, companyProductivity }) {
@@ -70,7 +70,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
   useEffect(() => {
     if (!Array.isArray(uploadedData)) { return }
     if (selectedMethod.value === 3) {
-      if (selectedAssignMethod.value === 1){
+      if (selectedAssignMethod.value === 1) {
         const SendRandom = async () => {
           try {
             const url = ASSIGN_ENDPOINT + 'update/'
@@ -95,7 +95,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
         }
         SendRandom()
       }
-      else{
+      else {
         const SendEvaluations = async () => {
           const url = EVALUATIONS_ENDPOINT + 'update/'
           try {
@@ -113,7 +113,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
               setShowNumOfAssessorsMessage(data.error)
               setShowNumOfAssessors(true)
             }
-          } catch(err) {
+          } catch (err) {
             setShowNumOfAssessors(true)
           }
         }
@@ -137,21 +137,21 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
         teams
           .filter(t => t.label !== "全チーム")
           .map(t => t.label)
-      headers = [...RegisterationHeaders, "assessment_1st_exclude", "productivity",...teamNames]
+      headers = [...RegisterationHeaders, "assessment_1st_exclude", "productivity", ...teamNames]
       // eslint-disable-next-line no-unused-vars
       const teamExplanations = teamNames.map(_ => "所属する場合は1を記入してください")
-      secondRow = [...explanationRow, "True/Falseを入力（例：自己アセスメントを実施しない社員に対してTrueを設定する）", "生産性について1〜10まで数字を入力",...teamExplanations]
+      secondRow = [...explanationRow, "True/Falseを入力（例：自己アセスメントを実施しない社員に対してTrueを設定する）", "生産性について1〜10まで数字を入力", ...teamExplanations]
       // }
     } else if (selectedMethod.value === 3) {
-      if(selectedAssignMethod.value == 1) {
+      if (selectedAssignMethod.value == 1) {
         headers = [...RegisterationHeaders, "random"]
 
         secondRow = [...explanationAssessmentRow, "アサインしあうメンバーに共通する数字を入力"]
       } else if (selectedAssignMethod.value == 2) {
         const headerData = members.filter((member) => member.is_active === true).map(m => m.name)
         headers = [...RegisterationHeaders, ...headerData]
-  
-        const teamExplanations = Array(headerData.length-1).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
+
+        const teamExplanations = Array(headerData.length - 1).fill().map(() => "アセスメントする対象として選ぶ場合は1を入力");
         secondRow = [...explanationAssessmentRow, ...teamExplanations]
       }
     }
@@ -173,6 +173,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       })
       const data = await resp.json()
       if (resp.status === 200 || resp.status === 201) {
+        console.log(data)
         setStatus("success")
         setErrorMessage('')
       } else {
@@ -182,7 +183,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       setShowModal(false)
       setIsLoading(false)
       setShowConfirmation(true)
-    } catch(error){
+    } catch (error) {
       setStatus("failed")
       setErrorMessage(error)
       setShowModal(false)
@@ -191,7 +192,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
     }
   }
 
-  async function handleReset(){
+  async function handleReset() {
     setIsLoading(true)
     const url = EVALUATION_ENDPOINT + 'delete/' + member.id.toString() + '/'
     const resp = await requestWithTokenRefresh(url, {
@@ -201,11 +202,11 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       },
     })
     const data = await resp.json()
-    if(resp.status === 200){
+    if (resp.status === 200) {
       setStatus("failed")
       setErrorMessage('')
     }
-    else{
+    else {
       setStatus("failed")
       setErrorMessage(data)
     }
@@ -216,7 +217,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
     setUserArray([])
   }
 
-  async function handleUpdate(){
+  async function handleUpdate() {
     setIsLoading(true)
     let received_evaluations = userArray.map((item) => item.id)
     const url = EVALUATION_ENDPOINT + 'update/'
@@ -329,7 +330,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
             ...given_evaluations
           ])
       const csvData = columnHeaders.concat(memberData)
-      if(selectedAssignMethod.value == 1) {
+      if (selectedAssignMethod.value == 1) {
         DownloadCSV(csvData, "random_template")
       } else if (selectedAssignMethod.value == 2) {
         DownloadCSV(csvData, "manual_template")
@@ -338,11 +339,12 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
   }
 
   return (
-    <div className='w-full bg-slate-100 overflow-auto'>
+    <div className='w-full overflow-auto'>
       <div className='mx-4'>
-        <div className='lg:flex'>
-          <div className='w-48 ml-6 mt-4 z-20'>
-            <div className='mb-2'>チームを選択</div>
+        <h1 className='lg:text-[45px] md:text-4xl sp:text-3xl font-bold text-gray-900 text-center'>メンバー登録・編集</h1>
+        <div className='lg:flex lg:justify-around'>
+          <div className={`ml-6 mt-4 z-20 flex w-full ${selectedMethod && selectedMethod.value !== 1 && ' flex-col items-start '}`}>
+            <div className='mr-2 my-2'>●メンバーを登録するチームを選択</div>
             <Dropdown
               options={teams}
               placeholder="全チーム"
@@ -350,8 +352,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
               setSelectedOption={setSelectedTeam}
             />
           </div>
-          <div className='w-32 ml-6 mt-4 z-20'>
-            <div className='mb-2 whitespace-nowrap'>登録・編集方法</div>
+          <div className={`ml-6 mt-4 z-20 flex w-full ${selectedMethod && selectedMethod.value !== 1 && ' flex-col  '}`}>
+            <div className='mr-2 my-2'>●メンバーの登録方法を選択</div>
             <Dropdown
               options={subscriptionGlobal ? RegistrationMethods[0] : RegistrationMethods}
               selectedOption={selectedMethod}
@@ -359,8 +361,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
             />
           </div>
           {selectedMethod && selectedMethod.value === 2 && (
-            <div className='w-32 ml-6 mt-4 z-20'>
-              <div className='mb-2'>種別</div>
+            <div className='ml-6 mt-4 z-20 flex flex-col w-full'>
+              <div className='mr-2 my-2'>●種別</div>
               <Dropdown
                 options={RegistrationTypes}
                 selectedOption={selectedType}
@@ -369,8 +371,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
             </div>
           )}
           {selectedMethod && selectedMethod.value === 3 && (
-            <div className='w-36 ml-6 mt-4 z-20'>
-              <div className='mb-2 whitespace-nowrap'>第三者評価者の設定</div>
+            <div className='ml-6 mt-4 z-20 flex flex-col w-full'>
+              <div className='mr-2 my-2 whitespace-nowrap'>●第三者評価者の設定</div>
               <Dropdown
                 options={AssignMethods}
                 selectedOption={selectedAssignMethod}
@@ -390,28 +392,29 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
           )}
         </div>
         {selectedMethod && selectedType && (selectedMethod.value === 2 || selectedMethod.value === 3) && (
-          <div className='flex mt-6 lg:mr-10 justify-center gap-20 flex-col-reverse lg:flex-row'>
-            <div className='text-center'>
-              <div>CSVダウンロード</div>
-              <div className='flex mt-4'>
-                <Button
-                  title='雛形のCSVをダウンロード'
-                  onClick={handleButtonClick}
-                />
-              </div>
-            </div>
-            <div className='text-center'>
-              <div>CSVアップロード</div>
-              <div className=''>
-                <CsvUploader
-                  uploadData={setUploadedData}
-                />
-              </div>
+          <div className='flex mt-6 lg:mr-10 justify-center gap-20 flex-col border-2 border-grays py-5 pb-16'>
+          <div className='text-center'>
+            <div className='flex gap-x-8 mt-4 items-center justify-center'>
+              <img className='w-[62px]' src='/public/icon-note.svg' alt='アイコン' />
+              <Button
+                title='ひな形のCSVをダウンロード'
+                onClick={handleButtonClick}
+                className='px-6 py-3'
+              />
             </div>
           </div>
+          <div className='text-center'>
+            <div className='font-bold font-HiraginoKakuGothicProNW6 text-lg'>CSVファイルをアップロード</div>
+            <div className='m-3.5'>
+              <CsvUploader
+                uploadData={setUploadedData}
+              />
+            </div>
+          </div>
+        </div>
         )}
         {members && selectedMethod.value === 1 && (
-          <div className={`bg-white px-2 pt-6 ${selectedMethod.value === 1 ? "mt-6" : "mt-16"} rounded-lg border`}>
+          <div className={`bg-white px-10 ${selectedMethod.value === 1 ? "mt-6" : "mt-16"} border border-black`}>
             <MemberTable
               members={teamMembers}
               team={selectedTeam}
@@ -437,6 +440,9 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       {showModal && (
         <MemberModal
           open={showModal}
+          members={teamMembers.filter((tM) => {
+            return tM.id !== member?.id;
+          })}
           onClose={setShowModal}
           title="メンバー登録・編集フォーム"
           msg="必要事項を入力して、送信ボタンを押してください。"
@@ -462,7 +468,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
           onClose={setShowEditEvaluation}
           title="第三者評価登録・編集フォーム"
           members={
-            teamMembers.filter((tM) => { 
+            teamMembers.filter((tM) => {
               return tM.id !== member.id;
             })
           }
@@ -501,7 +507,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
         <RandomConfirmModal
           open={confirmMakeRandomAssessors}
           title={"第三者評価者の組み合わせを作成"}
-          msg={ "ランダムの組み合わせで第三者評価者の組み合わせを作成します。\
+          msg={"ランダムの組み合わせで第三者評価者の組み合わせを作成します。\
           問題なければ作成するをクリックしてください"}
           status={"success"}
           handleNumConfirm={handleNumConfirm}

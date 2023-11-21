@@ -45,7 +45,7 @@ export default function TeamModal({ open, title, onClose, team, submitForm, load
   return (
     <>
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={clickHandler}>
+        <Dialog as="div" className="relative z-50" onClose={clickHandler}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -85,16 +85,18 @@ export default function TeamModal({ open, title, onClose, team, submitForm, load
                           onChange={(e) => setTeamName(e.target.value)}
                         />
                       </div>
-                      <div className='mt-4'>
-                        <div className='text-left font-semibold'>生産性</div>
-                        <InputField
-                          type="number"
-                          value={productivity}
-                          min={1}
-                          max={10}
-                          onChange={(e) => setProductivity(e.target.value)}
-                        />
-                      </div>
+                      {!team && (
+                        <div className='mt-4'>
+                          <div className='text-left font-semibold'>生産性</div>
+                          <InputField
+                            type="number"
+                            value={productivity}
+                            min={1}
+                            max={10}
+                            onChange={(e) => setProductivity(e.target.value)}
+                          />
+                        </div>
+                      )}
                     </div>
                     <div className="mt-8 flex justify-center">
                       <Button

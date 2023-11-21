@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import InputField from '../inputfield'
-import Dropdown from '../dropdown'
+import Dropdown, { MultiDropdown } from '../dropdown'
 import Button from '../button'
 import { userStatusTypes } from '../../config/options'
 import { useAtom } from 'jotai'
@@ -11,7 +11,7 @@ import { formAtom } from '../../utils/atom'
 import Loader from '../loader'
 
 // eslint-disable-next-line react/prop-types
-export default function MemberModal({ open, title, onClose, member, teams, submitForm, loading }) {
+export default function MemberModal({ members, open, title, onClose, member, teams, submitForm, loading }) {
   const [, setFormData] = useAtom(formAtom)
   const [name, setName] = useState("")
   const [hiraganaName, setHiraganaName] = useState("")
@@ -26,6 +26,9 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
       .filter(t => t.value !== 0)
       .map(t => ({ ...t, checked: false }))
   )
+
+  const [thirdEvaluationOptions, setThirdEvaluationOptions] = useState(members.map(mem => ({ value: mem.id, label: mem.name })))
+  const [thirdEvaluation, setThirdEvaluation] = useState(members.map(mem => ({ value: mem.id, label: mem.name })))
 
   function clickHandler() {
     onClose(false)
@@ -82,6 +85,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
     setSelectedTeams(defaultTeams)
     setAssessmentExclude(member.assessment_1st_exclude)
     setProductivity(member.productivity_member)
+    // setThirdEvaluation(member.given_evaluations.name.map(eva => ({ value: eva, label: eva })))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member])
 
@@ -134,15 +138,15 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                 leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                 leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
               >
-                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
+                <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                   <div>
                     <div className="text-center sm:mt-5">
                       <Dialog.Title as="h1" className="text-2xl font-bold leading-6 text-gray-900">
                         {title}
                       </Dialog.Title>
-                      <div className="mt-6">
+                      <div className="mt-8">
                       </div>
-                      <div className='mt-2'>
+                      <div className='sm:max-w-sm mx-auto'>
                         <div className='text-left font-semibold'>
                           名前
                           <span className="ml-2 text-xs text-red-600">
@@ -155,7 +159,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                           onChange={(e) => setName(e.target.value)}
                         />
                       </div>
-                      <div className='mt-2'>
+                      <div className='mt-5 sm:max-w-sm mx-auto'>
                         <div className='text-left font-semibold'>
                           名前（ふりがな）
                           <span className="ml-2 text-xs text-red-600">
@@ -168,7 +172,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                           onChange={(e) => setHiraganaName(e.target.value)}
                         />
                       </div>
-                      <div className='mt-2'>
+                      <div className='mt-5 sm:max-w-sm mx-auto'>
                         <div className='text-left font-semibold'>
                           Email
                           <span className="ml-2 text-xs text-red-600">
@@ -181,8 +185,25 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                           onChange={(e) => setEmail(e.target.value)}
                         />
                       </div>
-                      <div className='flex'>
-                        <div className='mt-2'>
+                      <div className='grid grid-cols-3 gap-4 mt-6'>
+                        <div>
+                          <div className='text-left font-semibold'>
+                            生産性
+                            <span className="ml-2 text-xs text-red-600">
+                              必須
+                            </span>
+                          </div>
+                          <InputField
+                            type="number"
+                            value={productivity}
+                            placeholder="0〜10で入力"
+                            min={1}
+                            max={10}
+                            onChange={(e) => setProductivity(e.target.value)}
+                            className="w-full"
+                          />
+                        </div>
+                        <div>
                           <div className='text-left font-semibold'>
                             権限
                             <span className="ml-2 text-xs text-red-600">
@@ -193,10 +214,10 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                             type="number"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
-                            className="w-32"
+                            className="w-full"
                           />
                         </div>
-                        <div className='mt-2 ml-10'>
+                        <div>
                           <div className='text-left font-semibold mb-1.5'>
                             ステータス
                             <span className="ml-2 text-xs text-red-600">
@@ -210,25 +231,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                           />
                         </div>
                       </div>
-                      <div className='flex'>
-                        <div className='mt-2'>
-                          <div className='text-left font-semibold'>
-                            生産性
-                            <span className="ml-2 text-xs text-red-600">
-                              必須
-                            </span>
-                          </div>
-                          <InputField
-                            type="number"
-                            value={productivity}
-                            min={1}
-                            max={10}
-                            onChange={(e) => setProductivity(e.target.value)}
-                            className="w-32"
-                          />
-                        </div>
-                      </div>
-                      <div className='mt-4'>
+                      <div className='mt-4 sm:max-w-sm mx-auto'>
                         <div className='mb-1 text-left font-semibold'>所属チーム</div>
                         {selectedTeams && (
                           <div className='grid grid-cols-2'>
@@ -254,7 +257,7 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                           </div>
                         )}
                       </div>
-                      <div className="mt-4">
+                      <div className="mt-4 sm:max-w-sm mx-auto">
                         <div className="flex items-center">
                           <input
                             id="assessment_1st_exclude"
@@ -273,12 +276,19 @@ export default function MemberModal({ open, title, onClose, member, teams, submi
                           </label>
                         </div>
                       </div>
+                      <div className="mt-4 flex flex-col">
+                        <p className='text-sm font-HiraginoKakuGothicProNW6 font-bold'>このメンバーがアセスメントをする人（第三者評価 対象者）</p>
+                        <p className='text-xs font-HiraginoKakuGothicProNW6 font-bold'>プルダウン内の名前を選んで登録／解除してください</p>
+                        <div className='mt-3 w-full flex justify-center' style={{ height: `${thirdEvaluationOptions.length * 20}px` }}>
+                          <MultiDropdown options={thirdEvaluationOptions} setSelectedOption={setThirdEvaluation} />
+                        </div>
+                      </div>
                     </div>
                   </div>
                   <div className="mt-8 flex justify-center">
                     <Button
-                      title="送信する"
-                      className="bg-primary-2 hover:bg-primary-2 px-28"
+                      title="この内容で保存する"
+                      className="bg-main px-12 py-2"
                       disabled={!isValidData}
                       onClick={submitForm}
                     />

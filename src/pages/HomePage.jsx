@@ -20,7 +20,7 @@ const Home = () => {
   }, [fetchAssessments])
 
   return (
-    <div className='relative top-16 flex justify-center h-[calc(100vh-4rem)]'>
+    <div className='relative top-16 flex justify-center min-h-screen'>
       {assessments && (
         <HomeTemplate assessments={assessments}/>
       )}
