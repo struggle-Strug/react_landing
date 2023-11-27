@@ -54,8 +54,7 @@ export default function PersonAnswerResultModal({
                         </div>
                       </div>
                       <div className="text-center text-2xl lg:text-3xl bg-main w-5/6 mx-auto text-white py-4 mb-10">
-                        {selectedMember.received_evaluations_snapshot}{" "}
-                        さんへのアセスメント結果を見る
+                        {selectedMember ? `${selectedMember.received_evaluations_snapshot} さんへ` : 'あなた'}のアセスメント結果を見る
                       </div>
                       <div className=" overflow-x-auto">
                         <table className="w-full">
