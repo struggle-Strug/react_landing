@@ -332,7 +332,7 @@ export default function TeamTemplate({ data }) {
                                   {sub}
                                 </div>
                                 <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                                <div className="text-3xl">{teamData.team_scores[i].toFixed(1)}</div>
+                                <div className="text-3xl">{teamData.gap_category[i].toFixed(1)}</div>
                               </li>
                             ))}
                           </ul>
