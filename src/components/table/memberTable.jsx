@@ -90,15 +90,15 @@ export default function MemberTable({
             >
               新規登録
             </button>
-            {showPopupMessage && (
-              <PopupMessageModal
-                open={showPopupMessage}
-                msg={"アセスメント開始後は各種作成及び編集は不可となります。"}
-                status={"failed"}
-                setShowPopupMessage={setShowPopupMessage}
-              />
-            )}
           </div> */}
+          {showPopupMessage && (
+            <PopupMessageModal
+              open={showPopupMessage}
+              msg={"アセスメント開始後は各種作成及び編集は不可となります。"}
+              status={"failed"}
+              setShowPopupMessage={setShowPopupMessage}
+            />
+          )}
         </div>
       </div>
       <div className="mt-8 flow-root relative h-[600px] overflow-y-auto overflow-x-auto">
@@ -111,7 +111,7 @@ export default function MemberTable({
                   className="p-3 min-w-1/12 text-xs font-semibold text-white table-cell justify-center items-center gap-4 border-r-[1px] border-grays"
                 >
                   <div className="flex gap-5 items-center">
-                    <div className="bg-white w-[25px] h-[25px] rounded-full flex justify-center items-center">
+                    <div className="bg-white w-[25px] h-[25px] rounded-full flex justify-center items-center cursor-pointer" onClick={handleCreateButtonClick}>
                       <span className="w-[20px] bg-main block border-2 border-main absolute"></span>
                       <span className="w-[20px] bg-main block border-2 border-main rotate-90 absolute"></span>
                     </div>

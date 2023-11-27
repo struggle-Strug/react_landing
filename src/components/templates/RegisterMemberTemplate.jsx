@@ -47,6 +47,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
   const [confirmMakeRandomAssessors, setConfirmMakeRandomAssessors] = useState(false)
   const [userArray, setUserArray] = useState([])
   const [subscriptionGlobal,] = useAtom(subscriptionAtom)
+  const [thirdEvaluations, setThirdEvaluations] = useState([])
 
   useEffect(() => {
     if (!selectedMethod) { return }
@@ -173,7 +174,28 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       })
       const data = await resp.json()
       if (resp.status === 200 || resp.status === 201) {
-        console.log(data)
+        if (member) {
+          const resp = await requestWithTokenRefresh(`${EVALUATION_ENDPOINT}delete/${member.id}/`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          })
+          const data = await resp.json()
+          if (resp.status >= 200 && resp.status <= 300) {
+            await requestWithTokenRefresh(`${EVALUATION_ENDPOINT}update/`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                given_evaluations: member.id,
+                received_evaluations: thirdEvaluations.map(third => (third.value))
+              }),
+            })
+          }
+        }
         setStatus("success")
         setErrorMessage('')
       } else {
@@ -393,25 +415,25 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
         </div>
         {selectedMethod && selectedType && (selectedMethod.value === 2 || selectedMethod.value === 3) && (
           <div className='flex mt-6 lg:mr-10 justify-center gap-20 flex-col border-2 border-grays py-5 pb-16'>
-          <div className='text-center'>
-            <div className='flex gap-x-8 mt-4 items-center justify-center'>
-              <img className='w-[62px]' src='/public/icon-note.svg' alt='アイコン' />
-              <Button
-                title='ひな形のCSVをダウンロード'
-                onClick={handleButtonClick}
-                className='px-6 py-3'
-              />
+            <div className='text-center'>
+              <div className='flex gap-x-8 mt-4 items-center justify-center'>
+                <img className='w-[62px]' src='/public/icon-note.svg' alt='アイコン' />
+                <Button
+                  title='ひな形のCSVをダウンロード'
+                  onClick={handleButtonClick}
+                  className='px-6 py-3'
+                />
+              </div>
+            </div>
+            <div className='text-center'>
+              <div className='font-bold font-HiraginoKakuGothicProNW6 text-lg'>CSVファイルをアップロード</div>
+              <div className='m-3.5'>
+                <CsvUploader
+                  uploadData={setUploadedData}
+                />
+              </div>
             </div>
           </div>
-          <div className='text-center'>
-            <div className='font-bold font-HiraginoKakuGothicProNW6 text-lg'>CSVファイルをアップロード</div>
-            <div className='m-3.5'>
-              <CsvUploader
-                uploadData={setUploadedData}
-              />
-            </div>
-          </div>
-        </div>
         )}
         {members && selectedMethod.value === 1 && (
           <div className={`bg-white px-10 ${selectedMethod.value === 1 ? "mt-6" : "mt-16"} border border-black`}>
@@ -450,6 +472,8 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
           teams={teams}
           loading={isLoading}
           submitForm={handleSubmit}
+          thirdEvaluations={thirdEvaluations}
+          setThirdEvaluations={setThirdEvaluations}
         />
       )}
       {showResetEvaluation && (

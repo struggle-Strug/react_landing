@@ -11,7 +11,7 @@ import { formAtom } from '../../utils/atom'
 import Loader from '../loader'
 
 // eslint-disable-next-line react/prop-types
-export default function MemberModal({ members, open, title, onClose, member, teams, submitForm, loading }) {
+export default function MemberModal({ members, open, title, onClose, member, teams, submitForm, loading, thirdEvaluations, setThirdEvaluations }) {
   const [, setFormData] = useAtom(formAtom)
   const [name, setName] = useState("")
   const [hiraganaName, setHiraganaName] = useState("")
@@ -27,8 +27,7 @@ export default function MemberModal({ members, open, title, onClose, member, tea
       .map(t => ({ ...t, checked: false }))
   )
 
-  const [thirdEvaluationOptions, setThirdEvaluationOptions] = useState(members.map(mem => ({ value: mem.id, label: mem.name })))
-  const [thirdEvaluation, setThirdEvaluation] = useState(members.map(mem => ({ value: mem.id, label: mem.name })))
+  const thirdEvaluationOptions = members.map(mem => ({ value: mem.id, label: mem.name }))
 
   function clickHandler() {
     onClose(false)
@@ -85,7 +84,10 @@ export default function MemberModal({ members, open, title, onClose, member, tea
     setSelectedTeams(defaultTeams)
     setAssessmentExclude(member.assessment_1st_exclude)
     setProductivity(member.productivity_member)
-    // setThirdEvaluation(member.given_evaluations.name.map(eva => ({ value: eva, label: eva })))
+    setThirdEvaluations(member.given_evaluations.name.map(eva => {
+      const thirdMember = members.find((m) => (m.name === eva))
+      return thirdMember ? { label: eva, value: thirdMember.id } : null;
+    }).filter(Boolean))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [member])
 
@@ -280,7 +282,7 @@ export default function MemberModal({ members, open, title, onClose, member, tea
                         <p className='text-sm font-HiraginoKakuGothicProNW6 font-bold'>このメンバーがアセスメントをする人（第三者評価 対象者）</p>
                         <p className='text-xs font-HiraginoKakuGothicProNW6 font-bold'>プルダウン内の名前を選んで登録／解除してください</p>
                         <div className='mt-3 w-full flex justify-center' style={{ height: `${thirdEvaluationOptions.length * 20}px` }}>
-                          <MultiDropdown options={thirdEvaluationOptions} setSelectedOption={setThirdEvaluation} />
+                          <MultiDropdown options={thirdEvaluationOptions} setSelectedOption={setThirdEvaluations} selectedOption={thirdEvaluations} />
                         </div>
                       </div>
                     </div>
