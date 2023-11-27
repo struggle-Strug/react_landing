@@ -25,6 +25,9 @@ export default function TeamTemplate({ data }) {
   const [selectedTeam, setSelectedTeam] = useState();
   const [selectedMemberOption, setSelectedMemberOption] = useState();
   const [teamData, setTeamData] = useState();
+  const [gapCategory, setGapCategory] = useState({ label: '同業種平均', value: 'gap_industry' });
+  const [gapData, setGapData] = useState();
+  const [gapAvData, setAvGapData] = useState();
   const [selectedMember, setSelectedMember] = useState();
   const [userAnswers, setUserAnswers] = useState();
   const [categories, setCategories] = useState();
@@ -132,6 +135,13 @@ export default function TeamTemplate({ data }) {
   }, [selectedTeam]);
 
   useEffect(() => {
+    if (teamData && gapCategory) {
+      setGapData(teamData[`${gapCategory.value}_category`]);
+      setAvGapData(teamData[gapCategory.value]);
+    }
+  }, [teamData, gapCategory]);
+
+  useEffect(() => {
     if (!selectedMemberOption) {
       return;
     }
@@ -164,9 +174,8 @@ export default function TeamTemplate({ data }) {
       return;
     }
     const getDefaultScoreData = async () => {
-      const query = `subscription_id=${selectedSubscription.value}&user_id=${
-        selectedMember.received_evaluations_id_snapshot
-      }&team_id=${99999}`;
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot
+        }&team_id=${99999}`;
       const resp = await requestWithTokenRefresh(
         SCORE_ENDPOINT + `get_score_team_given/?${query}`,
         {},
@@ -331,21 +340,18 @@ export default function TeamTemplate({ data }) {
                       </div>
                       <div className="bg-[#DFFAFD]">
                         <div className="w-40 h-14 flex justify-center items-center bg-main px-2">
-                          <Dropdown placeholder={"同業種平均"} />
+                          <Dropdown placeholder={"同業種平均"} options={[{ label: '同業種平均', value: 'gap_industry' }, { label: '全企業平均', value: 'gap_finder' }]} selectedOption={gapCategory} setSelectedOption={setGapCategory} />
                         </div>
                         <div>
                           <div className="flex justify-center items-center h-16 text-3xl font-bold">
-                            2.29
+                            {gapAvData && gapAvData}
                           </div>
                           <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         </div>
                         <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
+                          {gapData && gapData.map((gap) => (
+                            <div key={`gap-${gap}`}>{gap}</div>
+                          ))}
                         </div>
                       </div>
                     </div>
