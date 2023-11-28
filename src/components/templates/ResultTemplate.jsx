@@ -25,7 +25,7 @@ export default function ResultTemplate({ results }) {
       return;
     }
     const keys = Object.keys(results);
-    const dateOptions = keys.map((key) => ({ value: key, label: key }));
+    const dateOptions = keys.map((key) => ({ value: key, label: key.substring(0, 7) }));
     setDates(dateOptions);
     setSelectedDate(dateOptions[0]);
   }, [results]);

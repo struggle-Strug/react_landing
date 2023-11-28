@@ -83,7 +83,7 @@ export default function TeamTemplate({ data }) {
     )[0];
     const options = company.subscription.map((s) => ({
       value: s.id,
-      label: s.subscription_activation_date,
+      label: s.subscription_activation_date.substring(0, 7),
     }));
     setSubscriptionOption(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps
