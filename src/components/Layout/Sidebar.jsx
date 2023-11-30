@@ -242,7 +242,7 @@ export default function Sidebar() {
                   {/* <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' /> */}
                 </li>
               )}
-              {!user.is_superuser && user.member_category === 99 && (
+              {(user.is_superuser || user.member_category > 1) && (
                 <li key={menuItems[7].name}>
                   <NavLink
                     to={menuItems[7].href}
