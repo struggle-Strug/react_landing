@@ -14,6 +14,7 @@ import LoginPage from './pages/LoginPage';
 import ForgotPaswordPage from './pages/ForgotPage';
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import TermsPage from './pages/TermsPage';
+import Productivity from "./pages/ProductivityPage";
 import SideNavigationLayout from './components/Layout';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { UserProvider } from "./context/UserContext";
@@ -47,6 +48,7 @@ function App() {
                       <Route path=':id/register/member' element={<RegisterMember />} />
                       <Route path=':id/register/team' element={<RegisterTeam />} />
                       <Route path=':id/register/company' element={<RegisterCompany />} />
+                      <Route path=':id/productivity' element={<Productivity />} />
                       <Route path='/terms' element={<TermsPage />} />
                     </Route>
                   </Routes>
