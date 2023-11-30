@@ -175,26 +175,34 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       const data = await resp.json()
       if (resp.status === 200 || resp.status === 201) {
         if (member) {
-          const resp = await requestWithTokenRefresh(`${EVALUATION_ENDPOINT}delete/${member.id}/`, {
+          await requestWithTokenRefresh(`${EVALUATION_ENDPOINT}delete/${member.id}/`, {
             method: 'DELETE',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
           })
-          const data = await resp.json()
-          if (resp.status >= 200 && resp.status <= 300) {
-            await requestWithTokenRefresh(`${EVALUATION_ENDPOINT}update/`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                given_evaluations: member.id,
-                received_evaluations: thirdEvaluations.map(third => (third.value))
-              }),
-            })
-          }
+          await requestWithTokenRefresh(`${EVALUATION_ENDPOINT}update/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              given_evaluations: member.id,
+              received_evaluations: thirdEvaluations.map(third => (third.value))
+            }),
+          })
+        } else {
+          await requestWithTokenRefresh(`${EVALUATION_ENDPOINT}update/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              given_evaluations: data.users.find(u => u.email === formData.email).id,
+              received_evaluations: thirdEvaluations.map(third => (third.value))
+            }),
+          })
         }
         setStatus("success")
         setErrorMessage('')
