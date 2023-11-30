@@ -54,7 +54,6 @@ export default function ResultTemplate({ results }) {
     );
     if (resp.status >= 200 && resp.status <= 300) {
       const data = await resp.json();
-      console.log(data)
       setAnswers(data);
       setCategories([
         ...new Set(data.map((answer) => answer.quiz_category_name)),
