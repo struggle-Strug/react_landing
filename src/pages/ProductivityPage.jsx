@@ -16,8 +16,17 @@ const Productivity = () => {
     if (!resp.ok) {
       return;
     }
-    const data = await resp.json()
-    setProductivities(data)
+    const data = await resp.json();
+    const sortedData = {};
+
+    Object.keys(data).forEach(company => {
+      const sortedCompanyData = data[company].sort((a, b) => {
+        return new Date(a.subscription_activation_date) - new Date(b.subscription_activation_date);
+      });
+      sortedData[company] = sortedCompanyData;
+    });
+
+    setProductivities(sortedData)
   }, [navigate]);
 
   useEffect(() => {
