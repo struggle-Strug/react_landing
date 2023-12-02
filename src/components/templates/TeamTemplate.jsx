@@ -321,18 +321,19 @@ export default function TeamTemplate({ data }) {
                         </div>
                         <div className="flex justify-between items-center px-4 lg:px-7 py-2">
                           <div className="text-xl">全体平均</div>
-                          <div className="text-3xl lg:text-5xl">{teamData.gap}</div>
+                          <div className="text-3xl lg:text-5xl">{teamData.gap && teamData.gap.toFixed(2)}</div>
                         </div>
                         <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
                           <ul>
                             {subjects.map((sub, i) => (
+                              teamData.gap_category[i] !== undefined &&
                               <li className="flex justify-between items-center my-1" key={`score-${i}`}>
                                 <div className="text-sm break-keep">
                                   {sub}
                                 </div>
                                 <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                                <div className="text-3xl">{teamData.gap_category[i] && teamData.gap_category[i].toFixed(1)}</div>
+                                <div className="text-3xl">{teamData.gap_category[i].toFixed(1)}</div>
                               </li>
                             ))}
                           </ul>
@@ -344,13 +345,14 @@ export default function TeamTemplate({ data }) {
                         </div>
                         <div>
                           <div className="flex justify-center items-center h-16 text-3xl font-bold">
-                            {gapAvData && gapAvData.toFixed(1)}
+                            {gapAvData && gapAvData.toFixed(2)}
                           </div>
                           <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         </div>
                         <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
-                          {gapData && gapData.map((gap) => (
-                            <div key={`gap-${gap}`}>{gap && gap.toFixed(1)}</div>
+                          {gapData && gapData.map((gap, i) => (
+                            teamData.gap_category[i] !== undefined &&
+                            <div key={`gap-${i}`}>{gap.toFixed(1)}</div>
                           ))}
                         </div>
                       </div>
