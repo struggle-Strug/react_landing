@@ -332,7 +332,7 @@ export default function TeamTemplate({ data }) {
                                   {sub}
                                 </div>
                                 <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                                <div className="text-3xl">{teamData.gap_category[i].toFixed(1)}</div>
+                                <div className="text-3xl">{teamData.gap_category[i] && teamData.gap_category[i].toFixed(1)}</div>
                               </li>
                             ))}
                           </ul>
@@ -344,13 +344,13 @@ export default function TeamTemplate({ data }) {
                         </div>
                         <div>
                           <div className="flex justify-center items-center h-16 text-3xl font-bold">
-                            {gapAvData && gapAvData}
+                            {gapAvData && gapAvData.toFixed(1)}
                           </div>
                           <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         </div>
                         <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
                           {gapData && gapData.map((gap) => (
-                            <div key={`gap-${gap}`}>{gap}</div>
+                            <div key={`gap-${gap}`}>{gap && gap.toFixed(1)}</div>
                           ))}
                         </div>
                       </div>

@@ -95,16 +95,16 @@ export default function PersonAnswerResultModal({
                                           {answer.answer}
                                         </td>
                                         <td className="text-center">
-                                          {answer.company_answer_avg.toFixed(1)}
+                                          {answer.company_answer_avg && answer.company_answer_avg.toFixed(1)}
                                         </td>
                                         <td className="text-center">
-                                          {answer.third_answer_avg.toFixed(1)}
+                                          {answer.third_answer_avg && answer.third_answer_avg.toFixed(1)}
                                         </td>
                                         <td className="text-center">
-                                          {answer.industry_answer_avg.toFixed(1)}
+                                          {answer.industry_answer_avg && answer.industry_answer_avg.toFixed(1)}
                                         </td>
                                         <td className="text-center">
-                                          {answer.finder_answer_avg.toFixed(1)}
+                                          {answer.finder_answer_avg && answer.finder_answer_avg.toFixed(1)}
                                         </td>
                                       </tr>
                                     ))}
