@@ -48,7 +48,6 @@ function SimpleRadarChart({ isFirst, scores }) {
         <RadarChartBase cx="50%" cy="50%" outerRadius="80%" data={data} fill="#f3f6f4">
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" tick={<CustomTickBM />} radius="40%" />
-          <PolarRadiusAxis axisLine={false} angle={30} domain={[0, 4]} />
           {isFirst
             ? <Radar name="1st" dataKey="A" stroke="#FF0000" fillOpacity={0} strokeWidth={4} />
             : <Radar name="1st" dataKey="A" stroke="#0000FF" fillOpacity={0} strokeWidth={4} />
