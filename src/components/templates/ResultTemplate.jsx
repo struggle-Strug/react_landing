@@ -6,9 +6,9 @@ import Toggle from "../toggle";
 import Dropdown from "../dropdown";
 import Button from "../button";
 
-import { USERANSWER_ENDPOINT } from "../../utils/constants";
+import { USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
-import PersonAnswerResultModal from "../modal/personAnswerResultModal";
+import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
 
 export default function ResultTemplate({ results }) {
   const navigate = useNavigate()
@@ -19,6 +19,7 @@ export default function ResultTemplate({ results }) {
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
   const [categories, setCategories] = useState();
   const [answers, setAnswers] = useState();
+  const [otherAnswers, setOtherAnswers] = useState();
 
   useEffect(() => {
     if (!results) {
@@ -54,7 +55,14 @@ export default function ResultTemplate({ results }) {
     );
     if (resp.status >= 200 && resp.status <= 300) {
       const data = await resp.json();
-      setAnswers(data);
+      setAnswers(data)
+      const res = await requestWithTokenRefresh(
+        `${USERANSWER_OTHER_ENDPOINT}?${query}`,
+        {},
+        query
+      )
+      const otherAnswer = await res.json()
+      setOtherAnswers(otherAnswer[0]);
       setCategories([
         ...new Set(data.map((answer) => answer.quiz_category_name)),
       ]);
@@ -64,11 +72,12 @@ export default function ResultTemplate({ results }) {
 
   return (
     <div className="w-full overflow-auto">
-      <PersonAnswerResultModal
+      <SelfAnswerResultModal
         open={showPersonAnswerModal}
         setOpenModal={setShowPersonAnswerModal}
         userAnswers={answers}
         categories={categories}
+        otherAnswers={otherAnswers}
       />
       <div className="flex place-content-center">
         <div className="relative w-full mx-3 md:w-4/5 mt-12 mb-6 sp:mt-10 sp:mb-24 flex flex-col items-center border-8 border-main">
