@@ -16,7 +16,7 @@ function RadarChart({ showThirdPerson, scores }) {
       <text fontSize={12} fontWeight={600} y={-10} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
         {payload.value}
       </text>
-      <foreignObject x={payload.value.length * (textAnchor === 'end' ? 0 : textAnchor == 'middle' ? '6' : '12')} y={-5} width={15} height={15}>
+      <foreignObject x={payload.value.length * (textAnchor === 'end' ? 0 : textAnchor == 'middle' ? '5' : '10')} y={-5} width={15} height={15}>
         <p className='font-bold border border-black rounded-full w-3 h-3 text-[10px] flex items-center justify-center cursor-pointer' onClick={handleClickLabel}>?</p>
       </foreignObject>
     </g>
