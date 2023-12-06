@@ -495,6 +495,7 @@ export default function TeamTemplate({ data }) {
                                 <SimpleRadarChart
                                   isFirst={false}
                                   scores={score}
+                                  isThird={idx === 0 ? false : true}
                                 />
                               </div>
                             </div>

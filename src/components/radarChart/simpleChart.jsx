@@ -9,14 +9,14 @@ export const subjects = ["心理的安全性", "個人ビジョン明確度", "�
 
 
 
-function SimpleRadarChart({ isFirst, scores }) {
+function SimpleRadarChart({ isFirst, scores, isThird }) {
   const [showTeamModal, setShowTeamModal] = useState(false)
   const handleClickLabel = () => {
     setShowTeamModal(true)
   }
   const CustomTickBM = ({ payload, x, y, textAnchor }) => (
     <g transform={`translate(${x},${y})`}>
-      <text fontSize={12} fontWeight={600} y={-10} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
+      <text fontSize={10} fontWeight={600} y={-10} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative', zIndex: 1000000000000000000 }}>
         {payload.value}
       </text>
       <foreignObject x={payload.value.length * (textAnchor === 'end' ? 0 : textAnchor == 'middle' ? '6' : '12')} y={-5} width={15} height={15}>
@@ -47,7 +47,9 @@ function SimpleRadarChart({ isFirst, scores }) {
       <ResponsiveContainer width="100%" height="100%">
         <RadarChartBase cx="50%" cy="50%" outerRadius="80%" data={data} fill="#f3f6f4">
           <PolarGrid />
-          <PolarAngleAxis dataKey="subject" tick={<CustomTickBM />} radius="40%" />
+          {!isThird && (
+            <PolarAngleAxis dataKey="subject" tick={<CustomTickBM />} radius="40%" />
+          )}
           {isFirst
             ? <Radar name="1st" dataKey="A" stroke="#FF0000" fillOpacity={0} strokeWidth={4} />
             : <Radar name="1st" dataKey="A" stroke="#0000FF" fillOpacity={0} strokeWidth={4} />
