@@ -45,7 +45,7 @@ function SimpleRadarChart({ isFirst, scores, isThird }) {
         setOpenAgreeModal={setShowTeamModal}
       />
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChartBase cx="50%" cy="50%" outerRadius="50%" data={data} fill="#f3f6f4">
+        <RadarChartBase cx="50%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">
           <PolarGrid />
           {!isThird && (
             <PolarAngleAxis dataKey="subject" tick={<CustomTickBM />} radius="40%" />
