@@ -40,7 +40,7 @@ function RadarChart({ showThirdPerson, scores }) {
         setOpenAgreeModal={setOpenModal}
       />
       <ResponsiveContainer width="100%" height="100%" className={"font-HiraginoKakuGothicProNW3"}>
-        <RadarChartBase cx="45%" cy="50%" outerRadius="40%" data={data} fill="#f3f6f4">
+        <RadarChartBase cx="45%" cy="50%" outerRadius="50%" data={data} fill="#f3f6f4">
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" tick={<CustomTick />} radius="40%" />
 
