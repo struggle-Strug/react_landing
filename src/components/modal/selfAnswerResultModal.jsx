@@ -99,13 +99,13 @@ export default function SelfAnswerResultModal({
                                                                                     {otherAnswers['company_answer_avg'][answer.quiz_number][0] && otherAnswers['company_answer_avg'][answer.quiz_number][0]}
                                                                                 </td>
                                                                                 <td className="text-center">
-                                                                                    {otherAnswers['finder_answer_avg'][answer.quiz_number][0] && otherAnswers['finder_answer_avg'][answer.quiz_number][0]}
+                                                                                    {otherAnswers['third_answer_avg'][answer.quiz_number][0] && otherAnswers['third_answer_avg'][answer.quiz_number][0]}
                                                                                 </td>
                                                                                 <td className="text-center">
                                                                                     {otherAnswers['industry_answer_avg'][answer.quiz_number][0] && otherAnswers['industry_answer_avg'][answer.quiz_number][0]}
                                                                                 </td>
                                                                                 <td className="text-center">
-                                                                                    {otherAnswers['third_answer_avg'][answer.quiz_number][0] && otherAnswers['third_answer_avg'][answer.quiz_number][0]}
+                                                                                    {otherAnswers['finder_answer_avg'][answer.quiz_number][0] && otherAnswers['finder_answer_avg'][answer.quiz_number][0]}
                                                                                 </td>
                                                                             </tr>
                                                                         ))}
