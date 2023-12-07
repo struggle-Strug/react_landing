@@ -9,12 +9,12 @@ export default function SelfAnswerResultModal({
     userAnswers,
     categories,
     otherAnswers,
+    selectedMember,
 }) {
     const clickHandler = () => {
         setOpenModal(false);
     };
 
-    console.log(userAnswers, otherAnswers)
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-30" onClose={clickHandler}>
@@ -55,7 +55,7 @@ export default function SelfAnswerResultModal({
                                                 </div>
                                             </div>
                                             <div className="text-center text-2xl lg:text-3xl bg-main w-5/6 mx-auto text-white py-4 mb-10">
-                                                あなたのアセスメント結果を見る
+                                                {selectedMember ? `${selectedMember.received_evaluations_snapshot} さんへ` : 'あなた'}のアセスメント結果を見る
                                             </div>
                                             <div className=" overflow-x-auto">
                                                 <table className="w-full">

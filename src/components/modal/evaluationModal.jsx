@@ -51,7 +51,7 @@ export default function EvaluationModal({ open, category, setOpenAgreeModal }) {
                 </div>
                 <div>
                   <table className='m-auto w-fit'>
-                    {categories.map((c, i) => (i < category && <tr>
+                    {categories.map((c, i) => (i < category && <tr key={`evaluation-${i}`}>
                       <td className='font-bold'>{c.name}</td>
                       <td>{c.label}</td>
                     </tr>))}

@@ -5,11 +5,11 @@ import SimpleRadarChart from "../radarChart/simpleChart";
 import ComplexChart from "../radarChart/complexChart";
 import Loader from "../loader";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
-import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
+import { SCORE_ENDPOINT, USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
 import { subjects } from "../radarChart/simpleChart";
 import { useNavigate } from "react-router";
 
-import PersonAnswerResultModal from "../modal/personAnswerResultModal";
+import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
 
 import Button from "../button";
 
@@ -30,6 +30,7 @@ export default function TeamTemplate({ data }) {
   const [gapAvData, setAvGapData] = useState();
   const [selectedMember, setSelectedMember] = useState();
   const [userAnswers, setUserAnswers] = useState();
+  const [otherAnswers, setOtherAnswers] = useState();
   const [categories, setCategories] = useState();
   const [teamList, setTeamList] = useState();
   const [team, setTeam] = useState();
@@ -49,18 +50,20 @@ export default function TeamTemplate({ data }) {
     );
     const data = await resp.json();
     if (resp.ok) {
+      const res = await requestWithTokenRefresh(
+        `${USERANSWER_OTHER_ENDPOINT}?${query}`,
+        {},
+        query
+      )
+      const otherAnswer = await res.json()
+      setCategories([
+        ...new Set(data.map((answer) => answer.quiz_category_name)),
+      ]);
       setUserAnswers(data);
+      setOtherAnswers(otherAnswer[0]);
       setShowPersonAnswerModal(true);
     }
   };
-
-  useEffect(() => {
-    if (userAnswers) {
-      setCategories([
-        ...new Set(userAnswers.map((answer) => answer.quiz_category_name)),
-      ]);
-    }
-  }, [userAnswers]);
 
   useEffect(() => {
     if (!data) {
@@ -230,11 +233,12 @@ export default function TeamTemplate({ data }) {
 
   return (
     <>
-      <PersonAnswerResultModal
+      <SelfAnswerResultModal
         open={showPersonAnswerModal}
         setOpenModal={setShowPersonAnswerModal}
         userAnswers={userAnswers}
         categories={categories}
+        otherAnswers={otherAnswers}
         selectedMember={selectedMember}
       />
       <div className="max-w-[1280px] w-full overflow-auto">
