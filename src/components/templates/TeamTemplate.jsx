@@ -10,7 +10,6 @@ import { subjects } from "../radarChart/simpleChart";
 import { useNavigate } from "react-router";
 
 import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
-
 import Button from "../button";
 
 export default function TeamTemplate({ data }) {
@@ -37,11 +36,13 @@ export default function TeamTemplate({ data }) {
   const [teamListOptions, setTeamListOptions] = useState();
   const [scoreData, setScoreData] = useState();
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) {
       return;
     }
+    setIsLoading(true);
     const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`;
     const resp = await requestWithTokenRefresh(
       USERANSWER_ENDPOINT + `?${query}`,
@@ -59,6 +60,7 @@ export default function TeamTemplate({ data }) {
       setCategories([
         ...new Set(data.map((answer) => answer.quiz_category_name)),
       ]);
+      setIsLoading(false);
       setUserAnswers(data);
       setOtherAnswers(otherAnswer[0]);
       setShowPersonAnswerModal(true);
@@ -115,6 +117,7 @@ export default function TeamTemplate({ data }) {
       return;
     }
     const getMembers = async () => {
+      setIsLoading(true)
       const query = `subscription_id=${selectedSubscription.value}&team_id=${selectedTeam.value}`;
       const resp = await requestWithTokenRefresh(
         SCORE_ENDPOINT + `members/list/?${query}`,
@@ -123,6 +126,7 @@ export default function TeamTemplate({ data }) {
       );
       const data = await resp.json();
       if (resp.ok) {
+        setIsLoading(false)
         setTeamData(data);
         const memberOptions = Object.entries(data.members).map(
           ([idx, member]) => ({
@@ -242,7 +246,7 @@ export default function TeamTemplate({ data }) {
         selectedMember={selectedMember}
       />
       <div className="max-w-[1280px] w-full overflow-auto">
-        {!data ? (
+        {!data || isLoading ? (
           <Loader />
         ) : (
           <div className="mx-4 mt-12 pb-10 mb-28 border-[7px] border-main">
