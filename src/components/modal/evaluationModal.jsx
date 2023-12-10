@@ -3,10 +3,19 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // eslint-disable-next-line react/prop-types
-export default function EvaluationModal({ open, setOpenAgreeModal }) {
+export default function EvaluationModal({ open, category, setOpenAgreeModal }) {
   function clickHandler() {
     setOpenAgreeModal(false)
   }
+
+  const categories = [
+    { name: '心理的安全度', label: ' : 本音で会話ができている。 チャレンジができる' },
+    { name: '個人ビジョン明確度', label: ' : 個人レベルでのキャリア設計がある' },
+    { name: '会社ビジョン明確度', label: ' : 会社のミッションやビジョンを理解できている' },
+    { name: '会社と個人の統合度', label: ' : 個人ビジョンと会社ビジョンが擦り合っている' },
+    { name: '意欲性', label: ' : 意欲的に働けているかどうか' },
+    { name: '影響力', label: ' : 存在が周りに良い影響を与えているか' },
+  ]
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-30" onClose={clickHandler}>
@@ -42,30 +51,10 @@ export default function EvaluationModal({ open, setOpenAgreeModal }) {
                 </div>
                 <div>
                   <table className='m-auto w-fit'>
-                    <tr>
-                      <td className='font-bold'>心理的安全度</td>
-                      <td> : 本音で会話ができている。 チャレンジができる</td>
-                    </tr>
-                    <tr>
-                      <td className='font-bold'>個人ビジョン明確度</td>
-                      <td> : 個人レベルでのキャリア設計がある</td>
-                    </tr>
-                    <tr>
-                      <td className='font-bold'>会社ビジョン明確度</td>
-                      <td> : 会社のミッションやビジョンを理解できている</td>
-                    </tr>
-                    <tr>
-                      <td className='font-bold'>会社と個人の統合度</td>
-                      <td> : 個人ビジョンと会社ビジョンが擦り合っている</td>
-                    </tr>
-                    <tr>
-                      <td className='font-bold'>意欲性</td>
-                      <td> : 意欲的に働けているかどうか</td>
-                    </tr>
-                    <tr>
-                      <td className='font-bold'>影響力</td>
-                      <td> : 存在が周りに良い影響を与えているか</td>
-                    </tr>
+                    {categories.map((c, i) => (i < category && <tr key={`evaluation-${i}`}>
+                      <td className='font-bold'>{c.name}</td>
+                      <td>{c.label}</td>
+                    </tr>))}
                   </table>
                 </div>
               </Dialog.Panel>

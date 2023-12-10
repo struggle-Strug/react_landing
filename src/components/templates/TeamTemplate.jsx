@@ -5,12 +5,11 @@ import SimpleRadarChart from "../radarChart/simpleChart";
 import ComplexChart from "../radarChart/complexChart";
 import Loader from "../loader";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
-import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
+import { SCORE_ENDPOINT, USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
 import { subjects } from "../radarChart/simpleChart";
 import { useNavigate } from "react-router";
 
-import PersonAnswerResultModal from "../modal/personAnswerResultModal";
-
+import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
 import Button from "../button";
 
 export default function TeamTemplate({ data }) {
@@ -25,19 +24,25 @@ export default function TeamTemplate({ data }) {
   const [selectedTeam, setSelectedTeam] = useState();
   const [selectedMemberOption, setSelectedMemberOption] = useState();
   const [teamData, setTeamData] = useState();
+  const [gapCategory, setGapCategory] = useState({ label: '同業種平均', value: 'gap_industry' });
+  const [gapData, setGapData] = useState();
+  const [gapAvData, setAvGapData] = useState();
   const [selectedMember, setSelectedMember] = useState();
   const [userAnswers, setUserAnswers] = useState();
+  const [otherAnswers, setOtherAnswers] = useState();
   const [categories, setCategories] = useState();
   const [teamList, setTeamList] = useState();
   const [team, setTeam] = useState();
   const [teamListOptions, setTeamListOptions] = useState();
   const [scoreData, setScoreData] = useState();
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) {
       return;
     }
+    setIsLoading(true);
     const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`;
     const resp = await requestWithTokenRefresh(
       USERANSWER_ENDPOINT + `?${query}`,
@@ -46,18 +51,21 @@ export default function TeamTemplate({ data }) {
     );
     const data = await resp.json();
     if (resp.ok) {
+      const res = await requestWithTokenRefresh(
+        `${USERANSWER_OTHER_ENDPOINT}?${query}`,
+        {},
+        query
+      )
+      const otherAnswer = await res.json()
+      setCategories([
+        ...new Set(data.map((answer) => answer.quiz_category_name)),
+      ]);
+      setIsLoading(false);
       setUserAnswers(data);
+      setOtherAnswers(otherAnswer[0]);
       setShowPersonAnswerModal(true);
     }
   };
-
-  useEffect(() => {
-    if (userAnswers) {
-      setCategories([
-        ...new Set(userAnswers.map((answer) => answer.quiz_category_name)),
-      ]);
-    }
-  }, [userAnswers]);
 
   useEffect(() => {
     if (!data) {
@@ -80,7 +88,7 @@ export default function TeamTemplate({ data }) {
     )[0];
     const options = company.subscription.map((s) => ({
       value: s.id,
-      label: s.subscription_activation_date,
+      label: s.subscription_activation_date.substring(0, 7),
     }));
     setSubscriptionOption(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,6 +117,7 @@ export default function TeamTemplate({ data }) {
       return;
     }
     const getMembers = async () => {
+      setIsLoading(true)
       const query = `subscription_id=${selectedSubscription.value}&team_id=${selectedTeam.value}`;
       const resp = await requestWithTokenRefresh(
         SCORE_ENDPOINT + `members/list/?${query}`,
@@ -117,6 +126,7 @@ export default function TeamTemplate({ data }) {
       );
       const data = await resp.json();
       if (resp.ok) {
+        setIsLoading(false)
         setTeamData(data);
         const memberOptions = Object.entries(data.members).map(
           ([idx, member]) => ({
@@ -130,6 +140,13 @@ export default function TeamTemplate({ data }) {
     getMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedTeam]);
+
+  useEffect(() => {
+    if (teamData && gapCategory) {
+      setGapData(teamData[`${gapCategory.value}_category`]);
+      setAvGapData(teamData[gapCategory.value]);
+    }
+  }, [teamData, gapCategory]);
 
   useEffect(() => {
     if (!selectedMemberOption) {
@@ -164,9 +181,8 @@ export default function TeamTemplate({ data }) {
       return;
     }
     const getDefaultScoreData = async () => {
-      const query = `subscription_id=${selectedSubscription.value}&user_id=${
-        selectedMember.received_evaluations_id_snapshot
-      }&team_id=${99999}`;
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot
+        }&team_id=${99999}`;
       const resp = await requestWithTokenRefresh(
         SCORE_ENDPOINT + `get_score_team_given/?${query}`,
         {},
@@ -221,15 +237,16 @@ export default function TeamTemplate({ data }) {
 
   return (
     <>
-      <PersonAnswerResultModal
+      <SelfAnswerResultModal
         open={showPersonAnswerModal}
         setOpenModal={setShowPersonAnswerModal}
         userAnswers={userAnswers}
         categories={categories}
+        otherAnswers={otherAnswers}
         selectedMember={selectedMember}
       />
       <div className="max-w-[1280px] w-full overflow-auto">
-        {!data ? (
+        {!data || isLoading ? (
           <Loader />
         ) : (
           <div className="mx-4 mt-12 pb-10 mb-28 border-[7px] border-main">
@@ -312,18 +329,19 @@ export default function TeamTemplate({ data }) {
                         </div>
                         <div className="flex justify-between items-center px-4 lg:px-7 py-2">
                           <div className="text-xl">全体平均</div>
-                          <div className="text-3xl lg:text-5xl">{teamData.gap}</div>
+                          <div className="text-3xl lg:text-5xl">{teamData.gap && teamData.gap.toFixed(2)}</div>
                         </div>
                         <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
                           <ul>
                             {subjects.map((sub, i) => (
+                              teamData.gap_category[i] !== undefined &&
                               <li className="flex justify-between items-center my-1" key={`score-${i}`}>
                                 <div className="text-sm break-keep">
                                   {sub}
                                 </div>
                                 <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                                <div className="text-3xl">{teamData.team_scores[i].toFixed(1)}</div>
+                                <div className="text-3xl">{teamData.gap_category[i].toFixed(1)}</div>
                               </li>
                             ))}
                           </ul>
@@ -331,21 +349,19 @@ export default function TeamTemplate({ data }) {
                       </div>
                       <div className="bg-[#DFFAFD]">
                         <div className="w-40 h-14 flex justify-center items-center bg-main px-2">
-                          <Dropdown placeholder={"同業種平均"} />
+                          <Dropdown placeholder={"同業種平均"} options={[{ label: '同業種平均', value: 'gap_industry' }, { label: '全企業平均', value: 'gap_finder' }]} selectedOption={gapCategory} setSelectedOption={setGapCategory} />
                         </div>
                         <div>
                           <div className="flex justify-center items-center h-16 text-3xl font-bold">
-                            2.29
+                            {gapAvData && gapAvData.toFixed(2)}
                           </div>
                           <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         </div>
                         <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
-                          <div>2.29</div>
+                          {gapData && gapData.map((gap, i) => (
+                            teamData.gap_category[i] !== undefined &&
+                            <div key={`gap-${i}`}>{gap.toFixed(1)}</div>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -487,6 +503,7 @@ export default function TeamTemplate({ data }) {
                                 <SimpleRadarChart
                                   isFirst={false}
                                   scores={score}
+                                  isThird={idx === 0 ? false : true}
                                 />
                               </div>
                             </div>

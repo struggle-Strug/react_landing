@@ -61,6 +61,11 @@ export default function Sidebar() {
       icon: HomeIcon,
       current: true,
     },
+    {
+      name: "生産性スコアを確認",
+      href: `/${subdomain}/productivity`,
+      current: false,
+    },
   ];
   const [menuItems, setMenuItems] = useState(navigation);
   const [menu, setMenu] = useState("アセスメントを実施する");
@@ -233,6 +238,35 @@ export default function Sidebar() {
                         aria-hidden="true"
                       /> */}
                     {menuItems[2].name}
+                  </NavLink>
+                  {/* <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' /> */}
+                </li>
+              )}
+              {(user.is_superuser || user.member_category > 1) && (
+                <li key={menuItems[7].name}>
+                  <NavLink
+                    to={menuItems[7].href}
+                    onClick={() => handleMenuItemClick(menuItems[7].name)}
+                    className={classNames(
+                      menuItems[7].name === menu
+                        ? " bg-[#01015F] font-bold"
+                        : "text-white",
+                      "group flex justify-center gap-x-3 py-4 text-xs lg:text-sm leading-6 border text-white relative font-HiraginoKakuGothicProNW3"
+                    )}
+                  >
+                    {menuItems[7].name === menu && (
+                      <div className="absolute lg:right-5 right-2 top-1/2 -translate-y-1/2">
+                        <div className="w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-[15px] border-l-white"></div>
+                      </div>
+                    )}
+                    {/* <UserPlusIcon
+                        className={classNames(
+                          menuItems[3].name === menu ? 'text-primary-2' : 'text-gray-400 group-hover:text-gray-500',
+                          'h-6 w-6 shrink-0'
+                        )}
+                        aria-hidden="true"
+                      /> */}
+                    {menuItems[7].name}
                   </NavLink>
                   {/* <div className='border-[0.5px] border-zinc-400 -mx-6 mt-3' /> */}
                 </li>

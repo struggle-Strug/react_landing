@@ -44,10 +44,9 @@ function ComplexChart({ showThirdPerson, scores }) {
   }
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <RadarChartBase cx="50%" cy="50%" outerRadius="80%" data={data} fill="#f3f6f4">
+      <RadarChartBase cx="50%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" tick={{ fontSize: '12px' }} radius="40%" />
-        <PolarRadiusAxis axisLine={false} angle={30} domain={[0, 4]} />
 
         <Radar name="1st" dataKey="A" stroke="#FF0000" fillOpacity={0} strokeWidth={5} max={4} />
         {showThirdPerson && (

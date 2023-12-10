@@ -54,53 +54,66 @@ export default function PersonAnswerResultModal({
                         </div>
                       </div>
                       <div className="text-center text-2xl lg:text-3xl bg-main w-5/6 mx-auto text-white py-4 mb-10">
-                        {selectedMember.received_evaluations_snapshot}{" "}
-                        さんへのアセスメント結果を見る
+                        {selectedMember ? `${selectedMember.received_evaluations_snapshot} さんへ` : 'あなた'}のアセスメント結果を見る
                       </div>
-                      <table className="w-full">
-                        <thead className="bg-white py-2 font-bold font-HiraginoKakuGothicProNW6">
-                          <tr className="text-center">
-                            <th className="w-[5%]"></th>
-                            <th className="text-xl">設問</th>
-                            <th className="break-keep">回答</th>
-                            <th className="break-keep">会社平均</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {categories &&
-                            categories.map((category, idx) => {
-                              const categoryAnswers = userAnswers.filter(
-                                (answers) =>
-                                  answers.quiz_category_name === category
-                              );
-                              return (
-                                <>
-                                  <tr
-                                    className=" p-1 mt-5 text-xl text-main border-b-[0.5px] border-black"
-                                    key={idx}
-                                  >
-                                    <td
-                                      colSpan={4}
-                                      className="pt-12"
-                                    >{`●${category}`}</td>
-                                  </tr>
-                                  {categoryAnswers.map((answer, idx) => (
-                                    <tr key={idx}>
-                                      <td className="py-3">{idx + 1}</td>
-                                      <td>{answer.quiz}</td>
-                                      <td className="text-center">
-                                        {answer.answer}
-                                      </td>
-                                      <td className="text-center">
-                                        {answer.company_answer_avg.toFixed(1)}
-                                      </td>
+                      <div className=" overflow-x-auto">
+                        <table className="w-full">
+                          <thead className="bg-white py-2 font-bold font-HiraginoKakuGothicProNW6">
+                            <tr className="text-center">
+                              <th className="w-[5%]"></th>
+                              <th className="text-xl w-[40%] min-w-[200px]">設問</th>
+                              <th className="break-keep">回答</th>
+                              <th className="break-keep">会社平均</th>
+                              <th className="break-keep">第三者評価平均</th>
+                              <th className="break-keep">同業者平均</th>
+                              <th className="break-keep">全企業平均</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {categories &&
+                              categories.map((category, idx) => {
+                                const categoryAnswers = userAnswers.filter(
+                                  (answers) =>
+                                    answers.quiz_category_name === category
+                                );
+                                return (
+                                  <>
+                                    <tr
+                                      className=" p-1 mt-5 text-xl text-main border-b-[0.5px] border-black"
+                                      key={idx}
+                                    >
+                                      <td
+                                        colSpan={4}
+                                        className="pt-12"
+                                      >{`●${category}`}</td>
                                     </tr>
-                                  ))}
-                                </>
-                              );
-                            })}
-                        </tbody>
-                      </table>
+                                    {categoryAnswers.map((answer, idx) => (
+                                      <tr key={idx}>
+                                        <td className="py-3">{idx + 1}</td>
+                                        <td>{answer.quiz}</td>
+                                        <td className="text-center">
+                                          {answer.answer}
+                                        </td>
+                                        <td className="text-center">
+                                          {answer.company_answer_avg && answer.company_answer_avg.toFixed(1)}
+                                        </td>
+                                        <td className="text-center">
+                                          {answer.third_answer_avg && answer.third_answer_avg.toFixed(1)}
+                                        </td>
+                                        <td className="text-center">
+                                          {answer.industry_answer_avg && answer.industry_answer_avg.toFixed(1)}
+                                        </td>
+                                        <td className="text-center">
+                                          {answer.finder_answer_avg && answer.finder_answer_avg.toFixed(1)}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                  </>
+                                );
+                              })}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   )}
                 </div>

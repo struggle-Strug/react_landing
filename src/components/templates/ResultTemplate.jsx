@@ -1,20 +1,32 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import RadarChart from "../radarChart";
 import Toggle from "../toggle";
 import Dropdown from "../dropdown";
+import Button from "../button";
+
+import { USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
+import { requestWithTokenRefresh } from "../../utils/AuthService";
+import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
 
 export default function ResultTemplate({ results }) {
+  const navigate = useNavigate()
   const [scores, setScores] = useState();
   const [dates, setDates] = useState();
   const [selectedDate, setSelectedDate] = useState();
+
+  const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
+  const [categories, setCategories] = useState();
+  const [answers, setAnswers] = useState();
+  const [otherAnswers, setOtherAnswers] = useState();
 
   useEffect(() => {
     if (!results) {
       return;
     }
     const keys = Object.keys(results);
-    const dateOptions = keys.map((key) => ({ value: key, label: key }));
+    const dateOptions = keys.map((key) => ({ value: key, label: key.substring(0, 7) }));
     setDates(dateOptions);
     setSelectedDate(dateOptions[0]);
   }, [results]);
@@ -30,10 +42,43 @@ export default function ResultTemplate({ results }) {
   const handleChange = (value) => {
     setSelectedDate(value);
   };
-  const [showThirdPersonAssessment, setShowThirdPersonAssessment] =
-    useState(true);
+  const [showThirdPersonAssessment, setShowThirdPersonAssessment] = useState(true);
+  const handleGetAnswer = async () => {
+    if (!scores) {
+      return;
+    }
+    const query = `subscription_id=${scores.subscription_id}&user_id=${scores.user_id}`;
+    const resp = await requestWithTokenRefresh(
+      USERANSWER_ENDPOINT + `?${query}`,
+      {},
+      navigate
+    );
+    if (resp.status >= 200 && resp.status <= 300) {
+      const data = await resp.json();
+      setAnswers(data)
+      const res = await requestWithTokenRefresh(
+        `${USERANSWER_OTHER_ENDPOINT}?${query}`,
+        {},
+        query
+      )
+      const otherAnswer = await res.json()
+      setOtherAnswers(otherAnswer[0]);
+      setCategories([
+        ...new Set(data.map((answer) => answer.quiz_category_name)),
+      ]);
+      setShowPersonAnswerModal(true);
+    }
+  }
+
   return (
     <div className="w-full overflow-auto">
+      <SelfAnswerResultModal
+        open={showPersonAnswerModal}
+        setOpenModal={setShowPersonAnswerModal}
+        userAnswers={answers}
+        categories={categories}
+        otherAnswers={otherAnswers}
+      />
       <div className="flex place-content-center">
         <div className="relative w-full mx-3 md:w-4/5 mt-12 mb-6 sp:mt-10 sp:mb-24 flex flex-col items-center border-8 border-main">
           <div className="w-full text-white sp:h-[66px] flex flex-col justify-center items-center lg:gap-3 gap-2 sp:gap-1 font-CenturyGothic lg:pt-4 pt-3 sp:pt-2 lg:pb-7 pb-4 sp:pb-3 bg-main">
@@ -74,6 +119,7 @@ export default function ResultTemplate({ results }) {
                 showThirdPerson={showThirdPersonAssessment}
                 scores={scores}
               />
+              <Button className="px-10 ml-auto" title="自分の回答結果を見る" onClick={handleGetAnswer}></Button>
             </div>
           </div>
         </div>

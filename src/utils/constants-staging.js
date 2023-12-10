@@ -31,4 +31,8 @@ export const SUBSCRIPTION = BACKEND_URL + 'api/subscription/'
 
 export const USERANSWER_ENDPOINT = BACKEND_URL + 'api/useranswers/'
 
+export const USERANSWER_OTHER_ENDPOINT = BACKEND_URL + 'api/useranswers_other/'
+
 export const USERANSWER_UPDATE_ENDPOINT = BACKEND_URL + 'api/answer/update/'
+
+export const PRODUCTIVITY_ENDPOINT = BACKEND_URL + 'api/productivity_trend/'
