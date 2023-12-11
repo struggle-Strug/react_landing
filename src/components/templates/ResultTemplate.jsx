@@ -5,6 +5,7 @@ import RadarChart from "../radarChart";
 import Toggle from "../toggle";
 import Dropdown from "../dropdown";
 import Button from "../button";
+import Loader from "../loader";
 
 import { USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
@@ -19,6 +20,7 @@ export default function ResultTemplate({ results }) {
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
   const [categories, setCategories] = useState();
   const [answers, setAnswers] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   const [otherAnswers, setOtherAnswers] = useState();
 
   useEffect(() => {
@@ -48,6 +50,7 @@ export default function ResultTemplate({ results }) {
       return;
     }
     const query = `subscription_id=${scores.subscription_id}&user_id=${scores.user_id}`;
+    setIsLoading(true);
     const resp = await requestWithTokenRefresh(
       USERANSWER_ENDPOINT + `?${query}`,
       {},
@@ -68,10 +71,12 @@ export default function ResultTemplate({ results }) {
       ]);
       setShowPersonAnswerModal(true);
     }
+    setIsLoading(false);
   }
 
   return (
     <div className="w-full overflow-auto">
+      {isLoading && <Loader />}
       <SelfAnswerResultModal
         open={showPersonAnswerModal}
         setOpenModal={setShowPersonAnswerModal}
