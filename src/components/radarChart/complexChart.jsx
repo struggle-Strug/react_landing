@@ -10,7 +10,7 @@ function ComplexChart({ showThirdPerson, scores }) {
     B: 0.0,
     C: 0.0,
     D: 0.0,
-    fullMark: 4.00
+    fullMark: 5.00
   }))
   if (!scores["1st"] === false && !scores['3rd_average'] === true) {
     data = scores["1st"].map((score, i) => ({
@@ -19,7 +19,7 @@ function ComplexChart({ showThirdPerson, scores }) {
       B: 0.0,
       C: 0.0,
       D: 0.0,
-      fullMark: 4.00
+      fullMark: 5.00
     }))
   }
   else if (!scores["1st"] === true && !scores["3rd_average"] === false) {
@@ -29,7 +29,7 @@ function ComplexChart({ showThirdPerson, scores }) {
       B: score,
       C: 0.0,
       D: 0.0,
-      fullMark: 4.00
+      fullMark: 5.00
     }))
   }
   else {
@@ -39,7 +39,7 @@ function ComplexChart({ showThirdPerson, scores }) {
       B: score,
       C: scores['industry'][i],
       D: scores['finder'][i],
-      fullMark: 4.00
+      fullMark: 5.00
     }))
   }
   return (

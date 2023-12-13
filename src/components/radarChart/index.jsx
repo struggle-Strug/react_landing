@@ -59,7 +59,7 @@ function RadarChart({ showThirdPerson, scores }) {
       subject: labels[i],
       A: scores["1st"]["scores"][i],
       B: scores["3rd"]["scores"][i],
-      fullMark: 4,
+      fullMark: 5,
     }))
     : [];
 

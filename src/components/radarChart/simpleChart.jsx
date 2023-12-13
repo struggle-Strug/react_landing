@@ -58,13 +58,13 @@ function SimpleRadarChart({ isFirst, scores, isThird }) {
   let data = subjects.map((subject) => ({
     subject: subject,
     A: 0.0,
-    fullMark: 4.00
+    fullMark: 5.00
   }))
   if (scores.length > 0) {
     data = scores.map((score, i) => ({
       subject: subjects[i],
       A: score,
-      fullMark: 4.00
+      fullMark: 5.00
     }))
   }
 
