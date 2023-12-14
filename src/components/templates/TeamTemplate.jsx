@@ -493,7 +493,6 @@ export default function TeamTemplate({ data }) {
                             className="w-[300px] lg:w-[49%] xl:w-[24%] flex flex-col items-center"
                             key={idx}
                           >
-                            {console.log(score)}
                             <div className="w-full text-sm px-5 text-center">
                               <div className="text-main text-sm border-b border-black pb-3">
                                 {`匿名メンバー_${(idx + 10).toString(36).toUpperCase()}`}
