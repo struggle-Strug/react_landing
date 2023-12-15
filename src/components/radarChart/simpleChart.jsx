@@ -78,6 +78,7 @@ function SimpleRadarChart({ isFirst, scores, isThird }) {
       <ResponsiveContainer width="100%" height="100%">
         <RadarChartBase cx="50%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">
           <PolarGrid />
+          <PolarRadiusAxis domain={[0, 4]} tick={false} axisLine={false} />
           {!isThird && (
             <PolarAngleAxis dataKey="subject" tick={<CustomTickBM />} radius="40%" />
           )}

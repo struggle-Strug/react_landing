@@ -74,6 +74,7 @@ function RadarChart({ showThirdPerson, scores }) {
         <RadarChartBase cx="45%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">
           <PolarGrid />
           <PolarAngleAxis dataKey="subject" tick={<CustomTick />} radius="40%" />
+          <PolarRadiusAxis domain={[0, 4]} tick={false} axisLine={false} />
 
           <Radar name="1st" dataKey="A" stroke="#FF0000" fillOpacity={0} strokeWidth={5} max={4} />
           {showThirdPerson && (

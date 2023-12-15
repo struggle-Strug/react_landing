@@ -26,7 +26,6 @@ export default function Sidebar() {
   const subdomain = token.subdomain;
   // const router = useRoutes();
   // const exam = router.exam;
-  // console.log(exam);
   const navigation = [
     {
       name: "アセスメントを実施する",

@@ -35,7 +35,7 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
   useEffect(() => {
     if (companyProductivity) {
 
-      setCompany(companyProductivity.map(c => ({ name: c.subscription_activation_date, value: c.productivity_company_snapshot })))
+      setCompany(companyProductivity.map(c => ({ name: c.subscription_activation_date, value: c.productivity_company_snapshot, engagement: c.engagement_company_snapshot })))
       const teamResult = {};
       const memberResult = {};
       for (const entry of companyProductivity) {
@@ -44,6 +44,8 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
         const teamSnapshot = entry["productivity_team_snapshot"];
         const memberSnapshot = entry["productivity_member_snapshot"];
 
+        const engagementMember = entry["engagement_member_snapshot"]
+        const engagementTeam = entry["engagement_team_snapshot"]
 
         for (const [team, value] of Object.entries(teamSnapshot)) {
           if (!teamResult[team]) {
@@ -52,7 +54,8 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
 
           teamResult[team].push({
             name: date,
-            value: value
+            value: value,
+            engagement: engagementTeam[team]
           });
         }
         setTeams(teamResult)
@@ -64,7 +67,8 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
 
           memberResult[member].push({
             name: date,
-            value: value
+            value: value,
+            engagement: engagementMember[member]
           });
         }
         setMembers(memberResult)
@@ -96,9 +100,9 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
       return
     }
     if (memberName.value === 'all') {
-      setDisplayMembers(teams);
+      setDisplayMembers(members);
     } else {
-      setDisplayMembers({ [memberName.value]: teams[memberName.value] });
+      setDisplayMembers({ [memberName.value]: members[memberName.value] });
     }
   }, [memberName])
 
