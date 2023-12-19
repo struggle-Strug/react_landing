@@ -147,7 +147,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
       if (selectedAssignMethod.value == 1) {
         headers = [...RegisterationHeaders, "random"]
 
-        secondRow = [...explanationAssessmentRow, "アサインしあうメンバーに共通する数字を入力"]
+        secondRow = [...explanationAssessmentRow]
       } else if (selectedAssignMethod.value == 2) {
         const headerData = members.filter((member) => member.is_active === true).map(m => m.name)
         headers = [...RegisterationHeaders, ...headerData]
@@ -355,7 +355,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
             m.member_category,
             m.is_active,
             "",
-            m.productivity_member,
+            // m.productivity_member,
             // ...m.teamArray
             ...given_evaluations
           ])
@@ -425,7 +425,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
           <div className='flex mt-6 lg:mr-10 justify-center gap-20 flex-col border-2 border-grays py-5 pb-16'>
             <div className='text-center'>
               <div className='flex gap-x-8 mt-4 items-center justify-center'>
-                <img className='w-[62px]' src='/public/icon-note.svg' alt='アイコン' />
+                <img className='w-[62px]' src='/icon-note.svg' alt='アイコン' />
                 <Button
                   title='ひな形のCSVをダウンロード'
                   onClick={handleButtonClick}
