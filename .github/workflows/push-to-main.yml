@@ -1,4 +1,4 @@
-name: Deploy to Amazon S3 (Main)
+name: Deploy to Amazon S3 (main)
 
 on:
   push:
