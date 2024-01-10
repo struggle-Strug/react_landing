@@ -25,27 +25,27 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
       setSelectedCompany({ label: Object.keys(productivities)[0], value: Object.keys(productivities)[0] });
     }
   }, [productivities])
-  
+
   useEffect(() => {
     if (selectedCompany && selectedCompany.value !== '') {
       setCompanyProductivity(productivities[selectedCompany.value]);
     }
   }, [selectedCompany]);
-  
+
   useEffect(() => {
     if (companyProductivity) {
-      
+
       setCompany(companyProductivity.map(c => ({ name: c.subscription_activation_date, value: c.productivity_company_snapshot, engagement: c.engagement_company_snapshot })))
       const teamResult = {};
       const memberResult = {};
       for (const entry of companyProductivity) {
         const date = entry["subscription_activation_date"];
-        
+
         const teamSnapshot = entry["productivity_team_snapshot"];
-        const memberSnapshot = entry["productivity_member_snapshots"];
-        
-        const engagementMember = entry["engagement_member_snapshots"]
-        const engagementTeam = entry["engagement_team_snapshots"]
+        const memberSnapshot = entry["productivity_member_snapshot"];
+
+        const engagementMember = entry["engagement_member_snapshot"]
+        const engagementTeam = entry["engagement_team_snapshot"]
 
         for (const [team, value] of Object.entries(teamSnapshot)) {
           if (!teamResult[team]) {
