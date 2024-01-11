@@ -338,7 +338,6 @@ export default function TeamTemplate({ data }) {
                         <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
                           <ul>
-                            {console.log(teamData)}
                             {subscriptionCategoryName.map((sub, i) => (
                               teamData.gap_category[i] !== undefined &&
                               <li className="flex justify-between items-center my-1" key={`score-${i}`}>
