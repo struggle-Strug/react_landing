@@ -12,9 +12,13 @@ import { useNavigate } from "react-router";
 import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
 import Button from "../button";
 
+import { subscriptionCategoryNameAtom } from "../../utils/atom";
+import { useAtom } from "jotai";
+
 export default function TeamTemplate({ data }) {
   const navigate = useNavigate();
   // const companyOptions = data ? data.company.map(c => ({value: c.id, label:c.company_name})) : null
+  const [subscriptionCategoryName,] = useAtom(subscriptionCategoryNameAtom);
   const [companyOptions, setCompanyOptions] = useState();
   const [subscriptionOptions, setSubscriptionOption] = useState();
   const [teamOptions, setTeamOptions] = useState();
@@ -334,7 +338,8 @@ export default function TeamTemplate({ data }) {
                         <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
                           <ul>
-                            {subjects.map((sub, i) => (
+                            {console.log(teamData)}
+                            {subscriptionCategoryName.map((sub, i) => (
                               teamData.gap_category[i] !== undefined &&
                               <li className="flex justify-between items-center my-1" key={`score-${i}`}>
                                 <div className="text-sm break-keep">
