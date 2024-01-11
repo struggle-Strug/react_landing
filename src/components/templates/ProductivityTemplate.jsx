@@ -35,7 +35,7 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
   useEffect(() => {
     if (companyProductivity) {
 
-      setCompany(companyProductivity.map(c => ({ name: c.subscription_activation_date, value: c.productivity_company_snapshot, engagement: c.engagement_company_snapshot })))
+      setCompany(companyProductivity.map(c => ({ name: c.subscription_activation_date, value: c.productivity_company_snapshot, engagement: c.engagement_company_snapshot * 100 })))
       const teamResult = {};
       const memberResult = {};
       for (const entry of companyProductivity) {
@@ -55,7 +55,7 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
           teamResult[team].push({
             name: date,
             value: value,
-            engagement: engagementTeam[team]
+            engagement: engagementTeam[team] * 100
           });
         }
         setTeams(teamResult)
@@ -68,7 +68,7 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
           memberResult[member].push({
             name: date,
             value: value,
-            engagement: engagementMember[member]
+            engagement: engagementMember[member] * 100
           });
         }
         setMembers(memberResult)

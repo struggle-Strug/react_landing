@@ -10,11 +10,12 @@ export const LineChart = ({ data }) => {
           left: 20,
           bottom: 40
         }} >
-          <Line type="monotone" dataKey="value" strokeWidth={3} stroke="red" dot={{ fill: 'red', r: 0, stroke: 1 }} />
-          {/* <Line type="monotone" dataKey="engagement" strokeWidth={3} stroke="blue" dot={{ fill: '#00008C', r: 4, stroke: 0 }} /> */}
+          <Line type="monotone" dataKey="value" strokeWidth={3} stroke="red" dot={{ fill: 'red', r: 0, stroke: 1 }} yAxisId="left" />
+          <Line type="monotone" dataKey="engagement" strokeWidth={3} stroke="blue" dot={{ fill: '#00008C', r: 0, stroke: 1 }} yAxisId="right" />
           <CartesianGrid stroke="#ccc" />
           <XAxis dataKey="name" width={5} />
-          <YAxis domain={[0, 10]} ticks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]} />
+          <YAxis domain={[0, 100]} yAxisId={"left"} />
+          <YAxis yAxisId="right" orientation="right" domain={[0, 100]} />
         </LineChartBase>
       </ResponsiveContainer>
     </div>
