@@ -10,7 +10,7 @@ export const subjects = ["心理的安全性", "個人ビジョン明確度", "�
 
 
 function SimpleRadarChart({ isFirst, scores, isThird }) {
-  const [showTeamModal, setShowTeamModal] = useState(false)
+  const [showTeamModal, setShowTeamModal] = useState(false);
   const handleClickLabel = () => {
     setShowTeamModal(true)
   }
@@ -74,6 +74,7 @@ function SimpleRadarChart({ isFirst, scores, isThird }) {
         open={showTeamModal}
         category={data.length}
         setOpenAgreeModal={setShowTeamModal}
+        labels={subjects}
       />
       <ResponsiveContainer width="100%" height="100%">
         <RadarChartBase cx="50%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">

@@ -53,7 +53,7 @@ function RadarChart({ showThirdPerson, scores }) {
     </g>
   );
 
-  const labels = scores ? scores['1st']['labels'] : null
+  const labels = scores ? scores['1st']['labels'] : []
   const data = scores
     ? labels.map((l, i) => ({
       subject: labels[i],
@@ -69,6 +69,7 @@ function RadarChart({ showThirdPerson, scores }) {
         open={openModal}
         category={data.length}
         setOpenAgreeModal={setOpenModal}
+        labels={labels}
       />
       <ResponsiveContainer width="100%" height="100%" className={"font-HiraginoKakuGothicProNW3"}>
         <RadarChartBase cx="45%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">

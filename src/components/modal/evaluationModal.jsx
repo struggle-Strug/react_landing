@@ -3,7 +3,7 @@ import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 
 // eslint-disable-next-line react/prop-types
-export default function EvaluationModal({ open, category, setOpenAgreeModal }) {
+export default function EvaluationModal({ open, category, setOpenAgreeModal, labels }) {
   function clickHandler() {
     setOpenAgreeModal(false)
   }
@@ -51,9 +51,9 @@ export default function EvaluationModal({ open, category, setOpenAgreeModal }) {
                 </div>
                 <div>
                   <table className='m-auto w-fit'>
-                    {categories.map((c, i) => (i < category && <tr key={`evaluation-${i}`}>
-                      <td className='font-bold'>{c.name}</td>
-                      <td>{c.label}</td>
+                    {labels.map((c, i) => (i < category && <tr key={`evaluation-${i}`}>
+                      <td className='font-bold'>{c}</td>
+                      <td>{categories[i].label}</td>
                     </tr>))}
                   </table>
                 </div>
