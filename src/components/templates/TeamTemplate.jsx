@@ -6,19 +6,15 @@ import ComplexChart from "../radarChart/complexChart";
 import Loader from "../loader";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { SCORE_ENDPOINT, USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
-import { subjects } from "../radarChart/simpleChart";
 import { useNavigate } from "react-router";
 
 import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
 import Button from "../button";
 
-import { subscriptionCategoryNameAtom } from "../../utils/atom";
-import { useAtom } from "jotai";
 
 export default function TeamTemplate({ data }) {
   const navigate = useNavigate();
   // const companyOptions = data ? data.company.map(c => ({value: c.id, label:c.company_name})) : null
-  const [subscriptionCategoryName,] = useAtom(subscriptionCategoryNameAtom);
   const [companyOptions, setCompanyOptions] = useState();
   const [subscriptionOptions, setSubscriptionOption] = useState();
   const [teamOptions, setTeamOptions] = useState();
@@ -41,6 +37,8 @@ export default function TeamTemplate({ data }) {
   const [scoreData, setScoreData] = useState();
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [categoryNameList, setCategoryNameList] = useState([]);
 
   const handleGetAnswer = async () => {
     if (!memberOptions || !selectedMemberOption) {
@@ -113,6 +111,7 @@ export default function TeamTemplate({ data }) {
       label: t.team_name_snapshot,
     }));
     setTeamOptions(options);
+    setCategoryNameList(subscription.quiz_category_name_list);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSubscription]);
 
@@ -338,7 +337,7 @@ export default function TeamTemplate({ data }) {
                         <div className="h-[3px] border-t border-b border-black mx-2"></div>
                         <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
                           <ul>
-                            {subscriptionCategoryName.map((sub, i) => (
+                            {categoryNameList.map((sub, i) => (
                               teamData.gap_category[i] !== undefined &&
                               <li className="flex justify-between items-center my-1" key={`score-${i}`}>
                                 <div className="text-sm break-keep">
