@@ -42,8 +42,11 @@ function RadarChart({ showThirdPerson, scores }) {
         </>
       ) : (
         <>
-          <text fontSize={10} fontWeight={600} y={-11} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
-            {payload.value}
+          <text fontSize={10} fontWeight={600} y={-15} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
+            {payload.value.substring(0, payload.value.split("の")[0].length + 1)}
+          </text>
+          <text fontSize={10} fontWeight={600} y={-4} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
+            {payload.value.substring(payload.value.split("の")[0].length + 1, payload.value.length)}
           </text>
         </>
       )}
