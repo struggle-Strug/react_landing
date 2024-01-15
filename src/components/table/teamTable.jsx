@@ -50,7 +50,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
   }
 
   async function handleChangeProductivity(productivity) {
-    if (productivity > 0 && productivity < 11) {
+    if (productivity > 0 && productivity < 101) {
       await requestWithTokenRefresh(
         `${COMPANY_ENDPOINT}${companyId}/`,
         {
@@ -120,7 +120,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
               <p className="text-xs">会社の生産性スコア</p>
               <input className="w-10 lg:w-20 border border-black bg-white flex text-center placeholder:text-xs px-0 py-1 text-black font-HiraginoKakuGothicProNW6 lg:text-xl text-base" type="number"
                 min={1}
-                max={10}
+                max={100}
                 placeholder="会社の生産性"
                 value={productivity}
                 disabled={subscriptionGlobal}
@@ -188,7 +188,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
                             defaultValue={team.productivity_team}
                             onChange={(e) => handleProductivityChange(e, team.id)}
                             className="w-16 border border-black bg-white flex text-center placeholder:text-xs px-0 py-1 text-black text-base font-HiraginoKakuGothicProNW6"
-                            max={10}
+                            max={100}
                             min={1}
                             disabled={subscriptionGlobal}
                             placeholder="数値を入力"
