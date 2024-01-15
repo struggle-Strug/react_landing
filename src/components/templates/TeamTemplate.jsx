@@ -319,6 +319,7 @@ export default function TeamTemplate({ data }) {
                         <SimpleRadarChart
                           isFirst={true}
                           scores={teamData.team_scores}
+                          labels={categoryNameList}
                         />
                       </div>
                     </div>
@@ -507,6 +508,7 @@ export default function TeamTemplate({ data }) {
                                   isFirst={false}
                                   scores={score}
                                   isThird={idx === 0 ? false : true}
+                                  labels={categoryNameList}
                                 />
                               </div>
                             </div>

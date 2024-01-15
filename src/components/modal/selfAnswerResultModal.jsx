@@ -15,8 +15,6 @@ export default function SelfAnswerResultModal({
         setOpenModal(false);
     };
 
-    console.log(otherAnswers, userAnswers)
-
     return (
         <Transition.Root show={open} as={Fragment}>
             <Dialog as="div" className="relative z-30" onClose={clickHandler}>
