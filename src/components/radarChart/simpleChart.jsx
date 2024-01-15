@@ -4,11 +4,6 @@ import { useState } from 'react';
 import EvaluationModal from '../modal/evaluationModal';
 
 
-export const subjects = ["心理的安全性", "個人ビジョン明確度", "会社ビジョン共感度", "会社と個人の統合度", "意欲性", "影響力"]
-// const subjects = ["A", "B", "C", "D", "E", "F"]
-
-
-
 function SimpleRadarChart({ isFirst, scores, isThird, labels }) {
   const [showTeamModal, setShowTeamModal] = useState(false);
   const handleClickLabel = () => {
@@ -77,7 +72,7 @@ function SimpleRadarChart({ isFirst, scores, isThird, labels }) {
         open={showTeamModal}
         category={data.length}
         setOpenAgreeModal={setShowTeamModal}
-        labels={subjects}
+        labels={labels}
       />
       <ResponsiveContainer width="100%" height="100%">
         <RadarChartBase cx="50%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">
