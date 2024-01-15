@@ -42,8 +42,11 @@ function RadarChart({ showThirdPerson, scores }) {
         </>
       ) : (
         <>
-          <text fontSize={10} fontWeight={600} y={-11} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
-            {payload.value}
+          <text fontSize={10} fontWeight={600} y={-15} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
+            {payload.value.substring(0, payload.value.split("の")[0].length + 1)}
+          </text>
+          <text fontSize={10} fontWeight={600} y={-4} dy={16} fill="#000" onClick={handleClickLabel} textAnchor={textAnchor} style={{ position: 'relative' }}>
+            {payload.value.substring(payload.value.split("の")[0].length + 1, payload.value.length)}
           </text>
         </>
       )}
@@ -53,7 +56,7 @@ function RadarChart({ showThirdPerson, scores }) {
     </g>
   );
 
-  const labels = scores ? scores['1st']['labels'] : null
+  const labels = scores ? scores['1st']['labels'] : []
   const data = scores
     ? labels.map((l, i) => ({
       subject: labels[i],
@@ -69,6 +72,7 @@ function RadarChart({ showThirdPerson, scores }) {
         open={openModal}
         category={data.length}
         setOpenAgreeModal={setOpenModal}
+        labels={labels}
       />
       <ResponsiveContainer width="100%" height="100%" className={"font-HiraginoKakuGothicProNW3"}>
         <RadarChartBase cx="45%" cy="50%" outerRadius="60%" data={data} fill="#f3f6f4">

@@ -138,7 +138,7 @@ export default function RegisterMemberTemplate({ members, teams, refreshData, co
         teams
           .filter(t => t.label !== "全チーム")
           .map(t => t.label)
-      headers = [...RegisterationHeaders, "assessment_1st_exclude", "productivity", ...teamNames]
+      headers = [...RegisterationHeaders, "assessment_1st_exclude", "productivity_member", ...teamNames]
       // eslint-disable-next-line no-unused-vars
       const teamExplanations = teamNames.map(_ => "所属する場合は1を記入してください")
       secondRow = [...explanationRow, "True/Falseを入力（例：自己アセスメントを実施しない社員に対してTrueを設定する）", "生産性について1〜10まで数字を入力", ...teamExplanations]

@@ -11,7 +11,7 @@ import Modal from '../modal';
 import AgreeCheckModal from '../modal/agreeCheckModal';
 import SubscriptionModal from '../modal/subscriptionModal';
 import { useAtom } from 'jotai';
-import { subscriptionAtom, subscriptionModalAtom, subscriptionCategoryNameAtom } from '../../utils/atom';
+import { subscriptionAtom, subscriptionModalAtom } from '../../utils/atom';
 import Loader from '../loader';
 
 export default function Header() {
@@ -26,7 +26,6 @@ export default function Header() {
   const [modalTitle, setModalTitle] = useState('操作が失敗しました。')
   const [modalStatus, setModalStatus] = useState('')
   const [, setSubscriptionGlobal] = useAtom(subscriptionAtom)
-  const [, setSubscriptionCategoryName] = useAtom(subscriptionCategoryNameAtom);
   const [subscriptionModalGlobal, setSubscriptionModalGlobal] = useAtom(subscriptionModalAtom)
 
   useEffect(() => {
@@ -50,7 +49,6 @@ export default function Header() {
     const data = await resp.json()
     localStorage.setItem("subscription", data?.subscription_active)
     setSubscriptionGlobal(data?.subscription_active)
-    setSubscriptionCategoryName(data?.quiz_category_name_list)
   }, [navigate])
 
   const fetchAgreeStatus = async () => {
