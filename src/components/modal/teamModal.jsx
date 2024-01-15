@@ -92,7 +92,7 @@ export default function TeamModal({ open, title, onClose, team, submitForm, load
                             type="number"
                             value={productivity}
                             min={1}
-                            max={10}
+                            max={100}
                             onChange={(e) => setProductivity(e.target.value)}
                           />
                         </div>

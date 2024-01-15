@@ -200,7 +200,7 @@ export default function MemberModal({ members, open, title, onClose, member, tea
                             value={productivity}
                             placeholder="0〜10で入力"
                             min={1}
-                            max={10}
+                            max={100}
                             onChange={(e) => setProductivity(e.target.value)}
                             className="w-full"
                           />
