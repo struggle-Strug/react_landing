@@ -199,6 +199,7 @@ export default function TeamTemplate({ data }) {
           "3rd_average": data.given_average_score,
           "industry": data.industry,
           "finder": data.finder,
+          "engagement_member": data?.engagement_member,
         });
       }
     };
@@ -232,6 +233,7 @@ export default function TeamTemplate({ data }) {
           "3rd_average": data.given_average_score,
           "industry": data.industry,
           "finder": data.finder,
+          "engagement_member": data?.engagement_member,
         });
       }
     };
@@ -435,14 +437,6 @@ export default function TeamTemplate({ data }) {
                               scores={scoreData}
                             />
                           </div>
-                          {/* <ul className='w-1/2'>
-                            <li className='text-xs'>A - 心理的安全度</li>
-                            <li className='text-xs'>B - 個人ビジョン明確度</li>
-                            <li className='text-xs'>C - 会社ビジョン共感度</li>
-                            <li className='text-xs'>D - 会社と個人の統合度</li>
-                            <li className='text-xs'>E - 意欲度</li>
-                            <li className='text-xs'>F - 影響力</li>
-                          </ul> */}
                         </div>
                       </div>
                     )}
@@ -476,11 +470,11 @@ export default function TeamTemplate({ data }) {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row mx-auto mt-16">
-                      {/* <div className="mb-2">
-                    {selectedMember.received_evaluations_snapshot}{" "}
-                    のアセスメント結果
-                  </div> */}
+                    <div className="flex m-auto xl:w-full w-64 my-8">
+                      <p className="text-center bg-main text-white w-1/2 p-3">{selectedMember.received_evaluations_snapshot}さんの<br />Heart Beat スコア</p>
+                      <span className="w-1/2 text-black bg-[#DFFAFD] flex justify-center items-center p-3 text-3xl font-bold">{scoreData?.engagement_member}</span>
+                    </div>
+                    <div className="flex flex-col sm:flex-row mx-auto">
                       <Button
                         title={`${selectedMember.received_evaluations_snapshot}さんの回答結果を見る`}
                         className="text-white px-14 text-sm lg:text-lg py-5"
