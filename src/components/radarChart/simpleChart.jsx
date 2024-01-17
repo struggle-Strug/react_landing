@@ -4,7 +4,7 @@ import { useState } from 'react';
 import EvaluationModal from '../modal/evaluationModal';
 
 
-function SimpleRadarChart({ isFirst, scores, isThird, labels }) {
+function SimpleRadarChart({ isFirst, scores, isThird, labels, thirdScores }) {
   const [showTeamModal, setShowTeamModal] = useState(false);
   const handleClickLabel = () => {
     setShowTeamModal(true)
@@ -58,14 +58,21 @@ function SimpleRadarChart({ isFirst, scores, isThird, labels }) {
     A: 0.0,
     fullMark: 4.00
   }))
-  if (scores.length > 0) {
+  if (thirdScores && thirdScores.length > 0) {
+    data = scores.map((score, i) => ({
+      subject: labels[i],
+      A: score,
+      B: thirdScores[i],
+      fullMark: 4.00
+    }))
+  }
+  else if (scores.length > 0) {
     data = scores.map((score, i) => ({
       subject: labels[i],
       A: score,
       fullMark: 4.00
     }))
   }
-
   return (
     <>
       <EvaluationModal
@@ -85,6 +92,7 @@ function SimpleRadarChart({ isFirst, scores, isThird, labels }) {
             ? <Radar name="1st" dataKey="A" stroke="#FF0000" fillOpacity={0} strokeWidth={4} />
             : <Radar name="1st" dataKey="A" stroke="#0000FF" fillOpacity={0} strokeWidth={4} />
           }
+          {thirdScores && thirdScores.length > 0 && <Radar name="1st" dataKey="B" stroke="#0000FF" fillOpacity={0} strokeWidth={4} />}
         </RadarChartBase>
       </ResponsiveContainer>
     </>
