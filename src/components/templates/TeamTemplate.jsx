@@ -320,6 +320,7 @@ export default function TeamTemplate({ data }) {
                           isFirst={true}
                           scores={teamData.team_scores}
                           labels={categoryNameList}
+                          thirdScores={teamData.team_scores_third}
                         />
                       </div>
                     </div>
