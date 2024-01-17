@@ -137,6 +137,16 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
             )}
             <div className="w-full">
               <p className="bg-main text-white text-center leading-loose py-1">会社全体の生産性スコア</p>
+              <div className='flex justify-end items-top text-xs gap-4 mt-5'>
+                <div className='flex justify-center items-center w-max'>
+                  <span className='h-1 w-6 bg-[#ff0000] mr-2'></span>
+                  <p>生産性スコア</p>
+                </div>
+                <div className='flex justify-center items-center w-max'>
+                  <span className='h-1 w-6 bg-[#0000ff] mr-2'></span>
+                  <p>Heart Beat スコア</p>
+                </div>
+              </div>
               <LineChart data={company} />
             </div>
           </div>
@@ -151,7 +161,19 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
               </div>
               {Object.keys(displayTeams).map((t, idx) => (
                 <div key={idx}>
-                  <p className="max-w-[600px] m-auto text-main font-semibold font-HiraginoKakuGothicProNW3 text-lg leading-none">■{t}部</p>
+                  <div className="flex justify-between">
+                    <p className="text-main font-semibold font-HiraginoKakuGothicProNW3 text-lg leading-none">■{t}部</p>
+                    <div className='flex justify-end items-top text-xs gap-4'>
+                      <div className='flex justify-center items-center w-max'>
+                        <span className='h-1 w-6 bg-[#ff0000] mr-2'></span>
+                        <p>生産性スコア</p>
+                      </div>
+                      <div className='flex justify-center items-center w-max'>
+                        <span className='h-1 w-6 bg-[#0000ff] mr-2'></span>
+                        <p>Heart Beat スコア</p>
+                      </div>
+                    </div>
+                  </div>
                   <LineChart data={displayTeams[t]} />
                 </div>
               ))}
@@ -169,7 +191,19 @@ const ProductivityTemplate = ({ productivities, fromDate, setFromDate, toDate, s
               </div>
               {Object.keys(displayMembers).map((m, idx) => (
                 <div key={`${idx}-chart`}>
-                  <p className="max-w-[600px] m-auto text-main font-semibold font-HiraginoKakuGothicProNW3 text-lg leading-none">■{m}</p>
+                  <div className="flex justify-between">
+                    <p className="text-main font-semibold font-HiraginoKakuGothicProNW3 text-lg leading-none">■{m}</p>
+                    <div className='flex justify-end items-top text-xs gap-4'>
+                      <div className='flex justify-center items-center w-max'>
+                        <span className='h-1 w-6 bg-[#ff0000] mr-2'></span>
+                        <p>生産性スコア</p>
+                      </div>
+                      <div className='flex justify-center items-center w-max'>
+                        <span className='h-1 w-6 bg-[#0000ff] mr-2'></span>
+                        <p>Heart Beat スコア</p>
+                      </div>
+                    </div>
+                  </div>
                   <LineChart data={displayMembers[m]} />
                 </div>
               ))}
