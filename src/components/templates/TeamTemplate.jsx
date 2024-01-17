@@ -328,7 +328,7 @@ export default function TeamTemplate({ data }) {
                     </div>
                     <div className="flex flex-col justify-around">
                       <div className="flex gap-3 mx-auto">
-                        <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold">
+                        <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold justify-between">
                           <div className="h-14 flex justify-center items-center text-center text-xl lg:text-2xl bg-main text-white">
                             <span>ギャップ値</span>
                             <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full">
@@ -340,7 +340,7 @@ export default function TeamTemplate({ data }) {
                             <div className="text-3xl lg:text-5xl">{teamData.gap && teamData.gap.toFixed(2)}</div>
                           </div>
                           <div className="h-[3px] border-t border-b border-black mx-2"></div>
-                          <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
+                          <div className="flex items-center px-4 lg:px-7 pt-4 flex-col">
                             <ul>
                               {categoryNameList.map((sub, i) => (
                                 teamData.gap_category[i] !== undefined &&
@@ -354,8 +354,9 @@ export default function TeamTemplate({ data }) {
                               ))}
                             </ul>
                           </div>
+                          <span className="bg-main w-full text-white flex justify-center items-center text-center h-[75px]">このチームの<br />Heart Beat スコア</span>
                         </div>
-                        <div className="bg-[#DFFAFD]">
+                        <div className="bg-[#DFFAFD] flex flex-col justify-between">
                           <div className="w-40 h-14 flex justify-center items-center bg-main px-2">
                             <Dropdown placeholder={"同業種平均"} options={[{ label: '同業種平均', value: 'gap_industry' }, { label: '全企業平均', value: 'gap_finder' }]} selectedOption={gapCategory} setSelectedOption={setGapCategory} />
                           </div>
@@ -371,11 +372,8 @@ export default function TeamTemplate({ data }) {
                               <div key={`gap-${i}`}>{gap.toFixed(1)}</div>
                             ))}
                           </div>
+                          <span className="w-full text-black bg-[#DFFAFD] flex justify-center items-center text-3xl font-bold h-[75px]">{teamData?.engagement_team}</span>
                         </div>
-                      </div>
-                      <div className="flex w-full">
-                        <p className="text-center bg-main text-white w-1/2 p-3">このチームの<br />Heart Beat スコア</p>
-                        <span className="w-1/2 text-black bg-[#DFFAFD] flex justify-center items-center p-3 text-3xl font-bold">{teamData?.engagement_team}</span>
                       </div>
                     </div>
                   </div>
