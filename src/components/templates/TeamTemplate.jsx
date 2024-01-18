@@ -354,7 +354,7 @@ export default function TeamTemplate({ data }) {
                               ))}
                             </ul>
                           </div>
-                          <span className="bg-main w-full text-white flex justify-center items-center text-center h-[75px]">このチームの<br />Heart Beat スコア</span>
+                          <span className="bg-main w-full text-white flex justify-center items-center text-center h-[75px] border-t-[12px] border-white">このチームの<br />Heart Beat スコア</span>
                         </div>
                         <div className="bg-[#DFFAFD] flex flex-col justify-between">
                           <div className="w-40 h-14 flex justify-center items-center bg-main px-2">
@@ -372,7 +372,7 @@ export default function TeamTemplate({ data }) {
                               <div key={`gap-${i}`}>{gap.toFixed(1)}</div>
                             ))}
                           </div>
-                          <span className="w-full text-black bg-[#DFFAFD] flex justify-center items-center text-3xl font-bold h-[75px]">{teamData?.engagement_team}</span>
+                          <span className="w-full text-black bg-[#DFFAFD] flex justify-center items-center text-3xl font-bold h-[75px] border-t-[12px] border-white">{teamData?.engagement_team}</span>
                         </div>
                       </div>
                     </div>
