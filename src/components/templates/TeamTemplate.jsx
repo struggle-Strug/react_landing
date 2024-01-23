@@ -199,6 +199,7 @@ export default function TeamTemplate({ data }) {
           "3rd_average": data.given_average_score,
           "industry": data.industry,
           "finder": data.finder,
+          "engagement_member": data?.engagement_member,
         });
       }
     };
@@ -232,6 +233,7 @@ export default function TeamTemplate({ data }) {
           "3rd_average": data.given_average_score,
           "industry": data.industry,
           "finder": data.finder,
+          "engagement_member": data?.engagement_member,
         });
       }
     };
@@ -296,7 +298,7 @@ export default function TeamTemplate({ data }) {
                   </p>
                 </div>
                 <div className="flex flex-wrap flex-col">
-                  <div className="flex flex-col flex-wrap sm:flex-row bg-white w-full sm:w-full justify-between">
+                  <div className="flex flex-col flex-wrap sm:flex-row sm:justify-center bg-white w-full sm:w-full justify-between">
                     <div className="w-1/2 max-w-[600px] min-w-[390px] mx-auto">
                       <div className="m-auto mt-10 xl:mt-0 xl:w-60 w-52">
                         <div className="text-sm border border-black xl:pl-5 xl:pr-1 pl-2 py-2">
@@ -324,55 +326,59 @@ export default function TeamTemplate({ data }) {
                         />
                       </div>
                     </div>
-                    <div className="flex gap-3 mx-auto">
-                      <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold">
-                        <div className="h-14 flex justify-center items-center text-center text-xl lg:text-2xl bg-main text-white">
-                          <span>ギャップ値</span>
-                          <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full">
-                            ?
-                          </span>
-                        </div>
-                        <div className="flex justify-between items-center px-4 lg:px-7 py-2">
-                          <div className="text-xl">全体平均</div>
-                          <div className="text-3xl lg:text-5xl">{teamData.gap && teamData.gap.toFixed(2)}</div>
-                        </div>
-                        <div className="h-[3px] border-t border-b border-black mx-2"></div>
-                        <div className=" flex items-center px-4 lg:px-7 pt-4 pb-8">
-                          <ul>
-                            {categoryNameList.map((sub, i) => (
-                              teamData.gap_category[i] !== undefined &&
-                              <li className="flex justify-between items-center my-1" key={`score-${i}`}>
-                                <div className="text-sm break-keep">
-                                  {sub}
-                                </div>
-                                <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                                <div className="text-3xl">{teamData.gap_category[i].toFixed(1)}</div>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                      <div className="bg-[#DFFAFD]">
-                        <div className="w-40 h-14 flex justify-center items-center bg-main px-2">
-                          <Dropdown placeholder={"同業種平均"} options={[{ label: '同業種平均', value: 'gap_industry' }, { label: '全企業平均', value: 'gap_finder' }]} selectedOption={gapCategory} setSelectedOption={setGapCategory} />
-                        </div>
-                        <div>
-                          <div className="flex justify-center items-center h-16 text-3xl font-bold">
-                            {gapAvData && gapAvData.toFixed(2)}
+                    <div className="flex flex-col justify-around">
+                      <div className="flex gap-3 mx-auto">
+                        <div className="flex flex-col max-w-md w-full bg-[#DFFAFD] font-bold justify-between">
+                          <div className="h-14 flex justify-center items-center text-center text-xl lg:text-2xl bg-main text-white">
+                            <span>ギャップ値</span>
+                            <span className="w-4 h-4 ml-2 bg-white text-black text-xs rounded-full">
+                              ?
+                            </span>
+                          </div>
+                          <div className="flex justify-between items-center px-4 lg:px-7 py-2">
+                            <div className="text-xl">全体平均</div>
+                            <div className="text-3xl lg:text-5xl">{teamData.gap && teamData.gap.toFixed(2)}</div>
                           </div>
                           <div className="h-[3px] border-t border-b border-black mx-2"></div>
+                          <div className="flex items-center px-4 lg:px-7 pt-4 flex-col">
+                            <ul>
+                              {categoryNameList.map((sub, i) => (
+                                teamData.gap_category[i] !== undefined &&
+                                <li className="flex justify-between items-center my-1" key={`score-${i}`}>
+                                  <div className="text-sm break-keep">
+                                    {sub}
+                                  </div>
+                                  <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
+                                  <div className="text-3xl">{teamData.gap_category[i].toFixed(1)}</div>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <span className="bg-main w-full text-white flex justify-center items-center text-center h-[75px] border-t-[12px] border-white">このチームの<br />Heart Beat スコア</span>
                         </div>
-                        <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
-                          {gapData && gapData.map((gap, i) => (
-                            teamData.gap_category[i] !== undefined &&
-                            <div key={`gap-${i}`}>{gap.toFixed(1)}</div>
-                          ))}
+                        <div className="bg-[#DFFAFD] flex flex-col justify-between">
+                          <div className="w-40 h-14 flex justify-center items-center bg-main px-2">
+                            <Dropdown placeholder={"同業種平均"} options={[{ label: '同業種平均', value: 'gap_industry' }, { label: '全企業平均', value: 'gap_finder' }]} selectedOption={gapCategory} setSelectedOption={setGapCategory} />
+                          </div>
+                          <div>
+                            <div className="flex justify-center items-center h-16 text-3xl font-bold">
+                              {gapAvData && gapAvData.toFixed(2)}
+                            </div>
+                            <div className="h-[3px] border-t border-b border-black mx-2"></div>
+                          </div>
+                          <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
+                            {gapData && gapData.map((gap, i) => (
+                              teamData.gap_category[i] !== undefined &&
+                              <div key={`gap-${i}`}>{gap.toFixed(1)}</div>
+                            ))}
+                          </div>
+                          <span className="w-full text-black bg-[#DFFAFD] flex justify-center items-center text-3xl font-bold h-[75px] border-t-[12px] border-white">{teamData?.engagement_team}</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="max-w-[600px] w-full m-auto mt-48 mb-2 gap-5">
+                <div className="max-w-[600px] w-full m-auto mt-24 mb-2 gap-5">
                   <div className="w-0 h-0 mx-auto mt-8 border-main border-t-[20px] border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent mb-5"></div>
                   <div className="flex justify-between items-center">
                     <div className="lg:text-xl text-base">●メンバーを選択</div>
@@ -429,14 +435,6 @@ export default function TeamTemplate({ data }) {
                               scores={scoreData}
                             />
                           </div>
-                          {/* <ul className='w-1/2'>
-                            <li className='text-xs'>A - 心理的安全度</li>
-                            <li className='text-xs'>B - 個人ビジョン明確度</li>
-                            <li className='text-xs'>C - 会社ビジョン共感度</li>
-                            <li className='text-xs'>D - 会社と個人の統合度</li>
-                            <li className='text-xs'>E - 意欲度</li>
-                            <li className='text-xs'>F - 影響力</li>
-                          </ul> */}
                         </div>
                       </div>
                     )}
@@ -470,11 +468,11 @@ export default function TeamTemplate({ data }) {
                         </div>
                       </div>
                     </div>
-                    <div className="flex flex-col sm:flex-row mx-auto mt-16">
-                      {/* <div className="mb-2">
-                    {selectedMember.received_evaluations_snapshot}{" "}
-                    のアセスメント結果
-                  </div> */}
+                    <div className="flex m-auto xl:w-full w-64 my-8">
+                      <p className="text-center bg-main text-white w-1/2 p-3">{selectedMember.received_evaluations_snapshot}さんの<br />Heart Beat スコア</p>
+                      <span className="w-1/2 text-black bg-[#DFFAFD] flex justify-center items-center p-3 text-3xl font-bold">{scoreData?.engagement_member}</span>
+                    </div>
+                    <div className="flex flex-col sm:flex-row mx-auto">
                       <Button
                         title={`${selectedMember.received_evaluations_snapshot}さんの回答結果を見る`}
                         className="text-white px-14 text-sm lg:text-lg py-5"
