@@ -67,7 +67,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
   }
 
   const handleProductivityChange = async (e, id) => {
-    if (e.target.value > 0 && e.target.value < 11) {
+    if (e.target.value > 0 && e.target.value < 101) {
       const url = BACKEND_URL + 'api/team/update/' + id;
       const method = 'PATCH'
       const body = { productivity_team: parseInt(e.target.value) }
