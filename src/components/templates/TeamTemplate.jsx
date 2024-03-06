@@ -30,7 +30,6 @@ export default function TeamTemplate({ data }) {
   const [gapAvData, setAvGapData] = useState();
   const [selectedMember, setSelectedMember] = useState();
   const [userAnswers, setUserAnswers] = useState();
-  const [otherAnswers, setOtherAnswers] = useState();
   const [categories, setCategories] = useState();
   const [teamList, setTeamList] = useState();
   const [team, setTeam] = useState();
@@ -53,21 +52,12 @@ export default function TeamTemplate({ data }) {
       navigate
     );
     const data = await resp.json();
-    if (resp.ok) {
-      const res = await requestWithTokenRefresh(
-        `${USERANSWER_OTHER_ENDPOINT}?${query}`,
-        {},
-        query
-      )
-      const otherAnswer = await res.json()
-      setCategories([
-        ...new Set(data.map((answer) => answer.quiz_category_name)),
-      ]);
-      setIsLoading(false);
-      setUserAnswers(data);
-      setOtherAnswers(otherAnswer[0]);
-      setShowPersonAnswerModal(true);
-    }
+    setCategories([
+      ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
+    ]);
+    setIsLoading(false);
+    setUserAnswers(data.answers);
+    setShowPersonAnswerModal(true);
   };
 
   useEffect(() => {
@@ -171,7 +161,7 @@ export default function TeamTemplate({ data }) {
       );
       const data = await resp.json();
       if (resp.ok) {
-        setTeamScoreData(data.score_teams.filter((m) => m.team_id_ss !== 99999));
+        setTeamScoreData(data.score_teams);
         setTeamList(data.score_teams.filter((m) => m.team_id_ss !== 99999));
         setScoreData({
           "1st": data.score_first.quizcategory_first_ss,
@@ -201,15 +191,27 @@ export default function TeamTemplate({ data }) {
   }, [teamList]);
 
   useEffect(() => {
-    if (!team || team.value === 99999) {
+    if (!team) {
       return;
     }
-    setScoreData({
-      ...scoreData,
-      "3rd": teamScoreData.filter(m => m.team_id_ss === team.value).map(me => me.quiz_category_score)
-    });
+    if (team.value !== 99999) {
+      setScoreData({
+        ...scoreData,
+        "3rd": teamScoreData.filter(m => m.team_id_ss === team.value).map(me => me.quiz_category_score),
+        "3rd_average": teamScoreData.find(m => m.team_id_ss === team.value)?.quiz_category_score
+      });
+    }
+    else {
+      setScoreData({
+        ...scoreData,
+        "3rd": teamScoreData.filter((m) => m.team_id_ss !== 99999).map((me) => me.quiz_category_score), 
+        "3rd_average": teamScoreData.find(m => m.team_id_ss === 99999)?.quiz_category_score
+      });
+    }
 
   }, [team]);
+
+  console.log(scoreData)
 
   return (
     <>
@@ -218,7 +220,6 @@ export default function TeamTemplate({ data }) {
         setOpenModal={setShowPersonAnswerModal}
         userAnswers={userAnswers}
         categories={categories}
-        otherAnswers={otherAnswers}
         selectedMember={selectedMember}
       />
       <div className="max-w-[1280px] w-full overflow-auto">
