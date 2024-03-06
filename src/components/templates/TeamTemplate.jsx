@@ -204,7 +204,6 @@ export default function TeamTemplate({ data }) {
     if (!team || team.value === 99999) {
       return;
     }
-    console.log(teamScoreData, team)
     setScoreData({
       ...scoreData,
       "3rd": teamScoreData.filter(m => m.team_id_ss === team.value).map(me => me.quiz_category_score)
