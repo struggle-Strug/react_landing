@@ -29,7 +29,7 @@ export const ASSIGN_ENDPOINT = BACKEND_URL + 'api/random/'
 
 export const SUBSCRIPTION = BACKEND_URL + 'api/subscription/'
 
-export const USERANSWER_ENDPOINT = BACKEND_URL + 'api/useranswers/'
+export const USERANSWER_ENDPOINT = BACKEND_URL + 'api/useranswers_new/'
 
 export const USERANSWER_OTHER_ENDPOINT = BACKEND_URL + 'api/useranswers_other/'
 
