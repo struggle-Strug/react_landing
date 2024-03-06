@@ -211,8 +211,6 @@ export default function TeamTemplate({ data }) {
 
   }, [team]);
 
-  console.log(scoreData)
-
   return (
     <>
       <SelfAnswerResultModal
