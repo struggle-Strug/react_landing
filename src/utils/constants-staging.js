@@ -19,7 +19,7 @@ export const ANSWER_ENDPOINT = BACKEND_URL + 'api/answer/'
 
 export const SCORE_ENDPOINT = BACKEND_URL + 'api/score/'
 
-export const TEAM_ENDPOINT = BACKEND_URL + 'api/score/team/list/'
+export const TEAM_ENDPOINT = BACKEND_URL + 'api/score/team/new_list/'
 
 export const MEMBER_ENDPOINT = BACKEND_URL + 'api/user/'
 
