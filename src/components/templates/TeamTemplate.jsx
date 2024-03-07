@@ -27,6 +27,7 @@ export default function TeamTemplate({ data }) {
   const [gapCategory, setGapCategory] = useState({ label: '同業種平均', value: 'gap_industry' });
   const [gapData, setGapData] = useState();
   const [teamScoreData, setTeamScoreData] = useState();
+  const [teamMemberData, setTeamMemberData] = useState();
   const [gapAvData, setAvGapData] = useState();
   const [selectedMember, setSelectedMember] = useState();
   const [userAnswers, setUserAnswers] = useState();
@@ -81,7 +82,7 @@ export default function TeamTemplate({ data }) {
     )[0];
     const options = company.subscription.map((s) => ({
       value: s.subscription_id_ss,
-      label: s.subscription_activation_date_ss,
+      label: s.subscription_activation_date_ss.slice(0, 7),
     }));
     setSubscriptionOption(options);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -162,10 +163,11 @@ export default function TeamTemplate({ data }) {
       const data = await resp.json();
       if (resp.ok) {
         setTeamScoreData(data.score_teams);
+        setTeamMemberData(data.score_members);
         setTeamList(data.score_teams.filter((m) => m.team_id_ss !== 99999));
         setScoreData({
           "1st": data.score_first.quizcategory_first_ss,
-          "3rd": data.score_teams.filter((m) => m.team_id_ss !== 99999).map((me) => me.quiz_category_score),
+          "3rd": data.score_members.map((me) => me.quiz_category_score),
           "engagement_member": data?.engagement_member_ss,
           "3rd_average": data?.score_teams.find((m) => m.team_id_ss === 99999)?.quiz_category_score,
           "industry": data?.score_sector?.quizcategory_sector_first_ss,
@@ -197,14 +199,14 @@ export default function TeamTemplate({ data }) {
     if (team.value !== 99999) {
       setScoreData({
         ...scoreData,
-        "3rd": teamScoreData.filter(m => m.team_id_ss === team.value).map(me => me.quiz_category_score),
+        "3rd": teamMemberData.filter(m => m.team_id_ss.includes(team.value)).map(me => me.quiz_category_score),
         "3rd_average": teamScoreData.find(m => m.team_id_ss === team.value)?.quiz_category_score
       });
     }
     else {
       setScoreData({
         ...scoreData,
-        "3rd": teamScoreData.filter((m) => m.team_id_ss !== 99999).map((me) => me.quiz_category_score), 
+        "3rd": teamMemberData.map((me) => me.quiz_category_score), 
         "3rd_average": teamScoreData.find(m => m.team_id_ss === 99999)?.quiz_category_score
       });
     }
