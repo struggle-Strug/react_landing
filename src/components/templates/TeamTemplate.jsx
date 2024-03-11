@@ -50,7 +50,7 @@ export default function TeamTemplate({ data }) {
       return;
     }
     setIsLoading(true);
-    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value+100}`;
+    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`;
     const resp = await requestWithTokenRefresh(
       USERANSWER_ENDPOINT + `?${query}`,
       {},
@@ -64,7 +64,6 @@ export default function TeamTemplate({ data }) {
       setShowPopupMessage(true);
     }
     else {
-      console.log(data)
       setCategories([
         ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
       ]);
@@ -84,7 +83,7 @@ export default function TeamTemplate({ data }) {
       label: c.company_name,
     }));
     setCompanyOptions(options);
-    setSelectedCompany(options[0]);
+    if (options.length > 0) setSelectedCompany(options[0]);
   }, [data]);
 
   useEffect(() => {
@@ -99,6 +98,7 @@ export default function TeamTemplate({ data }) {
       label: s.subscription_activation_date_ss.slice(0, 7),
     }));
     setSubscriptionOption(options);
+    if (options.length > 0) setSelectedSubscription(options[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCompany]);
 
@@ -112,11 +112,12 @@ export default function TeamTemplate({ data }) {
     const subscription = company.subscription.filter(
       (s) => s.subscription_id_ss === selectedSubscription.value
     )[0];
-    const options = subscription.score_teams.map((t) => ({
+    const options = subscription.score_teams.sort((a, b) => b.team_id_ss - a.team_id_ss).map((t) => ({
       value: t.team_id_ss,
-      label: t.team_name_ss,
+      label: t.team_name_ss ? t.team_name_ss : "全チーム",
     }));
     setTeamOptions(options);
+    if (options.length > 0) setSelectedTeam(options[0])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSubscription]);
 
@@ -148,7 +149,7 @@ export default function TeamTemplate({ data }) {
     };
     getMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTeam]);
+  }, [selectedTeam, selectedCompany, selectedSubscription]);
 
   useEffect(() => {
     if (teamData && gapCategory) {
@@ -220,11 +221,10 @@ export default function TeamTemplate({ data }) {
     else {
       setScoreData({
         ...scoreData,
-        "3rd": teamMemberData.map((me) => me.quiz_category_score), 
+        "3rd": teamMemberData.map((me) => me.quiz_category_score),
         "3rd_average": teamScoreData.find(m => m.team_id_ss === 99999)?.quiz_category_score
       });
     }
-
   }, [team]);
 
   return (
