@@ -54,7 +54,7 @@ export default function SelfAnswerResultModal({
                                                 </div>
                                             </div>
                                             <div className="text-center text-2xl lg:text-3xl bg-main w-5/6 mx-auto text-white py-4 mb-10">
-                                                {selectedMember ? `${selectedMember.received_evaluations_snapshot} さんへ` : 'あなた'}のアセスメント結果を見る
+                                                {selectedMember ? `${selectedMember.user_name_ss} さんへ` : 'あなた'}のアセスメント結果を見る
                                             </div>
                                             <div className=" overflow-x-auto">
                                                 <table className="w-full">
@@ -91,9 +91,6 @@ export default function SelfAnswerResultModal({
                                                                             <tr key={`answer-${idx}`}>
                                                                                 <td className="py-3">{idx + 1}</td>
                                                                                 <td>{answer.quiz}</td>
-                                                                                <td className="text-center">
-                                                                                    {answer.answer}
-                                                                                </td>
                                                                                 <td className="text-center">
                                                                                     {answer["useranswer_first_ss"]}
                                                                                 </td>
