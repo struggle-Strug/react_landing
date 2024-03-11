@@ -5,10 +5,11 @@ import SimpleRadarChart from "../radarChart/simpleChart";
 import ComplexChart from "../radarChart/complexChart";
 import Loader from "../loader";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
-import { SCORE_ENDPOINT, USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
+import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
 import { useNavigate } from "react-router";
 
 import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
+import PopupMessageModal from "../modal/popupMessageModal";
 import Button from "../button";
 
 
@@ -39,6 +40,9 @@ export default function TeamTemplate({ data }) {
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const [showPopupMessage, setShowPopupMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [categoryNameList, setCategoryNameList] = useState([]);
 
   const handleGetAnswer = async () => {
@@ -46,19 +50,29 @@ export default function TeamTemplate({ data }) {
       return;
     }
     setIsLoading(true);
-    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value}`;
+    const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMemberOption.value+100}`;
     const resp = await requestWithTokenRefresh(
       USERANSWER_ENDPOINT + `?${query}`,
       {},
       navigate
     );
     const data = await resp.json();
-    setCategories([
-      ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
-    ]);
-    setIsLoading(false);
-    setUserAnswers(data.answers);
-    setShowPersonAnswerModal(true);
+    if (data.error) {
+      setIsLoading(false);
+      setErrorMessage(data.error);
+      setShowPersonAnswerModal(false);
+      setShowPopupMessage(true);
+    }
+    else {
+      console.log(data)
+      setCategories([
+        ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
+      ]);
+      setIsLoading(false);
+      setShowPopupMessage(false);
+      setUserAnswers(data.answers);
+      setShowPersonAnswerModal(true);
+    }
   };
 
   useEffect(() => {
@@ -222,6 +236,8 @@ export default function TeamTemplate({ data }) {
         categories={categories}
         selectedMember={selectedMember}
       />
+
+      {showPopupMessage && <PopupMessageModal status={"faild"} open={showPopupMessage} setShowPopupMessage={setShowPopupMessage} msg={errorMessage} />}
       <div className="max-w-[1280px] w-full overflow-auto">
         {!data || isLoading ? (
           <Loader />
