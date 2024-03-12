@@ -10,6 +10,7 @@ import Loader from "../loader";
 import { USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
 import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
+import PopupMessageModal from "../modal/popupMessageModal";
 
 export default function ResultTemplate({ results }) {
   const navigate = useNavigate()
@@ -21,6 +22,8 @@ export default function ResultTemplate({ results }) {
   const [categories, setCategories] = useState();
   const [answers, setAnswers] = useState();
   const [isLoading, setIsLoading] = useState(false);
+  const [showPopupMessage, setShowPopupMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     if (!results) {
@@ -57,11 +60,28 @@ export default function ResultTemplate({ results }) {
     );
     if (resp.status >= 200 && resp.status <= 300) {
       const data = await resp.json();
-      setAnswers(data.answers)
-      setCategories([
-        ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
-      ]);
-      setShowPersonAnswerModal(true);
+      if (data.error) {
+        setIsLoading(false);
+        setErrorMessage(data.error);
+        setShowPersonAnswerModal(false);
+        setShowPopupMessage(true);
+      }
+      else {
+        setAnswers(data.answers)
+        setCategories([
+          ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
+        ]);
+        setShowPopupMessage(false);
+        setShowPersonAnswerModal(true);
+      }
+    }
+    else {
+      const data = await resp.json();
+      setIsLoading(false);
+      setErrorMessage(data.error);
+      setShowPersonAnswerModal(false);
+      setShowPopupMessage(true);
+
     }
     setIsLoading(false);
   }
@@ -75,6 +95,8 @@ export default function ResultTemplate({ results }) {
         userAnswers={answers}
         categories={categories}
       />
+      {showPopupMessage && <PopupMessageModal status={"faild"} open={showPopupMessage} setShowPopupMessage={setShowPopupMessage} msg={errorMessage} />}
+
       <div className="flex place-content-center">
         <div className="relative w-full mx-3 md:w-4/5 mt-12 mb-6 sp:mt-10 sp:mb-24 flex flex-col items-center border-8 border-main">
           <div className="w-full text-white sp:h-[66px] flex flex-col justify-center items-center lg:gap-3 gap-2 sp:gap-1 font-CenturyGothic lg:pt-4 pt-3 sp:pt-2 lg:pb-7 pb-4 sp:pb-3 bg-main">
