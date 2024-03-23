@@ -64,7 +64,7 @@ export default function SelfAnswerResultModal({
                                                             <th className="text-xl w-[40%] min-w-[200px]">設問</th>
                                                             <th className="break-keep">回答</th>
                                                             <th className="break-keep">会社平均</th>
-                                                            <th className="break-keep">第三者評価平均</th>
+                                                            <th className="break-keep">第三者評価結果</th>
                                                             <th className="break-keep">同業者平均</th>
                                                             <th className="break-keep">全企業平均</th>
                                                         </tr>
