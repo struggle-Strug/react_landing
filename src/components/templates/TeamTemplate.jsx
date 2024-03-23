@@ -145,6 +145,9 @@ export default function TeamTemplate({ data }) {
           })
         );
         setMemberOptions(memberOptions);
+        setSelectedMemberOption();
+        setSelectedMember();
+        setTeamList();
       }
     };
     getMembers();
@@ -293,13 +296,13 @@ export default function TeamTemplate({ data }) {
                           <div className="text-red-500 flex items-center xl:mb-3 mb-1">
                             <hr className="w-10 h-1 bg-[#FF0000] mr-2" />
                             <p className="text-[#FF0000] text-xs font-HiraginoKakuGothicProNW3">
-                              チーム平均値
+                              自己アセスメントの平均値（チーム）
                             </p>
                           </div>
                           <div className="flex items-center">
                             <hr className="w-10 h-1 bg-[#0303FF] mr-2" />
                             <p className="text-[#0303FF] text-xs font-HiraginoKakuGothicProNW3">
-                              第三者アセスメント平均値
+                              第三者アセスメントの平均値（チーム）
                             </p>
                           </div>
                         </div>
