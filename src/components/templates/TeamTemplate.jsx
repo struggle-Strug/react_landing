@@ -5,10 +5,11 @@ import SimpleRadarChart from "../radarChart/simpleChart";
 import ComplexChart from "../radarChart/complexChart";
 import Loader from "../loader";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
-import { SCORE_ENDPOINT, USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
+import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
 import { useNavigate } from "react-router";
 
 import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
+import PopupMessageModal from "../modal/popupMessageModal";
 import Button from "../button";
 
 
@@ -27,10 +28,10 @@ export default function TeamTemplate({ data }) {
   const [gapCategory, setGapCategory] = useState({ label: '同業種平均', value: 'gap_industry' });
   const [gapData, setGapData] = useState();
   const [teamScoreData, setTeamScoreData] = useState();
+  const [teamMemberData, setTeamMemberData] = useState();
   const [gapAvData, setAvGapData] = useState();
   const [selectedMember, setSelectedMember] = useState();
   const [userAnswers, setUserAnswers] = useState();
-  const [otherAnswers, setOtherAnswers] = useState();
   const [categories, setCategories] = useState();
   const [teamList, setTeamList] = useState();
   const [team, setTeam] = useState();
@@ -38,6 +39,9 @@ export default function TeamTemplate({ data }) {
   const [scoreData, setScoreData] = useState();
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [showPopupMessage, setShowPopupMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [categoryNameList, setCategoryNameList] = useState([]);
 
@@ -53,19 +57,19 @@ export default function TeamTemplate({ data }) {
       navigate
     );
     const data = await resp.json();
-    if (resp.ok) {
-      const res = await requestWithTokenRefresh(
-        `${USERANSWER_OTHER_ENDPOINT}?${query}`,
-        {},
-        query
-      )
-      const otherAnswer = await res.json()
+    if (data.error) {
+      setIsLoading(false);
+      setErrorMessage(data.error);
+      setShowPersonAnswerModal(false);
+      setShowPopupMessage(true);
+    }
+    else {
       setCategories([
-        ...new Set(data.map((answer) => answer.quiz_category_name)),
+        ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
       ]);
       setIsLoading(false);
-      setUserAnswers(data);
-      setOtherAnswers(otherAnswer[0]);
+      setShowPopupMessage(false);
+      setUserAnswers(data.answers);
       setShowPersonAnswerModal(true);
     }
   };
@@ -79,7 +83,7 @@ export default function TeamTemplate({ data }) {
       label: c.company_name,
     }));
     setCompanyOptions(options);
-    setSelectedCompany(options[0]);
+    if (options.length > 0) setSelectedCompany(options[0]);
   }, [data]);
 
   useEffect(() => {
@@ -91,9 +95,10 @@ export default function TeamTemplate({ data }) {
     )[0];
     const options = company.subscription.map((s) => ({
       value: s.subscription_id_ss,
-      label: s.subscription_activation_date_ss,
+      label: s.subscription_activation_date_ss.slice(0, 7),
     }));
     setSubscriptionOption(options);
+    if (options.length > 0) setSelectedSubscription(options[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCompany]);
 
@@ -107,11 +112,12 @@ export default function TeamTemplate({ data }) {
     const subscription = company.subscription.filter(
       (s) => s.subscription_id_ss === selectedSubscription.value
     )[0];
-    const options = subscription.score_teams.map((t) => ({
+    const options = subscription.score_teams.sort((a, b) => b.team_id_ss - a.team_id_ss).map((t) => ({
       value: t.team_id_ss,
-      label: t.team_name_ss,
+      label: t.team_name_ss ? t.team_name_ss : "全チーム",
     }));
     setTeamOptions(options);
+    if (options.length > 0) setSelectedTeam(options[0])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSubscription]);
 
@@ -139,11 +145,14 @@ export default function TeamTemplate({ data }) {
           })
         );
         setMemberOptions(memberOptions);
+        setSelectedMemberOption();
+        setSelectedMember();
+        setTeamList();
       }
     };
     getMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTeam]);
+  }, [selectedTeam, selectedCompany, selectedSubscription]);
 
   useEffect(() => {
     if (teamData && gapCategory) {
@@ -171,11 +180,12 @@ export default function TeamTemplate({ data }) {
       );
       const data = await resp.json();
       if (resp.ok) {
-        setTeamScoreData(data.score_teams.filter((m) => m.team_id_ss !== 99999));
+        setTeamScoreData(data.score_teams);
+        setTeamMemberData(data.score_members);
         setTeamList(data.score_teams.filter((m) => m.team_id_ss !== 99999));
         setScoreData({
           "1st": data.score_first.quizcategory_first_ss,
-          "3rd": data.score_teams.filter((m) => m.team_id_ss !== 99999).map((me) => me.quiz_category_score),
+          "3rd": data.score_members.map((me) => me.quiz_category_score),
           "engagement_member": data?.engagement_member_ss,
           "3rd_average": data?.score_teams.find((m) => m.team_id_ss === 99999)?.quiz_category_score,
           "industry": data?.score_sector?.quizcategory_sector_first_ss,
@@ -201,14 +211,23 @@ export default function TeamTemplate({ data }) {
   }, [teamList]);
 
   useEffect(() => {
-    if (!team || team.value === 99999) {
+    if (!team) {
       return;
     }
-    setScoreData({
-      ...scoreData,
-      "3rd": teamScoreData.filter(m => m.team_id_ss === team.value).map(me => me.quiz_category_score)
-    });
-
+    if (team.value !== 99999) {
+      setScoreData({
+        ...scoreData,
+        "3rd": teamMemberData.filter(m => m.team_id_ss.includes(team.value)).map(me => me.quiz_category_score),
+        "3rd_average": teamScoreData.find(m => m.team_id_ss === team.value)?.quiz_category_score
+      });
+    }
+    else {
+      setScoreData({
+        ...scoreData,
+        "3rd": teamMemberData.map((me) => me.quiz_category_score),
+        "3rd_average": teamScoreData.find(m => m.team_id_ss === 99999)?.quiz_category_score
+      });
+    }
   }, [team]);
 
   return (
@@ -218,9 +237,10 @@ export default function TeamTemplate({ data }) {
         setOpenModal={setShowPersonAnswerModal}
         userAnswers={userAnswers}
         categories={categories}
-        otherAnswers={otherAnswers}
         selectedMember={selectedMember}
       />
+
+      {showPopupMessage && <PopupMessageModal status={"faild"} open={showPopupMessage} setShowPopupMessage={setShowPopupMessage} msg={errorMessage} />}
       <div className="max-w-[1280px] w-full overflow-auto">
         {!data || isLoading ? (
           <Loader />
@@ -276,13 +296,13 @@ export default function TeamTemplate({ data }) {
                           <div className="text-red-500 flex items-center xl:mb-3 mb-1">
                             <hr className="w-10 h-1 bg-[#FF0000] mr-2" />
                             <p className="text-[#FF0000] text-xs font-HiraginoKakuGothicProNW3">
-                              チーム平均値
+                              自己アセスメントの平均値（チーム）
                             </p>
                           </div>
                           <div className="flex items-center">
                             <hr className="w-10 h-1 bg-[#0303FF] mr-2" />
                             <p className="text-[#0303FF] text-xs font-HiraginoKakuGothicProNW3">
-                              第三者アセスメント平均値
+                              第三者アセスメントの平均値（チーム）
                             </p>
                           </div>
                         </div>

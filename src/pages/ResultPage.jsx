@@ -10,7 +10,7 @@ const Result = () => {
   const navigate = useNavigate()
   const [results, setResults] = useState()
   const fetchResults = useCallback(async () => {
-    const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + "list/", {}, navigate)
+    const resp = await requestWithTokenRefresh(SCORE_ENDPOINT + "new_list/", {}, navigate)
     const data = await resp.json()
     setResults(data)
   }, [navigate])
