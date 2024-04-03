@@ -112,7 +112,7 @@ export default function Sidebar() {
               Heart Beat FINDER
             </p>
             <p className="text-white mt-8 text-sm text-center font-HiraginoKakuGothicProNW6 font-bold">
-              株式会社CUOREMO
+              {user.company_name}
             </p>
             <div className="lg:flex block justify-around items-center mt-2 ">
               <div>

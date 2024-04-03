@@ -133,7 +133,7 @@ export default function SidebarResponsive(props) {
             Heart Beat FINDER
           </p>
           <p className="text-xs font-HiraginoKakuGothicProNW3">
-            株式会社CUOREMO
+            {user.company_name}
           </p>
           <div className="flex justify-around items-center mt-3">
             <div>
