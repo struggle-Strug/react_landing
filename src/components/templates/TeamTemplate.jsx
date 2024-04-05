@@ -103,6 +103,7 @@ export default function TeamTemplate({ data }) {
   }, [selectedCompany]);
 
   useEffect(() => {
+    console.log(selectedSubscription);
     if (!selectedSubscription) {
       return;
     }
@@ -122,7 +123,6 @@ export default function TeamTemplate({ data }) {
   }, [selectedSubscription]);
 
   useEffect(() => {
-    console.log(selectedSubscription);
     if (!selectedTeam) {
       return;
     }
