@@ -74,8 +74,6 @@ export default function TeamTemplate({ data }) {
     }
   };
 
-  console.log(data);
-
   useEffect(() => {
     if (!data) {
       return;
