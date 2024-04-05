@@ -95,7 +95,7 @@ export default function TeamTemplate({ data }) {
     )[0];
     const options = company.subscription.map((s) => ({
       value: s.subscription_id_ss,
-      label: s.subscription_activation_date_ss.slice(0, 7),
+      label:s.subscription_activation_date_ss?s.subscription_activation_date_ss.slice(0, 7):'',
     }));
     setSubscriptionOption(options);
     if (options.length > 0) setSelectedSubscription(options[0]);
