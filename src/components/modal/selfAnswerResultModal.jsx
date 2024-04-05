@@ -8,7 +8,6 @@ export default function SelfAnswerResultModal({
     setOpenModal,
     userAnswers,
     categories,
-    otherAnswers,
     selectedMember,
 }) {
     const clickHandler = () => {
@@ -55,7 +54,7 @@ export default function SelfAnswerResultModal({
                                                 </div>
                                             </div>
                                             <div className="text-center text-2xl lg:text-3xl bg-main w-5/6 mx-auto text-white py-4 mb-10">
-                                                {selectedMember ? `${selectedMember.received_evaluations_snapshot} さんへ` : 'あなた'}のアセスメント結果を見る
+                                                {selectedMember ? `${selectedMember.user_name_ss} さんへ` : 'あなた'}のアセスメント結果を見る
                                             </div>
                                             <div className=" overflow-x-auto">
                                                 <table className="w-full">
@@ -65,7 +64,7 @@ export default function SelfAnswerResultModal({
                                                             <th className="text-xl w-[40%] min-w-[200px]">設問</th>
                                                             <th className="break-keep">回答</th>
                                                             <th className="break-keep">会社平均</th>
-                                                            <th className="break-keep">第三者評価平均</th>
+                                                            <th className="break-keep">第三者評価結果</th>
                                                             <th className="break-keep">同業者平均</th>
                                                             <th className="break-keep">全企業平均</th>
                                                         </tr>
@@ -75,7 +74,7 @@ export default function SelfAnswerResultModal({
                                                             categories.map((category, idx) => {
                                                                 const categoryAnswers = userAnswers.filter(
                                                                     (answers) =>
-                                                                        answers.quiz_category_name === category
+                                                                        answers.quizcategory_name_ss === category
                                                                 );
                                                                 return (
                                                                     <>
@@ -93,19 +92,19 @@ export default function SelfAnswerResultModal({
                                                                                 <td className="py-3">{idx + 1}</td>
                                                                                 <td>{answer.quiz}</td>
                                                                                 <td className="text-center">
-                                                                                    {answer.answer}
+                                                                                    {answer["useranswer_first_ss"]}
                                                                                 </td>
                                                                                 <td className="text-center">
-                                                                                    {otherAnswers['company_answer_avg'][answer.quiz_number] && otherAnswers['company_answer_avg'][answer.quiz_number][0]}
+                                                                                    {answer.useranswer_company_avg_ss}
                                                                                 </td>
                                                                                 <td className="text-center">
-                                                                                    {otherAnswers['third_answer_avg'][answer.quiz_number] && otherAnswers['third_answer_avg'][answer.quiz_number][0]}
+                                                                                    {answer.useranswer_third_avg_ss}
                                                                                 </td>
                                                                                 <td className="text-center">
-                                                                                    {otherAnswers['industry_answer_avg'][answer.quiz_number] && otherAnswers['industry_answer_avg'][answer.quiz_number][0]}
+                                                                                    {answer.useranswer_sector_avg_ss}
                                                                                 </td>
                                                                                 <td className="text-center">
-                                                                                    {otherAnswers['finder_answer_avg'][answer.quiz_number] && otherAnswers['finder_answer_avg'][answer.quiz_number][0]}
+                                                                                    {answer.useranswer_allcompany_avg_ss}
                                                                                 </td>
                                                                             </tr>
                                                                         ))}

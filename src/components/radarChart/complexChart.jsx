@@ -49,14 +49,14 @@ function ComplexChart({ showThirdPerson, scores }) {
         <PolarAngleAxis dataKey="subject" tick={{ fontSize: '12px' }} radius="40%" />
         <PolarRadiusAxis domain={[0, 4]} tick={false} axisLine={false} />
 
-        <Radar name="1st" dataKey="A" stroke="#FF0000" fillOpacity={0} strokeWidth={5} max={4} />
+        <Radar name="finder" dataKey="D" stroke="#ECFF03" fill="#ECFF03" fillOpacity={0} strokeWidth={3} max={4} />
+        <Radar name="industry" dataKey="C" stroke="#12E600" fill="#12E600" fillOpacity={0} strokeWidth={3} max={4} />
         {showThirdPerson && (
           <>
-            <Radar name="3rd_average" dataKey="B" stroke="#0000FF" fill="#8884d8" fillOpacity={0} strokeWidth={5} max={4} />
+            <Radar name="3rd_average" dataKey="B" stroke="#0000FF" fill="#8884d8" fillOpacity={0} strokeWidth={3} max={4} />
           </>
         )}
-        <Radar name="industry" dataKey="C" stroke="#12E600" fill="#12E600" fillOpacity={0} strokeWidth={5} max={4} />
-        <Radar name="finder" dataKey="D" stroke="#ECFF03" fill="#ECFF03" fillOpacity={0} strokeWidth={5} max={4} />
+        <Radar name="1st" dataKey="A" stroke="#FF0000" fillOpacity={0} strokeWidth={3} max={4} />
       </RadarChartBase>
     </ResponsiveContainer>
   );

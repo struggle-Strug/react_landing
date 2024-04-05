@@ -5,10 +5,11 @@ import SimpleRadarChart from "../radarChart/simpleChart";
 import ComplexChart from "../radarChart/complexChart";
 import Loader from "../loader";
 import { requestWithTokenRefresh } from "../../utils/AuthService";
-import { SCORE_ENDPOINT, USERANSWER_ENDPOINT, USERANSWER_OTHER_ENDPOINT } from "../../utils/constants";
+import { SCORE_ENDPOINT, USERANSWER_ENDPOINT } from "../../utils/constants";
 import { useNavigate } from "react-router";
 
 import SelfAnswerResultModal from "../modal/selfAnswerResultModal";
+import PopupMessageModal from "../modal/popupMessageModal";
 import Button from "../button";
 
 
@@ -26,10 +27,11 @@ export default function TeamTemplate({ data }) {
   const [teamData, setTeamData] = useState();
   const [gapCategory, setGapCategory] = useState({ label: '同業種平均', value: 'gap_industry' });
   const [gapData, setGapData] = useState();
+  const [teamScoreData, setTeamScoreData] = useState();
+  const [teamMemberData, setTeamMemberData] = useState();
   const [gapAvData, setAvGapData] = useState();
   const [selectedMember, setSelectedMember] = useState();
   const [userAnswers, setUserAnswers] = useState();
-  const [otherAnswers, setOtherAnswers] = useState();
   const [categories, setCategories] = useState();
   const [teamList, setTeamList] = useState();
   const [team, setTeam] = useState();
@@ -37,6 +39,9 @@ export default function TeamTemplate({ data }) {
   const [scoreData, setScoreData] = useState();
   const [showPersonAnswerModal, setShowPersonAnswerModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [showPopupMessage, setShowPopupMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [categoryNameList, setCategoryNameList] = useState([]);
 
@@ -52,19 +57,19 @@ export default function TeamTemplate({ data }) {
       navigate
     );
     const data = await resp.json();
-    if (resp.ok) {
-      const res = await requestWithTokenRefresh(
-        `${USERANSWER_OTHER_ENDPOINT}?${query}`,
-        {},
-        query
-      )
-      const otherAnswer = await res.json()
+    if (data.error) {
+      setIsLoading(false);
+      setErrorMessage(data.error);
+      setShowPersonAnswerModal(false);
+      setShowPopupMessage(true);
+    }
+    else {
       setCategories([
-        ...new Set(data.map((answer) => answer.quiz_category_name)),
+        ...new Set(data.answers.map((answer) => answer.quizcategory_name_ss)),
       ]);
       setIsLoading(false);
-      setUserAnswers(data);
-      setOtherAnswers(otherAnswer[0]);
+      setShowPopupMessage(false);
+      setUserAnswers(data.answers);
       setShowPersonAnswerModal(true);
     }
   };
@@ -78,7 +83,7 @@ export default function TeamTemplate({ data }) {
       label: c.company_name,
     }));
     setCompanyOptions(options);
-    setSelectedCompany(options[0]);
+    if (options.length > 0) setSelectedCompany(options[0]);
   }, [data]);
 
   useEffect(() => {
@@ -89,10 +94,11 @@ export default function TeamTemplate({ data }) {
       (c) => c.id === selectedCompany.value
     )[0];
     const options = company.subscription.map((s) => ({
-      value: s.id,
-      label: s.subscription_activation_date.substring(0, 7),
+      value: s.subscription_id_ss,
+      label: s.subscription_activation_date_ss.slice(0, 7),
     }));
     setSubscriptionOption(options);
+    if (options.length > 0) setSelectedSubscription(options[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCompany]);
 
@@ -104,14 +110,14 @@ export default function TeamTemplate({ data }) {
       (c) => c.id === selectedCompany.value
     )[0];
     const subscription = company.subscription.filter(
-      (s) => s.id === selectedSubscription.value
+      (s) => s.subscription_id_ss === selectedSubscription.value
     )[0];
-    const options = subscription.score_teams.map((t) => ({
-      value: t.teamid_snapshot,
-      label: t.team_name_snapshot,
+    const options = subscription.score_teams.sort((a, b) => b.team_id_ss - a.team_id_ss).map((t) => ({
+      value: t.team_id_ss,
+      label: t.team_name_ss ? t.team_name_ss : "全チーム",
     }));
     setTeamOptions(options);
-    setCategoryNameList(subscription.quiz_category_name_list);
+    if (options.length > 0) setSelectedTeam(options[0])
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedSubscription]);
 
@@ -123,7 +129,7 @@ export default function TeamTemplate({ data }) {
       setIsLoading(true)
       const query = `subscription_id=${selectedSubscription.value}&team_id=${selectedTeam.value}`;
       const resp = await requestWithTokenRefresh(
-        SCORE_ENDPOINT + `members/list/?${query}`,
+        SCORE_ENDPOINT + `members/new_list/?${query}`,
         {},
         navigate
       );
@@ -131,18 +137,22 @@ export default function TeamTemplate({ data }) {
       if (resp.ok) {
         setIsLoading(false)
         setTeamData(data);
-        const memberOptions = Object.entries(data.members).map(
-          ([idx, member]) => ({
-            value: member.received_evaluations_id_snapshot,
-            label: member.received_evaluations_snapshot,
+        setCategoryNameList(data.quizcategory_name_ss_for_gap);
+        const memberOptions = data.members_for_pulldown.map(
+          (member) => ({
+            value: member.user_id_ss,
+            label: member.user_name_ss,
           })
         );
         setMemberOptions(memberOptions);
+        setSelectedMemberOption();
+        setSelectedMember();
+        setTeamList();
       }
     };
     getMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedTeam]);
+  }, [selectedTeam, selectedCompany, selectedSubscription]);
 
   useEffect(() => {
     if (teamData && gapCategory) {
@@ -155,25 +165,32 @@ export default function TeamTemplate({ data }) {
     if (!selectedMemberOption) {
       return;
     }
-    const members = Object.entries(teamData.members).map(
-      ([idx, member]) => member
+    const members = teamData.members_for_pulldown;
+    const member = members.find(
+      (m) =>
+        m.user_id_ss === selectedMemberOption.value
     );
-    const member = members.filter(
-      (member) =>
-        member.received_evaluations_id_snapshot === selectedMemberOption.value
-    )[0];
     setSelectedMember(member);
     const getTeams = async () => {
-      const query = `subscription_id=${selectedSubscription.value}&user_id=${member.received_evaluations_id_snapshot}`;
+      const query = `subscription_id=${selectedSubscription.value}&user_id=${member.user_id_ss}`;
       const resp = await requestWithTokenRefresh(
-        SCORE_ENDPOINT + `given/team/list/?${query}`,
+        SCORE_ENDPOINT + `team_members/new_prep/?${query}`,
         {},
         navigate
       );
       const data = await resp.json();
       if (resp.ok) {
-        setTeamList(data.team_list);
-        setScoreData({ "1st": [...member["1st"]] });
+        setTeamScoreData(data.score_teams);
+        setTeamMemberData(data.score_members);
+        setTeamList(data.score_teams.filter((m) => m.team_id_ss !== 99999));
+        setScoreData({
+          "1st": data.score_first.quizcategory_first_ss,
+          "3rd": data.score_members.map((me) => me.quiz_category_score),
+          "engagement_member": data?.engagement_member_ss,
+          "3rd_average": data?.score_teams.find((m) => m.team_id_ss === 99999)?.quiz_category_score,
+          "industry": data?.score_sector?.quizcategory_sector_first_ss,
+          "finder": data?.score_finder?.quizcategory_allcompany_first_ss,
+        });
       }
     };
     getTeams();
@@ -183,61 +200,34 @@ export default function TeamTemplate({ data }) {
     if (!teamList) {
       return;
     }
-    const getDefaultScoreData = async () => {
-      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot
-        }&team_id=${99999}`;
-      const resp = await requestWithTokenRefresh(
-        SCORE_ENDPOINT + `get_score_team_given/?${query}`,
-        {},
-        navigate
-      );
-      const data = await resp.json();
-      if (resp.ok) {
-        setScoreData({
-          ...scoreData,
-          "3rd": data.given_third_score.map((d) => d.average_score),
-          "3rd_average": data.given_average_score,
-          "industry": data.industry,
-          "finder": data.finder,
-          "engagement_member": data?.engagement_member,
-        });
-      }
-    };
     setTeamListOptions([
       { value: 99999, label: "全チーム" },
       ...teamList.map((t) => ({
-        value: t.teamid_given_snapshot,
-        label: t.team_name_given_snapshot,
+        value: t.team_id_ss,
+        label: t.team_name_ss,
       })),
     ]);
     setTeam({ value: 99999, label: "全チーム" });
-    getDefaultScoreData();
   }, [teamList]);
 
   useEffect(() => {
     if (!team) {
       return;
     }
-    const getTeamScore = async () => {
-      const query = `subscription_id=${selectedSubscription.value}&user_id=${selectedMember.received_evaluations_id_snapshot}&team_id=${team.value}`;
-      const resp = await requestWithTokenRefresh(
-        SCORE_ENDPOINT + `get_score_team_given/?${query}`,
-        {},
-        navigate
-      );
-      const data = await resp.json();
-      if (resp.ok) {
-        setScoreData({
-          ...scoreData,
-          "3rd": data.given_third_score.map((d) => d.average_score),
-          "3rd_average": data.given_average_score,
-          "industry": data.industry,
-          "finder": data.finder,
-          "engagement_member": data?.engagement_member,
-        });
-      }
-    };
-    getTeamScore();
+    if (team.value !== 99999) {
+      setScoreData({
+        ...scoreData,
+        "3rd": teamMemberData.filter(m => m.team_id_ss.includes(team.value)).map(me => me.quiz_category_score),
+        "3rd_average": teamScoreData.find(m => m.team_id_ss === team.value)?.quiz_category_score
+      });
+    }
+    else {
+      setScoreData({
+        ...scoreData,
+        "3rd": teamMemberData.map((me) => me.quiz_category_score),
+        "3rd_average": teamScoreData.find(m => m.team_id_ss === 99999)?.quiz_category_score
+      });
+    }
   }, [team]);
 
   return (
@@ -247,9 +237,10 @@ export default function TeamTemplate({ data }) {
         setOpenModal={setShowPersonAnswerModal}
         userAnswers={userAnswers}
         categories={categories}
-        otherAnswers={otherAnswers}
         selectedMember={selectedMember}
       />
+
+      {showPopupMessage && <PopupMessageModal status={"faild"} open={showPopupMessage} setShowPopupMessage={setShowPopupMessage} msg={errorMessage} />}
       <div className="max-w-[1280px] w-full overflow-auto">
         {!data || isLoading ? (
           <Loader />
@@ -305,13 +296,13 @@ export default function TeamTemplate({ data }) {
                           <div className="text-red-500 flex items-center xl:mb-3 mb-1">
                             <hr className="w-10 h-1 bg-[#FF0000] mr-2" />
                             <p className="text-[#FF0000] text-xs font-HiraginoKakuGothicProNW3">
-                              チーム平均値
+                              自己アセスメントの平均値（チーム）
                             </p>
                           </div>
                           <div className="flex items-center">
                             <hr className="w-10 h-1 bg-[#0303FF] mr-2" />
                             <p className="text-[#0303FF] text-xs font-HiraginoKakuGothicProNW3">
-                              第三者アセスメント平均値
+                              第三者アセスメントの平均値（チーム）
                             </p>
                           </div>
                         </div>
@@ -320,7 +311,7 @@ export default function TeamTemplate({ data }) {
                       <div className="lg:col-span-2 aspect-square">
                         <SimpleRadarChart
                           isFirst={true}
-                          scores={teamData.team_scores}
+                          scores={teamData.team_scores_first}
                           labels={categoryNameList}
                           thirdScores={teamData.team_scores_third}
                         />
@@ -337,19 +328,19 @@ export default function TeamTemplate({ data }) {
                           </div>
                           <div className="flex justify-between items-center px-4 lg:px-7 py-2">
                             <div className="text-xl">全体平均</div>
-                            <div className="text-3xl lg:text-5xl">{teamData.gap && teamData.gap.toFixed(2)}</div>
+                            <div className="text-3xl lg:text-5xl">{teamData.gap_team && teamData.gap_team.toFixed(2)}</div>
                           </div>
                           <div className="h-[3px] border-t border-b border-black mx-2"></div>
                           <div className="flex items-center px-4 lg:px-7 pt-4 flex-col">
                             <ul>
                               {categoryNameList.map((sub, i) => (
-                                teamData.gap_category[i] !== undefined &&
+                                teamData.gap_team_category[i] !== undefined &&
                                 <li className="flex justify-between items-center my-1" key={`score-${i}`}>
                                   <div className="text-sm break-keep">
                                     {sub}
                                   </div>
                                   <hr className="max-w-[200px] min-w-[10px] w-full h-1 border-t-2 mx-2 border-dotted border-black" />
-                                  <div className="text-3xl">{teamData.gap_category[i].toFixed(1)}</div>
+                                  <div className="text-3xl">{teamData.gap_team_category[i].toFixed(1)}</div>
                                 </li>
                               ))}
                             </ul>
@@ -368,7 +359,6 @@ export default function TeamTemplate({ data }) {
                           </div>
                           <div className="flex flex-col justify-center text-2xl items-center mt-5 gap-3">
                             {gapData && gapData.map((gap, i) => (
-                              teamData.gap_category[i] !== undefined &&
                               <div key={`gap-${i}`}>{gap.toFixed(1)}</div>
                             ))}
                           </div>
@@ -422,7 +412,6 @@ export default function TeamTemplate({ data }) {
                 <div className="flex justify-evenly items-center flex-wrap  md:mb-10 xl:mb-5">
                   {scoreData &&
                     scoreData["1st"] &&
-                    scoreData["3rd"] &&
                     scoreData["3rd_average"] && (
                       <div className="w-1/2 max-w-[600px] min-w-[390px] flex flex-col items-center">
                         {/* <div className=" text-main text-sm">
@@ -469,12 +458,12 @@ export default function TeamTemplate({ data }) {
                       </div>
                     </div>
                     <div className="flex m-auto xl:w-full w-64 my-8">
-                      <p className="text-center bg-main text-white w-1/2 p-3">{selectedMember.received_evaluations_snapshot}さんの<br />Heart Beat スコア</p>
+                      <p className="text-center bg-main text-white w-1/2 p-3">{selectedMember?.user_name_ss}さんの<br />Heart Beat スコア</p>
                       <span className="w-1/2 text-black bg-[#DFFAFD] flex justify-center items-center p-3 text-3xl font-bold">{scoreData?.engagement_member}</span>
                     </div>
                     <div className="flex flex-col sm:flex-row mx-auto">
                       <Button
-                        title={`${selectedMember.received_evaluations_snapshot}さんの回答結果を見る`}
+                        title={`${selectedMember?.user_name_ss}さんの回答結果を見る`}
                         className="text-white px-14 text-sm lg:text-lg py-5"
                         onClick={handleGetAnswer}
                       ></Button>

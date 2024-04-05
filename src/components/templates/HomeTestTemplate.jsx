@@ -6,6 +6,7 @@ import Button from "../button";
 import { UseUserDetails } from "../../context/UserContext";
 import { useAtom } from "jotai";
 import { assessmentAtom } from "../../utils/atom";
+import StartEvaluationModal from "../modal/startEvaluationModal";
 
 export default function HomeTestTemplate({ assessments }) {
   const user = UseUserDetails()[0];
@@ -13,6 +14,8 @@ export default function HomeTestTemplate({ assessments }) {
   const [selfAssessment, setSelfAssessment] = useState();
   const [otherAssessments, setOtherAssessments] = useState();
   const [, setAssessment] = useAtom(assessmentAtom);
+
+  const [open, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (!assessments) {
@@ -38,6 +41,7 @@ export default function HomeTestTemplate({ assessments }) {
           <div className="hidden sp:block text-2xl font-HiraginoKakuGothicProNW3 text-center">
             アセスメントを実施する
           </div>
+          <StartEvaluationModal open={open} setOpenModal={setOpenModal} id={id} />
           <div className="flex place-content-center">
             <div className="flex sp:flex-col items-center w-11/12 sp:mt-7 sp:mb-0 rounded-l-[37px] sp:rounded-t-lg sp:rounded-bl-none bg-[#DFFAFD]">
               <div className="md:w-2/5 lg:w-2/6 sp:w-full flex justify-center items-center rounded-[37px] sp:rounded-lg h-full bg-main sp:py-4">
@@ -85,17 +89,18 @@ export default function HomeTestTemplate({ assessments }) {
                 </p>
                 <div className="flex flex-col justify-center items-center gap-y-10 sp:gap-y-8 w-full">
                 <div className="md:w-full lg:w-3/4 sp:w-full px-4 sp:px-0">
-                  <NavLink to={`/${id}/assessment`} className={"w-full"}>
+                  {/* <NavLink to={`/${id}/assessment`} className={"w-full"}> */}
                     <Button
                       title="START"
                       className="max-w-3xl w-full text-4xl sp:text-xl font-bold m-auto font-CenturyGothic lg:py-[14px] sp:py-0"
+                      onClick={() => setOpenModal(true)}
                       disabled={
                         otherAssessments &&
                         otherAssessments.filter((a) => a.complete === false)
                           .length === 0
                       }
                     />
-                  </NavLink>
+                  {/* </NavLink> */}
                   </div>
                   <div className="px-4 w-5/6 sp:px-0 sp:w-full">
                     <div className="w-full mb-9 sp:mb-6 border-[0.5px] border-main"></div>
