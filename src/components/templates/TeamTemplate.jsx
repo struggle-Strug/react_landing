@@ -74,6 +74,8 @@ export default function TeamTemplate({ data }) {
     }
   };
 
+  console.log(data);
+
   useEffect(() => {
     if (!data) {
       return;
@@ -103,7 +105,6 @@ export default function TeamTemplate({ data }) {
   }, [selectedCompany]);
 
   useEffect(() => {
-    console.log(selectedSubscription);
     if (!selectedSubscription) {
       return;
     }
