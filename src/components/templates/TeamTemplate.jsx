@@ -122,6 +122,7 @@ export default function TeamTemplate({ data }) {
   }, [selectedSubscription]);
 
   useEffect(() => {
+    console.log(selectedSubscription);
     if (!selectedTeam) {
       return;
     }
