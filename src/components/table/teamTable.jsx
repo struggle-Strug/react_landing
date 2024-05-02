@@ -9,6 +9,8 @@ import { requestWithTokenRefresh } from "../../utils/AuthService";
 import { useState, useEffect, useCallback } from "react";
 // eslint-disable-next-line react/prop-types
 export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
+  const tokenFromStorage = localStorage.getItem("token");
+  const token = tokenFromStorage ? JSON.parse(tokenFromStorage) : null;
   const navigate = useNavigate()
   const [, setFormData] = useAtom(formAtom);
   const [subscriptionGlobal] = useAtom(subscriptionAtom);
@@ -115,7 +117,7 @@ export default function TeamTable({ teams, setShowModal, setTeamToEdit }) {
         <div className="w-full lg:w-11/12 mx-auto">
           <div className="h-14 bg-main text-white flex justify-between items-center mx-auto mb-4 xl:pl-20 lg:pr-7 md:px-4">
             <p className="text-xs">会社名</p>
-            <p className="xl:text-2xl lg:text-lg md:text-sm font-HiraginoKakuGothicProNW6">株式会社CUOREMO</p>
+            <p className="xl:text-2xl lg:text-lg md:text-sm font-HiraginoKakuGothicProNW6">{token && token.company_name}</p>
             <div className="flex justify-center items-center gap-x-1 lg:gap-x-3">
               <p className="text-xs">会社の生産性スコア</p>
               <input className="w-10 lg:w-20 border border-black bg-white flex text-center placeholder:text-xs px-0 py-1 text-black font-HiraginoKakuGothicProNW6 lg:text-xl text-base" type="number"
