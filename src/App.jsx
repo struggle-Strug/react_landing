@@ -11,13 +11,17 @@ import RegisterCompany from './pages/RegisterCompanyPage';
 import Result from './pages/ResultPage';
 import Team from './pages/TeamPage';
 import LoginPage from './pages/LoginPage';
-import ForgotPaswordPage from './pages/ForgotPage';
+import OldLoginPage from "./pages/OldLoginPage";
+import Dashboard from "./pages/Dashboard";
+import OldForgotPasswordPage from "./pages/ForgotPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ResetPasswordPage from './pages/ResetPasswordPage';
 import TermsPage from './pages/TermsPage';
 import Productivity from "./pages/ProductivityPage";
 import SideNavigationLayout from './components/Layout';
 import PrivateRoutes from './utils/PrivateRoutes';
 import { UserProvider } from "./context/UserContext";
+
 
 
 function App() {
@@ -28,7 +32,10 @@ function App() {
         <UserProvider>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
-            <Route path='/forgot' element={<ForgotPaswordPage />} />
+            <Route path='/old_login' element={<OldLoginPage />} />
+            <Route path='/old_forgot' element={<OldForgotPasswordPage />} />
+            <Route path='/forgot' element={<ForgotPasswordPage />} />
+            <Route path='/new_dashboard' element={<Dashboard />} />
             <Route path="/password/reset">
               <Route path=":resetkey" element={<ResetPasswordPage />} />
             </Route>

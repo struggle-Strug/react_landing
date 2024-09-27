@@ -22,7 +22,7 @@ export default function SidebarResponsive(props) {
   const user = UseUserDetails()[0];
   const tokenFromStorage = localStorage.getItem("token");
   const token = tokenFromStorage ? JSON.parse(tokenFromStorage) : null;
-  const subdomain = token.subdomain;
+  const subdomain = token?.subdomain || "";
   const navigation = [
     {
       name: "アセスメントを実施する",

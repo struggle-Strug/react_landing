@@ -6,7 +6,7 @@ import InputField from '../components/inputfield';
 import Modal from '../components/modal';
 import { FORGOT_ENDPOINT } from '../utils/constants';
 
-function ForgotPasswordPage() {
+function OldForgotPasswordPage() {
   const navigate = useNavigate()
   const [formEmail, setFormEmail] = useState('');
   const [buttonEnabled, setButtonEnabled] = useState();
@@ -99,4 +99,4 @@ function ForgotPasswordPage() {
 
   )
 }
-export default ForgotPasswordPage;
+export default OldForgotPasswordPage;

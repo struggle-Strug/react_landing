@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @font-face { 
   font-family: "CenturyGothic"; 
   src: url("../public/fonts/Century Gothic.ttf"); 
@@ -33,6 +32,11 @@
   src: url("../public/fonts/NotoSansCJKjp-Light.ttf"); 
 } 
 
+@font-face { 
+  font-family: "NotoSansCJKjp"; 
+  src: url("../public/fonts/NotoSansCJKjp-Black.otf"); 
+} 
+
 /* width */
 ::-webkit-scrollbar {
   width: 15px;
@@ -55,4 +59,22 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: #8F8E8E;
   border: transparent;
+}
+
+.font-sans{
+  font-family: 'NotoSansCJKjp-Regular', sans-serif;
+}
+
+.custom-gradient1{
+  background: linear-gradient(90deg,  rgba(206, 191, 191, 0) 50%, white 50%);
+}
+.custom-gradient2{
+  background: linear-gradient(90deg, white 50%, rgba(206, 191, 191, 0) 50%);
+
+}
+.custom-box-shadow{
+  box-shadow: 2px 3px 3px 0px #dfdede;
+}
+.custom-box-shadow_forgot{
+  box-shadow: 3px 5px 13px 3px #616161;
 }

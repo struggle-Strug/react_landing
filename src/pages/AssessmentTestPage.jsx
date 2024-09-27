@@ -40,7 +40,7 @@ const AssessmentTest = () => {
   function handleConfirm() {
     const tokenFromStorage = localStorage.getItem("token")
     const token = JSON.parse(tokenFromStorage)
-    const subdomain = token.subdomain
+    const subdomain = token?.subdomain || "";
     setShowModal(false)
     navigate(`/${subdomain}`)
   }

@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import Button from "../components/button";
 import { useLogin } from "../utils/AuthService";
-import Logo from "../../public/logo.png";
-import CompanyLogo from "../../public/company-logo.png";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -30,7 +27,7 @@ function LoginPage() {
       const userFromStorage = localStorage.getItem("user");
       const user = userFromStorage ? JSON.parse(userFromStorage) : null;
       if (token?.company_active && user?.is_active) {
-        const subdomain = token.subdomain;
+        const subdomain = token?.subdomain || "";
         if (token.is_superuser) {
           navigate(`/${subdomain}/team`);
           window.location.reload(false);
@@ -47,98 +44,68 @@ function LoginPage() {
   };
 
   return (
-    <div className="flex sp:flex-col sp:justify-between sp:h-screen">
-      <div className="w-1/2 sp:w-full bg-main">
-        <div className="w-full h-[90%] flex flex-col sp:pb-4">
-          <div className="grow-[2]"></div>
-          <div className="flex justify-center items-center flex-col">
-            <div className="w-2/3 px-5 mb-32 sp:pt-20 sp:w-3/4 sp:mb-0">
-              <img className="" src={Logo} alt="Logo" />
-            </div>
-            <p className="text-white font-bold font-CenturyGothic-Bold xl:text-5xl lg:text-3xl md:text-2xl sp:mt-7 sp:text-2xl mb-4 sp:mb-0">
-              Heart Beat FINDER
-            </p>
-            <p className="text-white font-Light font-NotoSansCJKjp-Light xl:text-3xl lg:text-2xl md:text-xl sp:text-xl">Assessment Tool</p>
-          </div>
-          <div className="grow-[1]"></div>
-        </div>
-        <div className="flex flex-col justify-center items-center sp:hidden">
-          <div className=" my-3">
-            <img src={CompanyLogo} width={131} alt="company-logo" />
-          </div>
-          <p className="text-[10px] text-white font-NotoSansCJKjp-Light">
-            © 2023 CUOREMO inc. all lights reserved.
-          </p>
-        </div>
-      </div>
-      <div className="w-1/2 sp:w-full flex flex-col items-center justify-center min-h-screen sp:min-h-fit	 sp:justify-start">
+    <div className="w-screen h-screen bg-[url('/login_bg.png')] flex justify-center items-center px-12">
+      <div className=" bg-white shadow-xl rounded-lg max-w-[620px] max-h-[840px] px-[42.0px] py-7 sm:px-[90px] sm:py-9 sp:w-full flex flex-col items-center justify-center sp:min-h-fit	 sp:justify-start">
+        <h1 className=" font-black text-3xl text-[#3E3E3E] sm:text-5xl md:text-7xl">Heart Beat
+          FINDER</h1>
+        <label htmlFor="" className="w-full block text-[#3E3E3E] text-lg sm:text-[40px] font-bold my-4 sm:my-7 font-sans">
+          ログイン
+        </label>
         <form
-          className="max-w-[600px] w-full p-5 flex flex-col justify-center items-center sp:px-5 sp:pt-0"
-          onSubmit={(e) => submitHandler(e)}
-        >
+          className="w-full"
+          onSubmit={(e) => submitHandler(e)}>
+          <div className="sm:mb-7 mb-4">
+            <label className="block text-[#3E3E3E] text-sm sm:text-xl font-medium sm:font-bold mb-3" htmlFor="email">
+              メールアドレス
+            </label>
+            <input
+              className="appearance-none border-none hover:border-gray-300 rounded w-full h-10 text-lg px-3 text-[#3E3E3E] leading-tight focus:outline-none focus:shadow-outline"
+              id="email"
+              type="email"
+              value={email}
+              placeholder="aaaa@dummy.com"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="sm:mb-3">
+            <label className="block text-gray-700 text-sm sm:text-xl font-medium sm:font-bold mb-3" htmlFor="password">
+              パスワード
+            </label>
+            <input
+              className="appearance-none border-none hover:border-gray-300 rounded w-full h-10 text-lg px-3 text-[#3E3E3E] mb-1 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              value={password}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
           <p
-            className={`text-red-600 text-sm text-center ${
-              errorMessage ? "opacity-100" : "opacity-0"
-            }`}
+            className={`text-red-600 font-sans font-normal text-sm sm:text-lg mb-3 text-center ${errorMessage ? "opacity-100" : "opacity-0"
+              }`}
           >
             emailかパスワードが間違っています
           </p>
-          <p className="text-5xl text-center mb-3 sp:mb-2 font-CenturyGothic sp:text-xl">
-            Mail Address
-          </p>
-          <p className="mb-3 sp:mb-2 text-center text-sm sp:text-xs font-HiraginoKakuGothicProNW6 font-bold">
-            メールアドレス
-          </p>
-          <input
-            className="lg:w-full pl-12 flex items-center sp:pl-5 md:w-80 w-64 sp:h-10 sp:w-5/6 border-[#00008C] border-2 rounded-full focus:border-0 text-xl sp:text-lg bg-[#F2FAFD]"
-            label="メールアドレス"
-            type="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <p className="text-5xl text-center font-light	mb-2 mt-16 sp:mt-5 font-CenturyGothic sp:text-xl">
-            Password
-          </p>
-          <p className="mb-3 sp:mb-2 text-center text-sm sp:text-xs font-HiraginoKakuGothicProNW6 font-bold">
-            パスワード
-          </p>
-          <input
-            className="lg:w-full pl-12 sp:pl-5 mb-20 sp:mb-5 md:w-80 w-64 sp:w-5/6 sp:h-9 border-main border-2 rounded-full focus:border-0 text-xl sp:text-lg bg-[#F2FAFD]"
-            label="パスワード"
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            title="Login"
-            className="lg:w-72 sp:w-44 h-16 sp:h-12 text-4xl sp:text-xl md:w-80 w-64 font-bold rounded-full disabled:bg-slate-300 hover:bg-primary-1 transition-colors font-CenturyGothic-Bold"
+          <button
+            className="bg-[#3E3E3E] hover:bg-[#3e3e3eb0] text-white text-xl sm:text-[32px] font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline w-full sm:h-[64px] h-11 flex justify-center items-center"
+            type="submit"
             disabled={!buttonEnabled}
-          />
+          >
+            Login
+          </button>
+          <div className=" flex justify-center items-center pt-4">
+            <NavLink
+              to="/forgot"
+              className="text-center sm:mt-4 mt-1 text-[#3E3E3E] text-[12px] sm:text-base m-auto font-sans">
+              パスワードを忘れた場合はこちら
+            </NavLink>
+          </div>
         </form>
-        <NavLink
-          to="/forgot"
-          className="-mt-1 text-sm sp:text-xs hover:opacity-60 transition-opacity text-[#4215FF] font-NotoSansCJKjp-Regular sp:mb-6"
-        >
-          パスワードを忘れた場合はこちら
-        </NavLink>
-      </div>
-      <div className="hidden flex-col justify-center items-center bg-main pt-10 pb-20 sp:flex">
-        <div className="">
-          <img src={CompanyLogo} width={131} alt="company-logo" />
+        <div className="text-center sm:mt-10 mt-4">
+          <img src="/logo1.png" alt="Cuoremo Logo" className="mx-auto sm:h-[51px] h-[35px] w-auto"/>
+          <p className="text-xs text-gray-400 mt-2">© 2023 CUOREMO inc. all rights reserved.</p>
         </div>
-        <p className="text-xs mt-5 mb-2 text-white font-NotoSansCJKjp-Light">
-          <NavLink to={"/terms"} className={"mr-5"}>
-            利用規約
-          </NavLink>
-          <NavLink to={"https://cuoremo.co.jp/privacy/"} target="__blank">
-            プライバシーポリシー
-          </NavLink>
-        </p>
-        <p className="text-[10px] text-white font-NotoSansCJKjp-Light">
-          © 2023 CUOREMO inc. all lights reserved.
-        </p>
       </div>
     </div>
   );

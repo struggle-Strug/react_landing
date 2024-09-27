@@ -9,10 +9,12 @@ import { USERANSWER_UPDATE_ENDPOINT } from '../../utils/constants';
 
 export const MarkedSlider = ({ answer, setAnswer }) => {
   const marks = {
-    1: '全く思わない',
-    2: '思わない',
-    3: '思う',
-    4: '強く思う',
+    1: 'まったくできない',
+    2: 'ほとんどできない',
+    3: 'どちらかといえばできない',
+    4: 'どちらかといえばできる',
+    5: 'よくできる',
+    6: 'とてもよくできる',
   };
   function handleOnChange(value) {
     if (answer) {
@@ -25,7 +27,7 @@ export const MarkedSlider = ({ answer, setAnswer }) => {
         <div>
           <Slider
             min={1}
-            max={4}
+            max={6}
             marks={marks}
             dots
             step={null}
@@ -39,10 +41,12 @@ export const MarkedSlider = ({ answer, setAnswer }) => {
 }
 export const MarkedTestSlider = ({ answer, question }) => {
   const marks = {
-    1: '全く思わない',
-    2: '思わない',
-    3: '思う',
-    4: '強く思う',
+    1: 'まったくできない',
+    2: 'ほとんどできない',
+    3: 'どちらかといえばできない',
+    4: 'どちらかといえばできる',
+    5: 'よくできる',
+    6: 'とてもよくできる',
   };
 
   const sliderData = useMemo(() => {

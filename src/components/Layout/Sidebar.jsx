@@ -23,7 +23,7 @@ export default function Sidebar() {
   const [jobTitle, setJobTitle] = useState("");
   const tokenFromStorage = localStorage.getItem("token");
   const token = tokenFromStorage ? JSON.parse(tokenFromStorage) : null;
-  const subdomain = token.subdomain;
+  const subdomain = token?.subdomain || "";
   // const router = useRoutes();
   // const exam = router.exam;
   const navigation = [
